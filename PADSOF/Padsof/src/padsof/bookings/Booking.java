@@ -11,7 +11,6 @@ public abstract class Booking {
 	PaymentState state;
 	Date start;
 	Date end;
-	Service associatedService;
 	
 	/**
 	 * @return the name
@@ -88,15 +87,7 @@ public abstract class Booking {
 	/**
 	 * @return the associatedService
 	 */
-	public Service getAssociatedService() {
-		return associatedService;
-	}
-	/**
-	 * @param associatedService the associatedService to set
-	 */
-	public void setAssociatedService(Service associatedService) {
-		this.associatedService = associatedService;
-	}
+	public abstract Service getAssociatedService();
 	
 	/**
 	 * Set the booking as booked.
