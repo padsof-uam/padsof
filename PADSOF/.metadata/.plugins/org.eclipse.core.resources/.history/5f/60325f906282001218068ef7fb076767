@@ -1,0 +1,13 @@
+package padsof.services;
+
+public class Hotel extends Service {
+	String country;
+	String city;
+	String phone;
+	String address;
+	String postalCode;
+	String category;
+	double simplePrice;
+	double doublePrice;
+	double triplePrice;
+}

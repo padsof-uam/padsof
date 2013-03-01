@@ -1,0 +1,8 @@
+package padsof.services;
+
+public abstract class Service {
+	double cost;
+	double precio;
+	string nombre;
+	String descripcion;
+}

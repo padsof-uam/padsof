@@ -1,0 +1,5 @@
+package padsof.services;
+
+public class Flight extends Service {
+	
+}
