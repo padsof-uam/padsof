@@ -137,7 +137,7 @@ public class Hotel extends Service {
 	/**
 	 * @return the hasBreakfast
 	 */
-	public boolean isHasBreakfast() {
+	public boolean hasBreakfast() {
 		return hasBreakfast;
 	}
 	/**

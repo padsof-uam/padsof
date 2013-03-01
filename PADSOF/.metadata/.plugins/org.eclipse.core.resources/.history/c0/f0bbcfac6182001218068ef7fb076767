@@ -1,8 +1,0 @@
-package padsof.services;
-
-public abstract class Service {
-	double cost;
-	double price;
-	string name;
-	String description;
-}

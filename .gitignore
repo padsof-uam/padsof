@@ -1,2 +1,4 @@
 *.sublime*
 Icon*
+PADSOF/Padsof/bin/*
+PADSOF/.metadata/*

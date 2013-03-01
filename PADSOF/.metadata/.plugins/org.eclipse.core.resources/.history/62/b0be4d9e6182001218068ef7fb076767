@@ -1,5 +1,0 @@
-package padsof.servicios;
-
-public abstract class Servicio {
-
-}
