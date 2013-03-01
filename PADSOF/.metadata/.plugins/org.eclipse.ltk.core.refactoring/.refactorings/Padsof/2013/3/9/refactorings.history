@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 2 elements from project &apos;Padsof&apos;&#x0A;- Original project: &apos;Padsof&apos;&#x0A;- Original elements:&#x0A;     padsof.proyector.java&#x0A;     padsof.tarea.java" description="Delete elements" element1="/src&lt;padsof{proyector.java" element2="/src&lt;padsof{tarea.java" elements="2" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1362135932696" subPackages="false" version="1.0"/>
+</session>
