@@ -4,12 +4,12 @@ import java.util.*;
 
 public class ImsersoTravel extends Service
 {
-	double price;
-	int days;
-	int nights;
-	Date start;
-	String departingCity;
-	List<String> visitedCities;
+	private double price;
+	private int days;
+	private int nights;
+	private Date start;
+	private String departingCity;
+	private List<String> visitedCities;
 
 	/**
 	 * @return the price

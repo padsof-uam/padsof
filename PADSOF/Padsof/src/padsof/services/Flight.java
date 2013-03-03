@@ -2,7 +2,7 @@ package padsof.services;
 
 public class Flight extends Service
 {
-	String localizer;
+	private String localizer;
 
 	/**
 	 * @return the localizer

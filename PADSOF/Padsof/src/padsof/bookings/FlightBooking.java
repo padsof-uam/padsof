@@ -11,7 +11,7 @@ import padsof.services.Flight;
 public class FlightBooking extends Booking
 {
 
-	Flight associatedFlight;
+	private Flight associatedFlight;
 
 	@Override
 	public Flight getAssociatedService()

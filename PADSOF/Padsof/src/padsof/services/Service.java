@@ -2,10 +2,10 @@ package padsof.services;
 
 public abstract class Service
 {
-	double cost;
-	double price;
-	String name;
-	String description;
+	private double cost;
+	private double price;
+	private String name;
+	private String description;
 
 	/**
 	 * @return the cost

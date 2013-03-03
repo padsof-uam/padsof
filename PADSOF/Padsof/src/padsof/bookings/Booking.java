@@ -6,12 +6,12 @@ import padsof.services.Service;
 
 public abstract class Booking
 {
-	String name;
-	String surname;
-	String DNI;
-	PaymentState state;
-	Date start;
-	Date end;
+	private String name;
+	private String surname;
+	private String DNI;
+	private PaymentState state;
+	private Date start;
+	private Date end;
 
 	/**
 	 * @return the name

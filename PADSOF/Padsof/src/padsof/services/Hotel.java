@@ -2,19 +2,19 @@ package padsof.services;
 
 public class Hotel extends Service
 {
-	String country;
-	String city;
-	String phone;
-	String address;
-	String postalCode;
-	String category;
-	double simplePrice;
-	double doublePrice;
-	double triplePrice;
-	double supplement;
-	boolean hasBreakfast;
-	double mpSupplement;
-	double pcSupplement;
+	private String country;
+	private String city;
+	private String phone;
+	private String address;
+	private String postalCode;
+	private String category;
+	private double simplePrice;
+	private double doublePrice;
+	private double triplePrice;
+	private double supplement;
+	private boolean hasBreakfast;
+	private double mpSupplement;
+	private double pcSupplement;
 
 	/**
 	 * @return the country
