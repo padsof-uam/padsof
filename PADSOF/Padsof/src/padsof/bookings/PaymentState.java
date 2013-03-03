@@ -1,5 +1,6 @@
 package padsof.bookings;
 
-public enum PaymentState {
+public enum PaymentState
+{
 	None, Booked, Payed
 }

@@ -2,7 +2,8 @@ package padsof.services;
 
 import java.util.*;
 
-public class Travel extends Service {
+public class Travel extends Service
+{
 	String company;
 	String phone;
 	double price;
