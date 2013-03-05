@@ -3,65 +3,29 @@ package padsof.bookings;
 import java.util.Date;
 
 import padsof.services.Service;
+import padsof.system.Client;
 
 public abstract class Booking
 {
-	private String name;
-	private String surname;
-	private String DNI;
+	private Client client;
 	private PaymentState state;
 	private Date start;
 	private Date end;
 
 	/**
-	 * @return the name
+	 * @return the client
 	 */
-	public String getName()
+	public Client getClient()
 	{
-		return name;
+		return client;
 	}
 
 	/**
-	 * @param name
-	 *            the name to set
+	 * @param client the client to set
 	 */
-	public void setName(String name)
+	public void setClient(Client client)
 	{
-		this.name = name;
-	}
-
-	/**
-	 * @return the surname
-	 */
-	public String getSurname()
-	{
-		return surname;
-	}
-
-	/**
-	 * @param surname
-	 *            the surname to set
-	 */
-	public void setSurname(String surname)
-	{
-		this.surname = surname;
-	}
-
-	/**
-	 * @return the dNI
-	 */
-	public String getDNI()
-	{
-		return DNI;
-	}
-
-	/**
-	 * @param dNI
-	 *            the dNI to set
-	 */
-	public void setDNI(String dNI)
-	{
-		DNI = dNI;
+		this.client = client;
 	}
 
 	/**
