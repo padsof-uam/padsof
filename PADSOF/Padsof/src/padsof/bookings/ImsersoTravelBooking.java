@@ -11,7 +11,8 @@ import padsof.services.*;
  */
 public class ImsersoTravelBooking extends Booking
 {
-	ImsersoTravel associatedService;
+	private String couponCode;
+	private ImsersoTravel associatedService;
 
 	/* (non-Javadoc)
 	 * @see padsof.bookings.Booking#getAssociatedService()
@@ -45,6 +46,22 @@ public class ImsersoTravelBooking extends Booking
 	{
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	/**
+	 * @return the couponCode
+	 */
+	public String getCouponCode()
+	{
+		return couponCode;
+	}
+
+	/**
+	 * @param couponCode the couponCode to set
+	 */
+	public void setCouponCode(String couponCode)
+	{
+		this.couponCode = couponCode;
 	}
 
 }

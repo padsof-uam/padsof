@@ -11,7 +11,7 @@ import padsof.services.Travel;
  */
 public class TravelBooking extends Booking
 {
-	Travel associatedTravel;
+	private Travel associatedTravel;
 	
 
 	/* (non-Javadoc)

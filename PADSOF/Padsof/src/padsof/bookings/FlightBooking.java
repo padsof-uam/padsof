@@ -1,5 +1,6 @@
 package padsof.bookings;
 
+import java.util.*;
 import padsof.services.Flight;
 
 /**
@@ -7,6 +8,15 @@ import padsof.services.Flight;
  */
 public class FlightBooking extends Booking
 {
+	private ArrayList<Passenger> passengers = new ArrayList<Passenger>();
+	
+	/**
+	 * @return the passengers
+	 */
+	public List<Passenger> getPassengers()
+	{
+		return passengers;
+	}
 
 	private Flight associatedFlight;
 
