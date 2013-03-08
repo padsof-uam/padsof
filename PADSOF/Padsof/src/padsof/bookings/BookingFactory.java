@@ -14,6 +14,9 @@ public class BookingFactory
 {
 	public Booking book(Service service, Client client, Date start, Date end)
 	{
+		if(start.compareTo(end) > 0)
+			throw new IllegalArgumentException("Start must be prior to end");
+		
 		if(Flight.class.isInstance(service))
 			return createFlightBooking((Flight)service, client, start, end);
 		else if(Hotel.class.isInstance(service))
@@ -44,7 +47,7 @@ public class BookingFactory
 	
 	private Booking createImsersoTravelBooking(ImsersoTravel service, Client client, Date start, Date end)
 	{
-		if(ImsersoClient.class.isInstance(client))
+		if(!ImsersoClient.class.isInstance(client))
 			throw new UnsupportedOperationException("Client must be ImsersoClient");
 		return new ImsersoTravelBooking(service, client, start, end);
 	}

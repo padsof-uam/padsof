@@ -25,4 +25,8 @@ public class Flight extends Service
 	{
 		this.localizer = localizer;
 	}
+
+	public Flight()
+	{
+	}
 }
