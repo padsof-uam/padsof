@@ -15,7 +15,6 @@ import padsof.system.*;
 
 /**
  * @author gjulianm
- *
  */
 public class BookingFactoryTester
 {
@@ -23,6 +22,7 @@ public class BookingFactoryTester
 	private Date testStart;
 	private Date testEnd;
 	private BookingFactory factory;
+
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -33,88 +33,87 @@ public class BookingFactoryTester
 		testClient.setDNI("671681831A");
 		testClient.setName("Pepito");
 		testClient.setSurname("Grillo");
-		
+
 		Calendar calendar = new GregorianCalendar();
-		
+
 		testStart = calendar.getTime();
-	calendar.add(Calendar.DAY_OF_MONTH, 1);
+		calendar.add(Calendar.DAY_OF_MONTH, 1);
 		testEnd = calendar.getTime();
-		
+
 		factory = new BookingFactory();
 	}
 
 	class UnsupportedService extends Service
 	{
-	
+
 	}
-	
-	
-	@Test(expected=UnsupportedOperationException.class)
+
+	@Test(expected = UnsupportedOperationException.class)
 	public void testUnsupportedService()
 	{
 		factory.book(new UnsupportedService(), testClient, testStart, testEnd);
 	}
-	
-	@Test(expected=IllegalArgumentException.class)
+
+	@Test(expected = IllegalArgumentException.class)
 	public void testInvalidDates()
 	{
 		factory.book(new Hotel(), testClient, testEnd, testStart);
 	}
-	
+
 	@Test
 	public void testFlightBooking()
 	{
 		Flight h = new Flight();
 		Booking b = factory.book(h, testClient, testStart, testEnd);
-		
+
 		assertTrue(FlightBooking.class.isInstance(b));
 		assertSame(h, b.getAssociatedService());
 		assertSame(testClient, b.getClient());
 		assertSame(testStart, b.getStart());
-		assertSame(testEnd, b.getEnd());	
+		assertSame(testEnd, b.getEnd());
 	}
-	
+
 	@Test
 	public void testHotelBooking()
 	{
 		Hotel h = new Hotel();
 		Booking b = factory.book(h, testClient, testStart, testEnd);
-		
+
 		assertTrue(HotelBooking.class.isInstance(b));
 		assertSame(h, b.getAssociatedService());
 		assertSame(testClient, b.getClient());
 		assertSame(testStart, b.getStart());
-		assertSame(testEnd, b.getEnd());	
+		assertSame(testEnd, b.getEnd());
 	}
-	
+
 	@Test
 	public void testTravelBooking()
 	{
 		Travel h = new Travel();
 		Booking b = factory.book(h, testClient, testStart, testEnd);
-		
+
 		assertTrue(TravelBooking.class.isInstance(b));
 		assertSame(h, b.getAssociatedService());
 		assertSame(testClient, b.getClient());
 		assertSame(testStart, b.getStart());
-		assertSame(testEnd, b.getEnd());	
+		assertSame(testEnd, b.getEnd());
 	}
-	
+
 	@Test
 	public void testImsersoTravelBooking()
 	{
 		ImsersoTravel h = new ImsersoTravel();
 		Client ic = new ImsersoClient();
 		Booking b = factory.book(h, ic, testStart, testEnd);
-		
+
 		assertTrue(ImsersoTravelBooking.class.isInstance(b));
 		assertSame(h, b.getAssociatedService());
 		assertSame(ic, b.getClient());
 		assertSame(testStart, b.getStart());
-		assertSame(testEnd, b.getEnd());	
+		assertSame(testEnd, b.getEnd());
 	}
-	
-	@Test(expected=UnsupportedOperationException.class)
+
+	@Test(expected = UnsupportedOperationException.class)
 	public void testInvalidClientImsersoTravelBooking()
 	{
 		factory.book(new ImsersoTravel(), testClient, testStart, testEnd);
