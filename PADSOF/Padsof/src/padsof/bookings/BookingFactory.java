@@ -1,10 +1,14 @@
 package padsof.bookings;
 
-import java.util.*;
+import java.util.Date;
 
-import padsof.bookings.*;
-import padsof.services.*;
-import padsof.system.*;
+import padsof.services.Flight;
+import padsof.services.Hotel;
+import padsof.services.ImsersoTravel;
+import padsof.services.Service;
+import padsof.services.Travel;
+import padsof.system.Client;
+import padsof.system.ImsersoClient;
 
 public class BookingFactory
 {
