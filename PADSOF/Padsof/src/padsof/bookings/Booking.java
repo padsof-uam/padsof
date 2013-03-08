@@ -11,7 +11,15 @@ public abstract class Booking
 	private PaymentState state;
 	private Date start;
 	private Date end;
-
+	public Booking(){
+		
+	}
+	public Booking(Client client, Date start, Date end){
+		this.client = client;
+		this.state = PaymentState.None;
+		this.start = start;
+		this.end = end;
+	}
 	/**
 	 * @return the client
 	 */

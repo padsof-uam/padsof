@@ -3,3 +3,5 @@ Icon*
 PADSOF/Padsof/bin/*
 PADSOF/.metadata/*
 PADSOF/Padsof/.settings/*
+.*
+!/.gitignore

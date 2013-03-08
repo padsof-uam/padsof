@@ -1,7 +1,10 @@
 package padsof.bookings;
 
 import java.util.*;
+
 import padsof.services.Flight;
+import padsof.services.Service;
+import padsof.system.Client;
 
 /**
  * @author gjulianm
@@ -9,7 +12,10 @@ import padsof.services.Flight;
 public class FlightBooking extends Booking
 {
 	private ArrayList<Passenger> passengers = new ArrayList<Passenger>();
-	
+	public FlightBooking(Flight service, Client client, Date start, Date end){
+		super(client,start,end);
+		this.associatedFlight=service;		
+	}
 	/**
 	 * @return the passengers
 	 */

@@ -11,4 +11,8 @@ public class BookingFactory
 		// TODO: Mirar bien cómo hacerlo.
 		return null;
 	}
+	private Booking createFligthBooking(Flight service, Client client, Date start, Date end){
+		FlightBooking FB = new FlightBooking(service,client,start,end);
+		return FB;				
+	}
 }

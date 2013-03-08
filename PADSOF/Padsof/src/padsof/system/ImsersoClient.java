@@ -12,7 +12,7 @@ import java.util.Date;
 public class ImsersoClient extends Client
 {
 	private long ssNumber;
-	private Date date; // TODO: ¿Fecha de qué?
+	private Date birth; // TODO: ¿Fecha de qué?
 	
 	/**
 	 * @return the ssNumber
@@ -29,17 +29,17 @@ public class ImsersoClient extends Client
 		this.ssNumber = ssNumber;
 	}
 	/**
-	 * @return the date
+	 * @return the birth date
 	 */
-	public Date getDate()
+	public Date getBirth()
 	{
-		return date;
+		return birth;
 	}
 	/**
-	 * @param date the date to set
+	 * @param date the birth to set
 	 */
-	public void setDate(Date date)
+	public void setBirth(Date date)
 	{
-		this.date = date;
+		this.birth = date;
 	}
 }
