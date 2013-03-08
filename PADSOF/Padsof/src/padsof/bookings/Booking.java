@@ -105,4 +105,12 @@ public abstract class Booking
 	 * @return Payment to make.
 	 */
 	public abstract int confirm();
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean checkIfPayed(){
+		if (state == PaymentState.Payed) return true;
+		return false;
+	}
 }
