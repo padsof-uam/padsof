@@ -57,7 +57,8 @@ public class BookingFactoryTester
 	@Test(expected = IllegalArgumentException.class)
 	public void testInvalidDates()
 	{
-		factory.book(sdoifuyasodIUFYaiusf6cgox8ºiu1	º8tyer123iquwoadspQnew Hotel(), testClient, testEnd, testStart);
+		// Un comentario.
+		factory.book(new Hotel(), testClient, testEnd, testStart);
 	}
 
 	@Test
