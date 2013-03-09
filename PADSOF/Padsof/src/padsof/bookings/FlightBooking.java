@@ -17,6 +17,7 @@ public class FlightBooking extends Booking
 		super(client,start,end);
 		this.associatedFlight=service;		
 	}
+
 	/**
 	 * @return the passengers
 	 */
