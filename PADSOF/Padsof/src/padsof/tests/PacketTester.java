@@ -1,0 +1,128 @@
+/**
+ * 
+ */
+package padsof.tests;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import org.junit.Test;
+
+import org.junit.Before;
+import org.junit.Test;
+import java.util.*;
+
+import padsof.bookings.*;
+import padsof.services.*;
+import padsof.system.*;
+
+/**
+ * @author vicdejuan
+ *
+ */
+public class PacketTester
+{
+	private BookingFactory factory;
+	private Client testClient;
+	private Date testStart_f;
+	private Date testEnd_f;	
+	private Date testStart_h;
+	private Date testEnd_h;	
+	private Date testStart_IT;
+	private Date testEnd_IT;
+	private ArrayList<Booking> testBookings = new ArrayList<Booking>();
+	private Packet testPacket = new Packet();
+	
+	
+	/*Si lanza una excepcion tenemos que definir (expected = ExpectedException)
+	 * y despues comprobamos.
+	 * */
+	@Before
+	public void setUp() throws Exception
+	{
+		testClient = new Client();
+		testClient.setDNI("671681831A");
+		testClient.setName("Pepito");
+		testClient.setSurname("Grillo");
+		
+		Calendar calendar = new GregorianCalendar();
+		
+		/*
+		 * Dates for the flight
+		 */
+		testStart_f = calendar.getTime();
+		calendar.add(Calendar.DAY_OF_MONTH, 1);
+		testEnd_f = calendar.getTime();
+
+		
+		calendar.add(Calendar.DAY_OF_MONTH, -3);
+		/*
+		 * Dates for the hotel
+		 */
+		testStart_h = calendar.getTime();
+		calendar.add(Calendar.DAY_OF_MONTH, 40);
+		testEnd_h = calendar.getTime();
+		
+
+		calendar.add(Calendar.MONTH, 1);
+		
+		/*
+		 * Dates for the ImsersoTravel
+		 */
+		testStart_IT = calendar.getTime();
+		calendar.add(Calendar.DAY_OF_MONTH, 1);
+		testEnd_IT = calendar.getTime();
+	
+		Flight service_f = new Flight();
+		Hotel service_h = new Hotel();
+		ImsersoTravel service_IT = new ImsersoTravel();
+		
+		Booking flight = factory.book(service_f, testClient, testStart_f, testEnd_f);
+		Booking hotel = factory.book(service_h, testClient, testStart_h, testEnd_h);
+		Booking travel = factory.book(service_IT, testClient, testStart_IT, testEnd_IT);
+		
+		flight.setState(PaymentState.Booked);
+		hotel.setState(PaymentState.Payed);
+		travel.setState(PaymentState.Payed);
+		
+		testBookings.add(flight);
+		testBookings.add(hotel);
+		testBookings.add(travel);
+		
+		/*
+		 * We supose setters and getters methods cant fail.
+		 */
+		testPacket.setClient(testClient);
+		testPacket.addAll(testBookings);
+	}
+	@Test public void TestCheckDates(){		
+		
+		assertFalse(testPacket.checkIfAllPayed());
+		
+		//The lowest date is testStart_h
+		assertEquals(testPacket.getStartDay(),testStart_h.getTime());
+		
+		//The lastest day is testEnd_IT
+		assertEquals(testPacket.getEndDay(),testEnd_IT.getTime());
+	}
+	@Test
+	public void TestCloseIfPossible(){
+		
+		assertFalse(testPacket.closeAutomatically());
+		
+		List <Booking> bookings = testPacket.getBookings();
+		for (Booking aux : bookings){
+			aux.setStart(testStart_h);
+		}
+		assertTrue(testPacket.closeAutomatically());
+		
+		//Comprobar que esta cerrado
+		assertTrue(testPacket.IsClose());
+		
+	}
+	
+}
