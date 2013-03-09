@@ -5,11 +5,22 @@ import java.util.*;
 
 public class Packet
 {
+	private boolean isClose = false;
+	
+	public boolean IsClose(){
+		return isClose;
+	}
+	
+	public void closePacket(){
+		isClose=true;
+	}
+	
 	/**
 	 * 
 	 * @param book to add to the packet
 	 */
 	public void add(Booking book){
+		if (!IsClose())
 		bookings.add(book);		
 	}
 	/**
@@ -17,6 +28,7 @@ public class Packet
 	 * @param bookings to add to the packet
 	 */
 	public void addAll(ArrayList<Booking> bookings){
+		if (!IsClose())
 		bookings.addAll(bookings);
 	}
 	/**
@@ -27,6 +39,7 @@ public class Packet
 		Date min = bookings.get(0).getStart();
 		
 		for (Booking aux : bookings){
+			System.out.println("ee");
 			if (min.compareTo(aux.getStart())<0){
 				min = aux.getStart();
 			}
@@ -57,18 +70,13 @@ public class Packet
 		}
 		return true;
 	}
-	
-	/**
-	 * close the packet
-	 */
-	public void closePacket(){
-		
-	}
+
 	/**
 	 * close package automatically if possible
 	 * @return true if the package was closed or false if is still open
 	 */
 	public boolean closeAutomatically(){
+		if (!IsClose()){
 		GregorianCalendar c = new GregorianCalendar();
 		c.add(Calendar.DAY_OF_MONTH, 1);
 		Date d = c.getTime();
@@ -77,6 +85,7 @@ public class Packet
 			closePacket();
 		}
 		return retval;
+		} else return true;
 	}
 	
 	
