@@ -5,15 +5,11 @@ import java.util.*;
 
 public class Packet
 {
+	private Client client;
+	private ArrayList<Booking> bookings = new ArrayList<Booking>();
 	private boolean isClose = false;
 	
-	public boolean IsClose(){
-		return isClose;
-	}
 	
-	public void closePacket(){
-		isClose=true;
-	}
 	
 	/**
 	 * 
@@ -23,14 +19,7 @@ public class Packet
 		if (!IsClose())
 		bookings.add(book);		
 	}
-	/**
-	 * 
-	 * @param bookings to add to the packet
-	 */
-	public void addAll(ArrayList<Booking> bookings){
-		if (!IsClose())
-		bookings.addAll(bookings);
-	}
+	
 	/**
 	 * get thes start day of the packet
 	 * @return the date
@@ -39,8 +28,7 @@ public class Packet
 		Date min = bookings.get(0).getStart();
 		
 		for (Booking aux : bookings){
-			System.out.println("ee");
-			if (min.compareTo(aux.getStart())<0){
+			if (min.compareTo(aux.getStart())>=0){
 				min = aux.getStart();
 			}
 		}
@@ -54,18 +42,21 @@ public class Packet
 	Date max = bookings.get(0).getStart();
 		
 		for (Booking aux : bookings){
-			if (max.compareTo(aux.getStart())>0)
-				max = aux.getStart();
+			if (max.compareTo(aux.getEnd())<=0)
+				max = aux.getEnd();
 		}
 		return max;		
 	}
+	
+
 	/**
 	 * checks if all the bookings of the packet are payed.
 	 * @return true if all bookings are payed, false if not.
 	 */
 	public boolean checkIfAllPayed(){
+		
 		for (Booking aux : bookings){
-			if (aux.checkIfPayed())
+			if (!aux.checkIfPayed())
 				return false;
 		}
 		return true;
@@ -80,17 +71,31 @@ public class Packet
 		GregorianCalendar c = new GregorianCalendar();
 		c.add(Calendar.DAY_OF_MONTH, 1);
 		Date d = c.getTime();
-		boolean retval = checkIfAllPayed();
-		if(!retval && getStartDay().after(d)){
+		if(getStartDay().after(d)){
 			closePacket();
+			return true;
 		}
-		return retval;
+		return false;
 		} else return true;
 	}
 	
 	
-	private Client client;
-	private ArrayList<Booking> bookings = new ArrayList<Booking>();
+	// Setters y getters
+	
+	/**
+	 * 
+	 * @return if it's closed or not
+	 */
+	public boolean IsClose(){
+		return isClose;
+	}
+	
+	/**
+	 * Close the packet
+	 */
+	public void closePacket(){
+		isClose=true;
+	}
 	/**
 	 * @return the client
 	 */

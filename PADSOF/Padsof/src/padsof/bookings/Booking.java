@@ -111,6 +111,6 @@ public abstract class Booking
 	 */
 	public boolean checkIfPayed(){
 		if (state == PaymentState.Payed) return true;
-		return false;
+		else return false;
 	}
 }
