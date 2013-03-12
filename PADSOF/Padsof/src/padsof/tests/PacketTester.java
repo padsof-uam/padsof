@@ -113,7 +113,7 @@ public class PacketTester
 		testPacket.add(hotel);
 		testPacket.add(flight);
 	}
-	/*@Test public void TestCheckDates(){		
+	@Test public void TestCheckDates(){		
 		
 		
 		assertFalse(testPacket.checkIfAllPayed());
@@ -123,7 +123,7 @@ public class PacketTester
 		
 		//The lastest day is testEnd_IT
 		assertTrue(compare(testPacket.getEndDay(),testEnd_IT));
-	}*/
+	}
 	@Test
 	public void TestCloseIfPossible(){
 		
