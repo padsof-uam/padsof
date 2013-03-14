@@ -71,6 +71,10 @@ public class Packet
 		GregorianCalendar c = new GregorianCalendar();
 		c.add(Calendar.DAY_OF_MONTH, 1);
 		Date d = c.getTime();
+		/*	Guridi dice:
+		 * Date dTemp = new Date();
+		 * Date d = new Date(dTemp.getYear(), dTemp.getMonth(), dTemp.getDay()-1)
+		*/
 		if(getStartDay().after(d)){
 			closePacket();
 			return true;
