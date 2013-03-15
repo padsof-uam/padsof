@@ -75,7 +75,7 @@ public class Packet
 		 * Date dTemp = new Date();
 		 * Date d = new Date(dTemp.getYear(), dTemp.getMonth(), dTemp.getDay()-1)
 		*/
-		if(getStartDay().after(d)){
+		if(getStartDay().before(d)){
 			closePacket();
 			return true;
 		}

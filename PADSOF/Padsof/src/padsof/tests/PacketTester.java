@@ -65,28 +65,29 @@ public class PacketTester
 		/*
 		 * Dates for the flight
 		 */
+		calendar.add(Calendar.DAY_OF_MONTH, 2);
 		testStart_f = calendar.getTime();
-		//calendar.add(Calendar.DAY_OF_MONTH, 1);
+		calendar.add(Calendar.DAY_OF_MONTH, 5);
 		testEnd_f = calendar.getTime();
 
 		
-		//calendar.add(Calendar.DAY_OF_MONTH, -3);
+		calendar.add(Calendar.DAY_OF_MONTH, -3);
 		
 		/*
 		 * Dates for the hotel
 		 */
 		testStart_h = calendar.getTime();
-		//calendar.add(Calendar.DAY_OF_MONTH, 20);
+		calendar.add(Calendar.DAY_OF_MONTH, 20);
 		testEnd_h = calendar.getTime();
 		
 
-		//calendar.add(Calendar.MONTH, 1);
+		calendar.add(Calendar.MONTH, 1);
 		
 		/*
 		 * Dates for the ImsersoTravel
 		 */
 		testStart_IT = calendar.getTime();
-		//calendar.add(Calendar.DAY_OF_MONTH, 2);
+		calendar.add(Calendar.DAY_OF_MONTH, 2);
 		testEnd_IT = calendar.getTime();
 	
 		
@@ -113,25 +114,26 @@ public class PacketTester
 		testPacket.add(hotel);
 		testPacket.add(flight);
 	}
-	/*@Test public void TestCheckDates(){		
+	@Test public void TestCheckDates(){		
 		
 		
 		assertFalse(testPacket.checkIfAllPayed());
 		
-		//The lowest date is testStart_h
-		assertTrue(compare(testPacket.getStartDay(),testStart_h));
+		//The lowest date is testStart_f
+		assertTrue(compare(testPacket.getStartDay(),testStart_f));
 		
 		//The lastest day is testEnd_IT
 		assertTrue(compare(testPacket.getEndDay(),testEnd_IT));
-	}*/
+	}
 	@Test
 	public void TestCloseIfPossible(){
 		
 		assertFalse(testPacket.closeAutomatically());
 		int i;
-		for (i=0;i<testPacket.getBookings().size();++i){
-			testPacket.getBookings().get(i).setStart(testStart_h);
-		}
+		Calendar calendar = new GregorianCalendar();
+		
+		testPacket.getBookings().get(0).setStart(calendar.getTime());
+		
 		
 		//falla que no se como inicializar una fecha a ahora mismo
 		assertTrue(testPacket.closeAutomatically());

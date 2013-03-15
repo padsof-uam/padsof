@@ -4,6 +4,8 @@ public class Flight extends Service
 {
 	private String localizer;
 
+
+	
 	/**
 	 * @return the localizer
 	 */
