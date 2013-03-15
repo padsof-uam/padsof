@@ -37,24 +37,4 @@ public class TravelBooking extends Booking
 		associatedTravel = service;
 	}
 	
-	/* (non-Javadoc)
-	 * @see padsof.bookings.Booking#book()
-	 */
-	@Override
-	public int book()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	/* (non-Javadoc)
-	 * @see padsof.bookings.Booking#confirm()
-	 */
-	@Override
-	public int confirm()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }
