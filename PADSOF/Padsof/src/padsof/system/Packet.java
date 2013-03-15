@@ -5,20 +5,21 @@ import java.util.*;
 
 public class Packet
 {
+	private Client client;
+	private ArrayList<Booking> bookings = new ArrayList<Booking>();
+	private boolean isClose = false;
+	
+	
+	
 	/**
 	 * 
 	 * @param book to add to the packet
 	 */
 	public void add(Booking book){
+		if (!IsClose())
 		bookings.add(book);		
 	}
-	/**
-	 * 
-	 * @param bookings to add to the packet
-	 */
-	public void addAll(ArrayList<Booking> bookings){
-		bookings.addAll(bookings);
-	}
+	
 	/**
 	 * get thes start day of the packet
 	 * @return the date
@@ -27,7 +28,7 @@ public class Packet
 		Date min = bookings.get(0).getStart();
 		
 		for (Booking aux : bookings){
-			if (min.compareTo(aux.getStart())<0){
+			if (min.compareTo(aux.getStart())>=0){
 				min = aux.getStart();
 			}
 		}
@@ -41,47 +42,64 @@ public class Packet
 	Date max = bookings.get(0).getStart();
 		
 		for (Booking aux : bookings){
-			if (max.compareTo(aux.getStart())>0)
-				max = aux.getStart();
+			if (max.compareTo(aux.getEnd())<=0)
+				max = aux.getEnd();
 		}
 		return max;		
 	}
+	
+
 	/**
 	 * checks if all the bookings of the packet are payed.
 	 * @return true if all bookings are payed, false if not.
 	 */
 	public boolean checkIfAllPayed(){
+		
 		for (Booking aux : bookings){
-			if (aux.checkIfPayed())
+			if (!aux.checkIfPayed())
 				return false;
 		}
 		return true;
 	}
-	
-	/**
-	 * close the packet
-	 */
-	public void closePacket(){
-		
-	}
+
 	/**
 	 * close package automatically if possible
 	 * @return true if the package was closed or false if is still open
 	 */
 	public boolean closeAutomatically(){
+		if (!IsClose()){
 		GregorianCalendar c = new GregorianCalendar();
 		c.add(Calendar.DAY_OF_MONTH, 1);
 		Date d = c.getTime();
-		boolean retval = checkIfAllPayed();
-		if(!retval && getStartDay().after(d)){
+		/*	Guridi dice:
+		 * Date dTemp = new Date();
+		 * Date d = new Date(dTemp.getYear(), dTemp.getMonth(), dTemp.getDay()-1)
+		*/
+		if(getStartDay().after(d)){
 			closePacket();
+			return true;
 		}
-		return retval;
+		return false;
+		} else return true;
 	}
 	
 	
-	private Client client;
-	private ArrayList<Booking> bookings = new ArrayList<Booking>();
+	// Setters y getters
+	
+	/**
+	 * 
+	 * @return if it's closed or not
+	 */
+	public boolean IsClose(){
+		return isClose;
+	}
+	
+	/**
+	 * Close the packet
+	 */
+	public void closePacket(){
+		isClose=true;
+	}
 	/**
 	 * @return the client
 	 */

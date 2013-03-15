@@ -5,6 +5,7 @@ package padsof.bookings;
 
 import java.util.Date;
 
+
 import padsof.services.*;
 import padsof.system.Client;
 
@@ -36,26 +37,6 @@ public class ImsersoTravelBooking extends Booking
 	public void setAssociatedService(ImsersoTravel service)
 	{
 		associatedService = service;
-	}
-
-	/* (non-Javadoc)
-	 * @see padsof.bookings.Booking#book()
-	 */
-	@Override
-	public int book()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	/* (non-Javadoc)
-	 * @see padsof.bookings.Booking#confirm()
-	 */
-	@Override
-	public int confirm()
-	{
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	/**
