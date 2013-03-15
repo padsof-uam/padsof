@@ -5,3 +5,4 @@ PADSOF/.metadata/*
 PADSOF/Padsof/.settings/*
 .*
 !/.gitignore
+*Temp
