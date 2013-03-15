@@ -12,7 +12,7 @@ import java.util.Date;
 public class ImsersoClient extends Client
 {
 	private long ssNumber;
-	private Date birth; // TODO: ¿Fecha de qué?
+	private Date birth;
 	
 	/**
 	 * @return the ssNumber
