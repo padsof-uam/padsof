@@ -56,6 +56,10 @@ public class Vendor
 	public void addBooking(Booking book){
 		bookings.add(book);
 	}
+	
+	public void becomeAdmin(){
+		isAdmin = true;
+	}
 	/**
 	 * 
 	 * @param name,user,password
