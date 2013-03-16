@@ -13,8 +13,6 @@ import java.util.GregorianCalendar;
 import org.junit.Test;
 
 import org.junit.Before;
-import org.junit.Test;
-import java.util.*;
 
 import padsof.bookings.*;
 import padsof.services.*;
@@ -129,7 +127,6 @@ public class PacketTester
 	public void TestCloseIfPossible(){
 		
 		assertFalse(testPacket.closeAutomatically());
-		int i;
 		Calendar calendar = new GregorianCalendar();
 		
 		testPacket.getBookings().get(0).setStart(calendar.getTime());
