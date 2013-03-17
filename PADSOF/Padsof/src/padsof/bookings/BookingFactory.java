@@ -9,9 +9,16 @@ import padsof.services.Service;
 import padsof.services.Travel;
 import padsof.system.Client;
 import padsof.system.ImsersoClient;
-
+import padsof.system.Vendor;
 public class BookingFactory
 {
+
+	private Vendor vendor;
+	
+	public BookingFactory(Vendor vendor){
+		this.vendor = vendor;
+	}
+	
 	public Booking book(Service service, Client client, Date start, Date end)
 	{
 		if(start.compareTo(end) > 0)
@@ -32,23 +39,23 @@ public class BookingFactory
 	private Booking createTravelBooking(Travel service, Client client,
 			Date start, Date end)
 	{
-		return new TravelBooking(service, client, start, end);
+		return new TravelBooking(service, client, start, end,this.vendor);
 	}
 
 	private Booking createFlightBooking(Flight service, Client client, Date start, Date end){
-		FlightBooking FB = new FlightBooking(service,client,start,end);
+		FlightBooking FB = new FlightBooking(service,client,start,end,this.vendor);
 		return FB;				
 	}
 
 	private Booking createHotelBooking(Hotel service, Client client, Date start, Date end)
 	{
-		return new HotelBooking(service, client, start, end);		
+		return new HotelBooking(service, client, start, end,this.vendor);		
 	}
 	
 	private Booking createImsersoTravelBooking(ImsersoTravel service, Client client, Date start, Date end)
 	{
 		if(!ImsersoClient.class.isInstance(client))
 			throw new UnsupportedOperationException("Client must be ImsersoClient");
-		return new ImsersoTravelBooking(service, client, start, end);
+		return new ImsersoTravelBooking(service, client, start, end,this.vendor);
 	}
 }

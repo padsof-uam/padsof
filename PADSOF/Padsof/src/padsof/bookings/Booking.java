@@ -1,6 +1,7 @@
 package padsof.bookings;
 
 import java.util.Date;
+import padsof.system.*;
 
 import es.uam.eps.pads.services.InvalidParameterException;
 
@@ -13,14 +14,17 @@ public abstract class Booking
 	private PaymentState state;
 	private Date start;
 	private Date end;
+	private Vendor vendorUser;
+	
 	public Booking(){
 		
 	}
-	public Booking(Client client, Date start, Date end){
+	public Booking(Client client, Date start, Date end,Vendor vendor){
 		this.client = client;
 		this.state = PaymentState.None;
 		this.start = start;
 		this.end = end;
+		this.vendorUser = vendor;
 	}
 	/**
 	 * @return the client
@@ -98,6 +102,15 @@ public abstract class Booking
 		return false;
 	}
 
+	public Vendor getVendorUser()
+	{
+		return vendorUser;
+	}
+	public void setVendorUser(Vendor vendorUser)
+	{
+		this.vendorUser = vendorUser;
+	}
+	
 	/**
 	 * @return the associatedService
 	 */
@@ -113,6 +126,8 @@ public abstract class Booking
 	{
 		if(getState()!=PaymentState.Booked){
 			setState(PaymentState.Booked);
+			if (!vendorUser.contains(this))
+				vendorUser.addBooking(this);
 			return getBookingPrice();	
 		} else throw new UnsupportedOperationException ("This service is already booked or payed");	
 	}

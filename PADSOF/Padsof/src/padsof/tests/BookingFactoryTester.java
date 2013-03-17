@@ -22,6 +22,7 @@ public class BookingFactoryTester
 	private Date testStart;
 	private Date testEnd;
 	private BookingFactory factory;
+	private Vendor vendor;
 
 	/**
 	 * @throws java.lang.Exception
@@ -34,13 +35,14 @@ public class BookingFactoryTester
 		testClient.setName("Pepito");
 		testClient.setSurname("Grillo");
 
+		vendor = new Vendor("Victor","vicdejuan","qwerty");
 		Calendar calendar = new GregorianCalendar();
 
 		testStart = calendar.getTime();
 		calendar.add(Calendar.DAY_OF_MONTH, 1);
 		testEnd = calendar.getTime();
 
-		factory = new BookingFactory();
+		factory = new BookingFactory(vendor);
 	}
 
 	class UnsupportedService extends Service

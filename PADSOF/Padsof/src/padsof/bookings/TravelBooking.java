@@ -7,6 +7,7 @@ import java.util.Date;
 
 import padsof.services.Travel;
 import padsof.system.Client;
+import padsof.system.Vendor;
 
 /**
  * @author gjulianm
@@ -17,9 +18,9 @@ public class TravelBooking extends Booking
 	private Travel associatedTravel;
 	
 
-	public TravelBooking(Travel service, Client client, Date start, Date end)
+	public TravelBooking(Travel service, Client client, Date start, Date end,Vendor vendor)
 	{
-		super(client,start, end);
+		super(client,start, end,vendor);
 		this.associatedTravel = service;
 	}
 

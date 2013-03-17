@@ -13,8 +13,6 @@ import java.util.GregorianCalendar;
 import org.junit.Test;
 
 import org.junit.Before;
-import org.junit.Test;
-import java.util.*;
 
 import padsof.bookings.*;
 import padsof.services.*;
@@ -36,6 +34,9 @@ public class PacketTester
 	private Date testEnd_IT;
 	private ArrayList<Booking> testBookings = new ArrayList<Booking>();
 	private Packet testPacket = new Packet();
+	private Vendor vendor;
+	
+	
 	
 	@SuppressWarnings("deprecation")
 
@@ -53,12 +54,15 @@ public class PacketTester
 	@Before
 	public void setUp() throws Exception
 	{
+		
 		testClient = new Client();
 		testClient.setDNI("671681831A");
 		testClient.setName("Pepito");
 		testClient.setSurname("Grillo");
 		
-		factory = new BookingFactory();
+		vendor = new Vendor("Victor","vicdejuan","qwerty");
+		
+		factory = new BookingFactory(vendor);
 		
 		Calendar calendar = new GregorianCalendar();
 		
@@ -129,7 +133,6 @@ public class PacketTester
 	public void TestCloseIfPossible(){
 		
 		assertFalse(testPacket.closeAutomatically());
-		int i;
 		Calendar calendar = new GregorianCalendar();
 		
 		testPacket.getBookings().get(0).setStart(calendar.getTime());
@@ -142,5 +145,6 @@ public class PacketTester
 		assertTrue(testPacket.IsClose());
 		
 	}
+	
 	
 }

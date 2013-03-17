@@ -10,6 +10,7 @@ import es.uam.eps.pads.services.flights.FlightsProvider;
 
 import padsof.services.Flight;
 import padsof.system.Client;
+import padsof.system.Vendor;
 
 /**
  * @author gjulianm
@@ -19,8 +20,8 @@ public class FlightBooking extends Booking
 	private String bookingLocalizer;
 	FlightsProvider fp = ServicesFactory.getServicesFactory().getFlightsProvider();		
 	private ArrayList<Passenger> passengers = new ArrayList<Passenger>();
-	public FlightBooking(Flight service, Client client, Date start, Date end){
-		super(client,start,end);
+	public FlightBooking(Flight service, Client client, Date start, Date end,Vendor vendor){
+		super(client,start,end,vendor);
 		this.associatedFlight=service;		
 	}
 

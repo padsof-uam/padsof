@@ -1,17 +1,77 @@
 package padsof.services;
 
-import java.util.*;
+
 
 public class Travel extends Service
 {
+
+	private String name;
 	private String company;
 	private String phone;
 	private double price;
 	private int days;
 	private int nights;
-	private Date start;
+	private String start;
 	private String departingCity;
 	private String visitedCities;
+	private String description;
+	public Travel(){
+
+	}
+	public Travel(String name, String company, String phone,
+		double price, int days, int nights, String dates,
+		String departure, String visited, String description){
+		this.name = name;
+		this.company = company;
+		this.price = price;
+		this.phone = phone;
+		this.price = price;
+		this.days = days;
+		this.nights = nights;
+		this.start = dates;
+		this.departingCity = departure;
+		this.visitedCities = visited;
+		this.description = description;
+	}
+	/**
+	 * 
+	 */
+	public String getName()
+	{
+		return name;
+	}
+	/**
+	 * 
+	 */
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	/**
+	 * 
+	 */
+	public String getDescription()
+	{
+		return description;
+	}
+	/**
+	 * 
+	 */
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
+
+	/**
+	 * @param start
+	 *            the start to set
+	 */
+	
+	public void setStart(String start)
+	{
+		this.start = start;
+	}
 
 	/**
 	 * @return the company
@@ -101,18 +161,9 @@ public class Travel extends Service
 	/**
 	 * @return the start
 	 */
-	public Date getStart()
+	public String getStart()
 	{
 		return start;
-	}
-
-	/**
-	 * @param start
-	 *            the start to set
-	 */
-	public void setStart(Date start)
-	{
-		this.start = start;
 	}
 
 	/**
