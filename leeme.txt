@@ -1,1 +1,7 @@
 He creado una clase vendedor
+
+Guille: Me encanta como haces los test xD Tal y como lo tienes, sólo compruebas que el switch se hace bien, DBFeeder y DBHotelFeeder hacen lo mismo. El método "Feeder" podría estar cargando hoteles con "PENE" en todos los campos y no te darías cuenta xD
+
+Yo ya me voy a dormir, así que lo haré mañana (o hazlo tú si tienes ganas): para probarlo bien, cogemos sólo dos líneas de cada CSV y creamos a manita, en el test, el objeto Hotel/Travel lo que sea. Después leemos de fichero y comprobamos que son iguales.
+
+Que esa es otra: hay que escribir métodos equal para todas las mierdas estas. Pero se me está ocurriendo algo para no tener que hacerlos a mano.	
