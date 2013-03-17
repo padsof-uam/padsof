@@ -18,4 +18,32 @@ public class Assert
 				fail("Position " + i + " expected " + e + ", got " + "a");
 		}
 	}
+	
+	public static <T> void assertListContains(Iterable<T> list, T object)
+	{
+		for(T item : list)
+			if(item.equals(object))
+				return;
+		
+		fail();
+	}
+	
+	public static <T> void assertListDoesntContain(Iterable<T> list, T object)
+	{
+		for(T item : list)
+			if(item.equals(object))
+				fail();
+	}
+	
+	public static <T> void assertIsSubset(Iterable<T> subset, Iterable<T> superset)
+	{
+		for(T item : subset)
+			assertListContains(superset, item);
+	}
+	
+	public static <T> void assertAreSameCollection(Iterable<T> expected, Iterable<T> actual)
+	{
+		assertIsSubset(expected, actual);
+		assertIsSubset(actual, expected);
+	}
 }
