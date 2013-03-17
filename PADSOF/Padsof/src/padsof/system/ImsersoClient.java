@@ -13,7 +13,6 @@ public class ImsersoClient extends Client
 {
 	private long ssNumber;
 	private Date birth;
-
 	
 	/**
 	 * @return the ssNumber
