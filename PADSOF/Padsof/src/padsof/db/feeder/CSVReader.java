@@ -43,11 +43,8 @@ public class CSVReader implements Closeable
 		ArrayList<String> fields = new ArrayList<String>();
 		String line = getScanner().nextLine();
 		
-		for(String token : line.split(CSVDELIM)){
-			if (token.compareTo("") == 0) token = "-1";
+		for(String token : line.split(CSVDELIM))
 			fields.add(token);
-			
-		}
 			
 		return fields;
 	}
