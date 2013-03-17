@@ -21,6 +21,7 @@ public class CSVReaderTester
 		Random rand = new Random();
 		BufferedWriter writer = null;
 		String field;
+		boolean emptyFieldAdded = false;
 		writer = new BufferedWriter(new FileWriter(file));
 		fields = new ArrayList<ArrayList<String>>();
 		
@@ -29,9 +30,12 @@ public class CSVReaderTester
 			fields.add(new ArrayList<String>());
 			for (int j = 0; j < columns; j++)
 			{
-				if (i == 1 && rand.nextInt(3) == 1)
+				if (i == 1 && (rand.nextInt(3) == 1 || (!emptyFieldAdded && j == columns - 1)))
+				{
 					field = ""; // Some empty fields in line 2 to ensure the parser
 								// behaves well.
+					emptyFieldAdded = true;
+				}
 				else
 					field = Integer.toHexString(rand.nextInt(1276531));
 
