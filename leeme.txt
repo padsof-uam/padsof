@@ -5,3 +5,7 @@ Guille: Me encanta como haces los test xD Tal y como lo tienes, sólo compruebas
 Yo ya me voy a dormir, así que lo haré mañana (o hazlo tú si tienes ganas): para probarlo bien, cogemos sólo dos líneas de cada CSV y creamos a manita, en el test, el objeto Hotel/Travel lo que sea. Después leemos de fichero y comprobamos que son iguales.
 
 Que esa es otra: hay que escribir métodos equal para todas las mierdas estas. Pero se me está ocurriendo algo para no tener que hacerlos a mano.	
+
+18/03 18:00 - Dejuan: era plenamente consciente de que ese test no comprueba una mierda pero no sabia como ponerlo bien.
+Estoy simplificando las mierdas como las fechas en plan "Todos los lunes de los meses impares y los martes en los meses pares" que esta como String y a tomar, xk para interpretar eso en fechas...
+Otra simplificacion es: "Ciudades visitadas: Mallorca y Madrid" que lo he tomado como 1 String tbm porque no se como ponerlo como lista de Strings... porque si es por palabras "Rio de Janeiro" es una ciudad... 
