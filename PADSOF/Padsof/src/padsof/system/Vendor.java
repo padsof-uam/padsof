@@ -1,7 +1,9 @@
 package padsof.system;
 
+import java.util.ArrayList;
 import java.util.List;
 import padsof.bookings.Booking;
+import padsof.bookings.PaymentState;
 public class Vendor
 {
 	private String name;
@@ -15,6 +17,7 @@ public class Vendor
 		this.user = user;
 		this.password = password;
 		isAdmin=false;
+		bookings = new ArrayList<Booking>();
 	}
 	
 	public String getName()
@@ -90,20 +93,34 @@ public class Vendor
 	}
 	//Estadistics: 
 	public int getNumberBookings(){
-		//TODO:
-		return 0;
+		int i=0;
+		for (Booking iterator : this.bookings)
+			if (iterator.getState() == PaymentState.Booked)
+				i++;
+		return i;
 	}
 	public int getNumberConfirmed(){
-		//TODO:
-		return 0;
+		int i=0;
+		for (Booking iterator : this.bookings)
+			if (iterator.getState() == PaymentState.Payed)
+				i++;
+		return i;
 	}
 	public int getNumberCanceled(){
-		//TODO:
-		return 0;
+		int i=0;
+		for (Booking iterator : this.bookings)
+			if (iterator.getState() == PaymentState.None)
+				i++;
+		return i;
 	}
 	public double getMoneyGot(){
-		//TODO:
-		return 0;
+		int i=0;
+		for (Booking iterator : this.bookings)
+			if (iterator.getState() == PaymentState.Payed)
+				i+= iterator.getAssociatedService().getPrice();
+			else if( iterator.getState()==PaymentState.Booked)
+				i+= iterator.getAssociatedService().getBookingPrice();
+		return i;
 	}
 	
 }

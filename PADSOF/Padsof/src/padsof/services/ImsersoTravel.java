@@ -4,13 +4,52 @@ import java.util.*;
 
 public class ImsersoTravel extends Service
 {
+	private String name;
 	private double price;
 	private int days;
 	private int nights;
 	private Date start;
 	private String departingCity;
-	private List<String> visitedCities;
+	private String visitedCities;
+	private String description;
 
+
+	
+	public ImsersoTravel(){
+
+	}
+	public ImsersoTravel(String name,double price_client, int days, int nights, 
+			String start, String departingCity, String visitedCities,String description){
+	
+	this.name = name;
+	this.price = price_client;
+	this.days = days;
+	this.nights = nights;
+	this.departingCity = departingCity;
+	this.visitedCities = visitedCities;
+	this.description = description;
+	}
+	
+	/**
+	 * 
+	 */
+	public String getName()
+	{
+		return name;
+	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	public String getDescription()
+	{
+		return description;
+	}
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
 	/**
 	 * @return the price
 	 */
@@ -99,7 +138,7 @@ public class ImsersoTravel extends Service
 	/**
 	 * @return the visitedCities
 	 */
-	public List<String> getVisitedCities()
+	public String getVisitedCities()
 	{
 		return visitedCities;
 	}
@@ -108,8 +147,12 @@ public class ImsersoTravel extends Service
 	 * @param visitedCities
 	 *            the visitedCities to set
 	 */
-	public void setVisitedCities(List<String> visitedCities)
+	public void setVisitedCities(String visitedCities)
 	{
 		this.visitedCities = visitedCities;
+	}
+	
+	public double getBookingPrice(){
+		return 0.1*price;
 	}
 }

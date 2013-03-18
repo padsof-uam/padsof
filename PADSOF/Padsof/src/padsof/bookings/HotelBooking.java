@@ -21,6 +21,7 @@ public class HotelBooking extends Booking
 	{
 		super(client, start, end,vendor);
 		this.associatedService = service;
+		vendor.addBooking(this);
 	}
 
 	/* (non-Javadoc)

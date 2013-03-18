@@ -29,7 +29,7 @@ public class DBManagerTester
 	{
 		SampleSimpleClass a = new SampleSimpleClass();
 		
-		db.save(a);
+		//db.save(a);
 		
 		List<SampleSimpleClass> entities = db.getAll(SampleSimpleClass.class);
 		
@@ -47,7 +47,7 @@ public class DBManagerTester
 			SampleSimpleClass t = new SampleSimpleClass();
 			t.publicField = "" + rand.nextInt(100000);
 			l.add(t);
-			db.save(t);
+			//db.save(t);
 		}
 		
 		List<SampleSimpleClass> entities = db.getAll(SampleSimpleClass.class);
@@ -64,7 +64,7 @@ public class DBManagerTester
 		
 		assertListDoesntContain(entities, t);
 		
-		db.save(t);
+		//db.save(t);
 		
 		entities = db.getAll(SampleSimpleClass.class);
 		
@@ -88,7 +88,7 @@ public class DBManagerTester
 			SampleSimpleClass t = new SampleSimpleClass();
 			t.publicField = "" + rand.nextInt(100000);
 			l.add(t);
-			db.save(t);
+			//db.save(t);
 		}
 		
 		List<SampleSimpleClass> entities = db.getAll(SampleSimpleClass.class);
