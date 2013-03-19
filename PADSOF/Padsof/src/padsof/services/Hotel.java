@@ -1,21 +1,57 @@
 package padsof.services;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable
 public class Hotel extends Service
 {
+	@DatabaseField(generatedId = true)
+	private long id;
+
+	@DatabaseField
 	private String country;
+
+	@DatabaseField
 	private String city;
+
+	@DatabaseField
 	private String phone;
+
+	@DatabaseField
 	private String address;
+
+	@DatabaseField
 	private String postalCode;
+
+	@DatabaseField
 	private String category;
+
+	@DatabaseField
 	private double simplePrice;
+
+	@DatabaseField
 	private double doublePrice;
+
+	@DatabaseField
 	private double triplePrice;
+
+	@DatabaseField
 	private double supplement;
+
+	@DatabaseField
 	private boolean hasBreakfast;
+
+	@DatabaseField
 	private double mpSupplement;
+
+	@DatabaseField
 	private double pcSupplement;
+
+	@DatabaseField
 	private String name;
+
+	@DatabaseField
 	private String services;
 
 	public Hotel(){
