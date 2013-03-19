@@ -3,6 +3,7 @@
  */
 package padsof.db;
 
+import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,8 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 /**
  * @author gjulianm
  */
@@ -41,9 +43,17 @@ public class DBManager
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T> CreateOrUpdateStatus save(T item) throws SQLException
+	public <T> CreateOrUpdateStatus save(T item) throws SQLException, IllegalArgumentException, IllegalAccessException
 	{		
-		Dao<T, ?> dao = (Dao<T, ?>) getDaoFor(item.getClass());
+/*		for(Field f : item.getClass().getDeclaredFields())
+		{
+			f.setAccessible(true);
+			if(f.getType().isAnnotationPresent(DatabaseTable.class))
+				save(f.get(item));
+		}*/
+		
+		Dao<T, ?> dao = (Dao<T, ?>) getDaoFor(item.getClass());		
+		
 		return dao.createOrUpdate(item);
 	}
 
@@ -91,7 +101,7 @@ public class DBManager
 			clear(Class.forName(cls));
 	}
 	
-	public <T> void save(Iterable<T> items) throws SQLException
+	public <T> void save(Iterable<T> items) throws SQLException, IllegalArgumentException, IllegalAccessException
 	{
 		for(T item : items)
 			save(item);

@@ -11,6 +11,7 @@ import java.util.Random;
 
 import org.junit.*;
 import padsof.db.DBManager;
+import padsof.tests.dummies.SampleComplexClass;
 import padsof.tests.dummies.SampleSimpleClass;
 import padsof.tests.dummies.SimpleClass;
 
@@ -25,7 +26,7 @@ public class DBManagerTester
 	}
 	
 	@Test
-	public void testSaveRetrieve() throws SQLException
+	public void testSaveRetrieve() throws SQLException, IllegalArgumentException, IllegalAccessException
 	{
 		SampleSimpleClass a = new SampleSimpleClass();
 		
@@ -37,7 +38,24 @@ public class DBManagerTester
 	}
 	
 	@Test
-	public void testBunch() throws SQLException
+	public void testComplexClass() throws SQLException, IllegalArgumentException, IllegalAccessException
+	{
+		SampleComplexClass a = new SampleComplexClass();
+		a.child = new SampleSimpleClass();
+		a.child.publicField = "Test";
+		a.b = false;
+		a.d = 3.6;
+		a.i = 5;
+		
+		db.save(a);
+		
+		List<SampleComplexClass> entities = db.getAll(SampleComplexClass.class);
+		
+		assertEquals(a, entities.get(0));
+	}
+	
+	@Test
+	public void testBunch() throws SQLException, IllegalArgumentException, IllegalAccessException
 	{
 		ArrayList<SampleSimpleClass> l = new ArrayList<SampleSimpleClass>();
 		Random rand = new Random();
@@ -56,7 +74,7 @@ public class DBManagerTester
 	}
 	
 	@Test
-	public void testDelete() throws SQLException
+	public void testDelete() throws SQLException, IllegalArgumentException, IllegalAccessException
 	{
 		List<SampleSimpleClass> entities = db.getAll(SampleSimpleClass.class);
 		SampleSimpleClass t = new SampleSimpleClass();
@@ -78,7 +96,7 @@ public class DBManagerTester
 	}
 	
 	@Test
-	public void testClear() throws SQLException
+	public void testClear() throws SQLException, IllegalArgumentException, IllegalAccessException
 	{
 		ArrayList<SampleSimpleClass> l = new ArrayList<SampleSimpleClass>();
 		Random rand = new Random();
@@ -101,7 +119,7 @@ public class DBManagerTester
 	}
 	
 	@Test 
-	public void testMultipleClasses() throws SQLException, ClassNotFoundException
+	public void testMultipleClasses() throws SQLException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
 	{
 		db.clear();
 		
@@ -133,7 +151,7 @@ public class DBManagerTester
 	}
 	
 	@Test
-	public void testGet() throws SQLException
+	public void testGet() throws SQLException, IllegalArgumentException, IllegalAccessException
 	{
 		SampleSimpleClass a = new SampleSimpleClass();
 		a.publicField = "thisIsATest";
