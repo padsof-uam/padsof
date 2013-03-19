@@ -137,8 +137,6 @@ public class PacketTester
 		
 		testPacket.getBookings().get(0).setStart(calendar.getTime());
 		
-		
-		//falla que no se como inicializar una fecha a ahora mismo
 		assertTrue(testPacket.closeAutomatically());
 		
 		//Comprobar que esta cerrado

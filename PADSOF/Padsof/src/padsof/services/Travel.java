@@ -199,4 +199,8 @@ public class Travel extends Service
 	{
 		this.visitedCities = visitedCities;
 	}
+	public double getBookingPrice(){
+		return 0.1*price;
+	}
 }
+

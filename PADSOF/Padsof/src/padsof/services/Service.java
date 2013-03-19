@@ -40,7 +40,14 @@ public abstract class Service
 	{
 		this.price = price;
 	}
-
+	
+	/**
+	 * 
+	 * @return the price to pay for booking the service
+	 */
+	public double getBookingPrice(){
+		return 0.1*price;
+	}
 	/**
 	 * @return the name
 	 */

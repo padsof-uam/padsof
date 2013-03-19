@@ -278,4 +278,11 @@ public class Hotel extends Service
 	{
 		this.pcSupplement = pcSupplement;
 	}
+
+	public double getTotalPrice(int simple,int doublep, int triple){
+		return (simple * this.simplePrice + doublep * this.doublePrice + triple*this.triplePrice);
+		}
+	public double getBookingPrice(int simple,int doublep, int triple){
+		return 0.1*(simple * this.simplePrice + doublep * this.doublePrice + triple*this.triplePrice);
+	}
 }
