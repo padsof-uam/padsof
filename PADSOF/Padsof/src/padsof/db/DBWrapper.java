@@ -20,9 +20,24 @@ import com.j256.ormlite.table.TableUtils;
  */
 public class DBWrapper
 {
+	private DBWrapper instance;
+
+	public DBWrapper getInstance() throws SQLException
+	{
+		if(instance == null)
+			instance = new DBWrapper("productionDB");
+		
+		return instance;
+	}
+	
 	private HashMap<String, Dao<?, Long>> daos = new HashMap<String, Dao<?, Long>>();
 	private ConnectionSource dataSource = null;
 	
+	/**
+	 * Constructor. Public for test purposes.
+	 * @param dbName
+	 * @throws SQLException
+	 */
 	public DBWrapper(String dbName) throws SQLException
 	{
 		dataSource = new JdbcConnectionSource("jdbc:sqlite:" + dbName + ".sqlite");
