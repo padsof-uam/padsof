@@ -3,8 +3,8 @@
  */
 package padsof.db;
 
-import java.lang.reflect.Field;
 import java.sql.SQLException;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,17 +14,16 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
+
 /**
  * @author gjulianm
  */
-public class DBManager
+public class DBWrapper
 {
 	private HashMap<String, Dao<?, Long>> daos = new HashMap<String, Dao<?, Long>>();
 	private ConnectionSource dataSource = null;
 	
-	public DBManager(String dbName) throws SQLException
+	public DBWrapper(String dbName) throws SQLException
 	{
 		dataSource = new JdbcConnectionSource("jdbc:sqlite:" + dbName + ".sqlite");
 	}

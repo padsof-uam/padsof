@@ -10,19 +10,19 @@ import java.util.List;
 import java.util.Random;
 
 import org.junit.*;
-import padsof.db.DBManager;
+import padsof.db.DBWrapper;
 import padsof.tests.dummies.SampleComplexClass;
 import padsof.tests.dummies.SampleSimpleClass;
 import padsof.tests.dummies.SimpleClass;
 
 public class DBManagerTester
 {
-	private static DBManager db;
+	private static DBWrapper db;
 	
 	@BeforeClass
 	public static void init() throws SQLException
 	{
-		db = new DBManager("testdb");
+		db = new DBWrapper("testdb");
 	}
 	
 	@Test
