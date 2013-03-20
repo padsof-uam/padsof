@@ -1,6 +1,11 @@
 package padsof.bookings;
 
 import java.util.Date;
+
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+import padsof.db.DBObject;
 import padsof.system.*;
 
 import es.uam.eps.pads.services.InvalidParameterException;
@@ -8,24 +13,39 @@ import es.uam.eps.pads.services.InvalidParameterException;
 import padsof.services.Service;
 import padsof.system.Client;
 
-public abstract class Booking
+public abstract class Booking extends DBObject
 {
+	@DatabaseField(foreign = true, foreignAutoCreate = true,
+			foreignAutoRefresh = true)
 	private Client client;
+
+	@DatabaseField
 	private PaymentState state;
+
+	@DatabaseField
 	private Date start;
+
+	@DatabaseField
 	private Date end;
+
+	@DatabaseField(foreign = true, foreignAutoCreate = true,
+			foreignAutoRefresh = true)
 	private Vendor vendorUser;
-	
-	public Booking(){
-		
+
+	public Booking()
+	{
+
 	}
-	public Booking(Client client, Date start, Date end,Vendor vendor){
+
+	public Booking(Client client, Date start, Date end, Vendor vendor)
+	{
 		this.client = client;
 		this.state = PaymentState.None;
 		this.start = start;
 		this.end = end;
 		this.vendorUser = vendor;
 	}
+
 	/**
 	 * @return the client
 	 */
@@ -35,7 +55,8 @@ public abstract class Booking
 	}
 
 	/**
-	 * @param client the client to set
+	 * @param client
+	 *            the client to set
 	 */
 	public void setClient(Client client)
 	{
@@ -92,13 +113,14 @@ public abstract class Booking
 	{
 		this.end = end;
 	}
-	
+
 	/**
-	 * 
 	 * @return true if is Payed, false if not
 	 */
-	public boolean checkIfPayed(){
-		if (state == PaymentState.Payed) return true;
+	public boolean checkIfPayed()
+	{
+		if (state == PaymentState.Payed)
+			return true;
 		return false;
 	}
 
@@ -106,11 +128,12 @@ public abstract class Booking
 	{
 		return vendorUser;
 	}
+
 	public void setVendorUser(Vendor vendorUser)
 	{
 		this.vendorUser = vendorUser;
 	}
-	
+
 	/**
 	 * @return the associatedService
 	 */
@@ -120,55 +143,68 @@ public abstract class Booking
 	 * Set the booking as booked.
 	 * 
 	 * @return Payment to make.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public double book() throws Exception
 	{
-		if(getState()!=PaymentState.Booked){
+		if (getState() != PaymentState.Booked)
+		{
 			setState(PaymentState.Booked);
-			if (!vendorUser.contains(this))
-				vendorUser.addBooking(this);
-			return getBookingPrice();	
-		} else throw new UnsupportedOperationException ("This service is already booked or payed");	
+			return getBookingPrice();
+		}
+		else
+			throw new UnsupportedOperationException(
+					"This service is already booked or payed");
 	}
+
 	/**
-	 * 
 	 * @return Payment to make
 	 */
-	public double getBookingPrice(){
+	public double getBookingPrice()
+	{
 		return 0.1 * getAssociatedService().getPrice();
 	}
+
 	/**
 	 * Confirm the booking.
 	 * 
 	 * @return Payment to make.
-	 * @throws InvalidParameterException 
-	 * @throws Exception 
+	 * @throws InvalidParameterException
+	 * @throws Exception
 	 */
 	public double confirm() throws Exception
 	{
 		double retval;
-		if (getState()!=PaymentState.Payed){
+		if (getState() != PaymentState.Payed)
+		{
 			setState(PaymentState.Payed);
-			if(getState() == PaymentState.None){
+			if (getState() == PaymentState.None)
+			{
 				book();
-				retval = getAssociatedService().getPrice(); 
-			} else
-				retval = getAssociatedService().getPrice()-getBookingPrice();
+				retval = getAssociatedService().getPrice();
+			}
+			else
+				retval = getAssociatedService().getPrice() - getBookingPrice();
 			return retval;
-			
+
 		}
-		else throw new UnsupportedOperationException("This service is already confirmed");
-	}	
+		else
+			throw new UnsupportedOperationException(
+					"This service is already confirmed");
+	}
+
 	/**
-	 * 
 	 * @throws InvalidParameterException
 	 */
-public void cancel() throws InvalidParameterException{
-		if (getState()!= PaymentState.None){
+	public void cancel() throws InvalidParameterException
+	{
+		if (getState() != PaymentState.None)
+		{
 			setState(PaymentState.None);
-		}else  throw new UnsupportedOperationException("This service is already cancel");
+		}
+		else
+			throw new UnsupportedOperationException(
+					"This service is already cancel");
 	}
-	
-	
+
 }

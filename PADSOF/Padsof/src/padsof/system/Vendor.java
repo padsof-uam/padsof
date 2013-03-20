@@ -1,25 +1,45 @@
 package padsof.system;
 
+import java.security.MessageDigest;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import padsof.bookings.Booking;
+import padsof.bookings.FlightBooking;
+import padsof.bookings.HotelBooking;
+import padsof.bookings.ImsersoTravelBooking;
 import padsof.bookings.PaymentState;
-public class Vendor
+import padsof.bookings.TravelBooking;
+import padsof.db.DBObject;
+import padsof.db.DBWrapper;
+
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable
+public class Vendor extends DBObject
 {
+	@DatabaseField
 	private String name;
+
+	@DatabaseField
 	private String user;
-	private String password;
+
+	@DatabaseField
+	private String hashedPassword;
+
+	@DatabaseField
 	private boolean isAdmin;
-	private List<Booking> bookings;
-	
-	public Vendor (String name, String user, String password){
+
+	public Vendor(String name, String user, String password) throws Exception
+	{
 		this.name = name;
 		this.user = user;
-		this.password = password;
-		isAdmin=false;
-		bookings = new ArrayList<Booking>();
+		setPassword(password);
+		isAdmin = false;
 	}
-	
+
 	public String getName()
 	{
 		return name;
@@ -40,87 +60,97 @@ public class Vendor
 		this.user = user;
 	}
 
-	public String getPassword()
+	private String hashPassword(String pass) throws Exception
 	{
-		return password;
+		MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+		sha256.update(pass.getBytes("UTF-8"));
+		return new String(sha256.digest(), "UTF-8");
+	}
+	
+	public boolean checkPassword(String pass) throws Exception
+	{
+		return hashPassword(pass).equals(hashedPassword);
 	}
 
-	public void setPassword(String password)
+	public void setPassword(String password) throws Exception
 	{
-		this.password = password;
+		this.hashedPassword = hashPassword(password);
 	}
 
-	public boolean IsAdmin(){
+	public boolean IsAdmin()
+	{
 		return isAdmin;
 	}
 	
-	//TODO: un admin puede crear nuevos admins? 
-	
-	public void addBooking(Booking book){
-		bookings.add(book);
-	}
-	
-	public void becomeAdmin(){
+	public void becomeAdmin()
+	{
 		isAdmin = true;
 	}
-	/**
-	 * 
-	 * @param name,user,password
-	 * @return a new Vendor
-	 * @throws UnsupportedOperationException
-	 */
-	public Vendor createVendor(String name, String user, String password) throws UnsupportedOperationException{
-		if (IsAdmin()){
-			return new Vendor (name,user,password);
-		} else throw new UnsupportedOperationException("You are not admin");
+
+	public boolean contains(Booking b)
+	{
+		return this.contains(b);
 	}
-	/**
-	 * 
-	 * @param vendor to change the password
-	 * @param newPass to be setted as vendor's password
-	 */
-	public void changePassword(Vendor vendor,String newPass) throws UnsupportedOperationException{
-		if (IsAdmin()){
-			if (!vendor.IsAdmin()){
-				setPassword(newPass);
-			
-			}throw new UnsupportedOperationException("You can't change admin's password here.");
-		}else throw new UnsupportedOperationException("You are not admin.");
-	}	
+
+	// Statistics:
+	List<Booking> bookings = null;
 	
-	public boolean contains(Booking b){
-		return this.contains(b);		
+	public void refreshBookings()
+	{
+		bookings = null;
 	}
-	//Estadistics: 
-	public int getNumberBookings(){
-		int i=0;
-		for (Booking iterator : this.bookings)
+	
+	public List<Booking> getBookings() throws SQLException
+	{
+		if(bookings != null)
+			return bookings;
+		
+		bookings = new ArrayList<Booking>();
+		
+		bookings.addAll(DBWrapper.getInstance().get(FlightBooking.class, "Vendor", this));
+		bookings.addAll(DBWrapper.getInstance().get(HotelBooking.class, "Vendor", this));
+		bookings.addAll(DBWrapper.getInstance().get(TravelBooking.class, "Vendor", this));
+		bookings.addAll(DBWrapper.getInstance().get(ImsersoTravelBooking.class, "Vendor", this));
+		
+		return bookings;
+	}
+	
+	public int getNumberBookings() throws SQLException
+	{
+		int i = 0;
+		for (Booking iterator : getBookings())
 			if (iterator.getState() == PaymentState.Booked)
 				i++;
 		return i;
 	}
-	public int getNumberConfirmed(){
-		int i=0;
-		for (Booking iterator : this.bookings)
+
+	public int getNumberConfirmed() throws SQLException
+	{
+		int i = 0;
+		for (Booking iterator : getBookings())
 			if (iterator.getState() == PaymentState.Payed)
 				i++;
 		return i;
 	}
-	public int getNumberCanceled(){
-		int i=0;
-		for (Booking iterator : this.bookings)
+
+	public int getNumberCanceled() throws SQLException
+	{
+		int i = 0;
+		for (Booking iterator : getBookings())
 			if (iterator.getState() == PaymentState.None)
 				i++;
 		return i;
 	}
-	public double getMoneyGot(){
-		int i=0;
-		for (Booking iterator : this.bookings)
+
+	public double getMoneyGot() throws SQLException
+	{
+		int i = 0;
+		for (Booking iterator : getBookings())
 			if (iterator.getState() == PaymentState.Payed)
-				i+= iterator.getAssociatedService().getPrice();
-			else if( iterator.getState()==PaymentState.Booked)
-				i+= iterator.getAssociatedService().getBookingPrice();
+				i += iterator.getAssociatedService().getPrice();
+			else if (iterator.getState() == PaymentState.Booked)
+				i += iterator.getAssociatedService().getBookingPrice();
 		return i;
 	}
-	
+
 }

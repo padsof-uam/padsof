@@ -1,9 +1,23 @@
 package padsof.system;
 
-public class Client
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.*;
+
+import padsof.db.DBObject;
+
+@DatabaseTable
+public class Client extends DBObject
 {
+	@DatabaseField(generatedId = true)
+	protected long id;
+	
+	@DatabaseField
 	private String name;
+	
+	@DatabaseField
 	private String surname;
+	
+	@DatabaseField
 	private String DNI;
 	/**
 	 * @return the name

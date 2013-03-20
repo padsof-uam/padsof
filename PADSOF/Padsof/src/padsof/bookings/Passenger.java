@@ -1,9 +1,20 @@
 package padsof.bookings;
 
-public class Passenger
-{
+import padsof.db.DBObject;
+
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable
+public class Passenger extends DBObject
+{	
+	@DatabaseField
 	private String name;
+	
+	@DatabaseField
 	private String surname;
+	
+	@DatabaseField
 	private String DNI;
 	
 	/**

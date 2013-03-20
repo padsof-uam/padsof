@@ -1,10 +1,18 @@
 package padsof.services;
 
-public abstract class Service
+import com.j256.ormlite.field.DatabaseField;
+
+import padsof.db.DBObject;
+
+public abstract class Service extends DBObject
 {
+	@DatabaseField
 	private double cost;
+	@DatabaseField
 	private double price;
+	@DatabaseField
 	private String name;
+	@DatabaseField
 	private String description;
 
 	/**

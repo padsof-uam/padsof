@@ -20,9 +20,9 @@ import com.j256.ormlite.table.TableUtils;
  */
 public class DBWrapper
 {
-	private DBWrapper instance;
+	private static DBWrapper instance;
 
-	public DBWrapper getInstance() throws SQLException
+	public static DBWrapper getInstance() throws SQLException
 	{
 		if(instance == null)
 			instance = new DBWrapper("productionDB");
@@ -58,14 +58,7 @@ public class DBWrapper
 	
 	@SuppressWarnings("unchecked")
 	public <T> CreateOrUpdateStatus save(T item) throws SQLException, IllegalArgumentException, IllegalAccessException
-	{		
-/*		for(Field f : item.getClass().getDeclaredFields())
-		{
-			f.setAccessible(true);
-			if(f.getType().isAnnotationPresent(DatabaseTable.class))
-				save(f.get(item));
-		}*/
-		
+	{				
 		Dao<T, ?> dao = (Dao<T, ?>) getDaoFor(item.getClass());		
 		
 		return dao.createOrUpdate(item);
