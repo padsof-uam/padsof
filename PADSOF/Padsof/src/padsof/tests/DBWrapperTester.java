@@ -15,7 +15,7 @@ import padsof.tests.dummies.SampleComplexClass;
 import padsof.tests.dummies.SampleSimpleClass;
 import padsof.tests.dummies.SimpleClass;
 
-public class DBManagerTester
+public class DBWrapperTester
 {
 	private static DBWrapper db;
 	

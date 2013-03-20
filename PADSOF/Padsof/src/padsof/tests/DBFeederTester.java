@@ -12,7 +12,7 @@ import padsof.services.Hotel;
 import padsof.services.ImsersoTravel;
 import padsof.services.Travel;
 
-public class DataBaseTester
+public class DBFeederTester
 {
 	private DBFeeder DB;
 	@Before
@@ -26,7 +26,7 @@ public class DataBaseTester
 	{
 		String file = new String("utils/Hoteles.csv");
 		Hotel h1 = new Hotel(
-				"España",
+				"Espa?a",
 				"Madrid",
 				"NH Palacio de Tepa",
 				"91 555555",
@@ -39,9 +39,9 @@ public class DataBaseTester
 				(double) 15,
 				(double) 40,
 				(double) 60,
-				"Restaurante, Bar, Recepción 24 horas, Prensa , Habitaciones no fumadores, Adaptado personas de movilidad reducida, Ascensor, Registro de entrada y salida exprés, Caja fuerte, Calefacción, Hotel de diseño, Guardaequipaje, Aire acondicionado, Zona de fumadores, Restaurante (a la carta), free wifi");
+				"Restaurante, Bar, Recepci?n 24 horas, Prensa , Habitaciones no fumadores, Adaptado personas de movilidad reducida, Ascensor, Registro de entrada y salida expr?s, Caja fuerte, Calefacci?n, Hotel de dise?o, Guardaequipaje, Aire acondicionado, Zona de fumadores, Restaurante (a la carta), free wifi");
 		Hotel h2 = new Hotel(
-				"España",
+				"Espa?a",
 				"Madrid",
 				"Hotel Lope de Vega",
 				"91 444444",
@@ -54,7 +54,7 @@ public class DataBaseTester
 				(double) 0,
 				(double) 0,
 				(double) 0,
-				"Bar, Recepción 24 horas, Prensa ,  Habitaciones no fumadores, Adaptado personas de movilidad reducida, Ascensor, Caja fuerte, Calefacción, Guardaequipaje, Aire acondicionado, no wifi");
+				"Bar, Recepci?n 24 horas, Prensa ,  Habitaciones no fumadores, Adaptado personas de movilidad reducida, Ascensor, Caja fuerte, Calefacci?n, Guardaequipaje, Aire acondicionado, no wifi");
 
 		DBFeeder feeder = new DBFeeder();
 		List<Hotel> hotels = feeder.loadHotelData(file);
@@ -69,11 +69,11 @@ public class DataBaseTester
 		ImsersoTravel T1 = new ImsersoTravel("Mallorca-temporada baja",
 				(double) 125, 8, 7, "1 al 17 de diciembre, 1 al 31 de Enero",
 				"Madrid", "Mallorca",
-				"Vuelo, Hotel 3* en régimen de PC y desplazamiento");
+				"Vuelo, Hotel 3* en r?gimen de PC y desplazamiento");
 		ImsersoTravel T2 = new ImsersoTravel("Mallorca-temporada alta",
 				(double) 235, 8, 7, "Lunes de Febrero a Noviembre", "Madrid",
 				"Mallorca",
-				"Vuelo, Hotel 3* en régimen de PC y desplazamiento");
+				"Vuelo, Hotel 3* en r?gimen de PC y desplazamiento");
 		String file = new String("utils/ViajesIMSERSO.csv");
 		List<ImsersoTravel> travels = DB.loadImsersoTravelData(file);
 		
@@ -87,22 +87,22 @@ public class DataBaseTester
 		String file = new String("utils/ViajesOrganizados.csv");
 		Travel T1 = new Travel(
 				"Mallorca-1",
-				"Halcón Viajes",
+				"Halc?n Viajes",
 				"91 218 21 28",
 				(double) 190,
 				3,
 				2,
-				"Todos los lunes de Enero-Mayo y Octubre-Diciembre. Todos los días de Junio a Septiembre",
+				"Todos los lunes de Enero-Mayo y Octubre-Diciembre. Todos los d?as de Junio a Septiembre",
 				"Madrid", "Mallorca",
-				"Hotel Be Live Punta Amer 4* en Media Pensión.");
+				"Hotel Be Live Punta Amer 4* en Media Pensi?n.");
 		Travel T2 = new Travel(
 				"Menorca",
-				"Halcón Viajes",
+				"Halc?n Viajes",
 				"91 218 21 28",
 				(double) 226,
 				6,
 				5,
-				"Todos los lunes de Enero-Mayo y Octubre-Diciembre. Todos los días de Junio a Septiembre",
+				"Todos los lunes de Enero-Mayo y Octubre-Diciembre. Todos los d?as de Junio a Septiembre",
 				"Madrid", "Menorca",
 				"Hotel Platja Gran 3* sup en Alojamiento y Desayuno");
 		List<Travel> travels = new DBFeeder().loadTravelData(file);
