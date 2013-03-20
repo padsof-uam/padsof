@@ -1,16 +1,20 @@
 package padsof.bookings;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import es.uam.eps.pads.services.InvalidParameterException;
 import es.uam.eps.pads.services.ServicesFactory;
 import es.uam.eps.pads.services.flights.FlightsProvider;
 
+import padsof.db.DBWrapper;
 import padsof.services.Flight;
 import padsof.system.Client;
 import padsof.system.Vendor;
@@ -26,7 +30,9 @@ public class FlightBooking extends Booking
 	private String bookingLocalizer;
 	FlightsProvider fp = ServicesFactory.getServicesFactory()
 			.getFlightsProvider();
-	private ArrayList<Passenger> passengers = new ArrayList<Passenger>();
+	
+	@ForeignCollectionField(eager = true)
+	private ForeignCollection<Passenger> passengers;
 
 	public FlightBooking(Flight service, Client client, Date start, Date end,
 			Vendor vendor)
@@ -38,9 +44,24 @@ public class FlightBooking extends Booking
 	/**
 	 * @return the passengers
 	 */
-	public List<Passenger> getPassengers()
+	public ForeignCollection<Passenger> getPassengers()
 	{
 		return passengers;
+	}
+	
+	public void addPassenger(Passenger passenger) throws IllegalArgumentException, IllegalAccessException, SQLException
+	{
+		passenger.setFlight(this);
+		DBWrapper.getInstance().save(passenger);
+	}
+	
+	public void removePassenger(Passenger passenger) throws IllegalArgumentException, IllegalAccessException, SQLException
+	{
+		if(this.equals(passenger.getFlight()))
+		{
+			passenger.setFlight(null);
+			DBWrapper.getInstance().save(passenger);
+		}
 	}
 
 	@DatabaseField(foreign = true, foreignAutoCreate = true,

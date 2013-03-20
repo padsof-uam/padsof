@@ -1,8 +1,10 @@
 package padsof.bookings;
 
 import padsof.db.DBObject;
+import padsof.services.Flight;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
@@ -16,6 +18,19 @@ public class Passenger extends DBObject
 	
 	@DatabaseField
 	private String DNI;
+	
+	@DatabaseField(foreign = true)
+	private FlightBooking flight;
+	
+	public FlightBooking getFlight()
+	{
+		return flight;
+	}
+	
+	public void setFlight(FlightBooking flightBooking)
+	{
+		flight = flightBooking;
+	}
 	
 	/**
 	 * @return the name
