@@ -2,6 +2,8 @@ package padsof.tests;
 
 import java.lang.reflect.Field;
 import java.util.*;
+
+import padsof.utils.Reflection;
 import static org.junit.Assert.*;
 
 public class Assert
@@ -48,19 +50,7 @@ public class Assert
 		assertIsSubset(actual, expected);
 	}
 	
-	private static List<Field> getAllFieldsFrom(Class<?> cls)
-	{
-		ArrayList<Field> fields = new ArrayList<Field>();
-		
-		for(Field f : cls.getDeclaredFields())
-			fields.add(f);
-		
-		Class<?> sup = cls.getSuperclass();
-		if(sup != null)
-			fields.addAll(getAllFieldsFrom(sup));
-		
-		return fields;
-	}
+	
 	
 	public static <T> void assertFieldWiseEquals(T expected, T actual, String...excludedFields) throws IllegalArgumentException, IllegalAccessException
 	{
@@ -73,7 +63,7 @@ public class Assert
 		for(String s : excludedFields)
 			excluded.add(s);
 		
-		for(Field field : getAllFieldsFrom(expected.getClass()))
+		for(Field field : Reflection.getAllFieldsFrom(expected.getClass()))
 		{
 			field.setAccessible(true);
 			if(!excluded.contains(field.getName()))
