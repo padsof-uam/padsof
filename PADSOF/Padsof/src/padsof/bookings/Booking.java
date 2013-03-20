@@ -29,6 +29,27 @@ public abstract class Booking extends DBObject
 	@DatabaseField(foreign = true, foreignAutoCreate = true,
 			foreignAutoRefresh = true)
 	private Vendor vendor;
+	
+	@DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
+	private Packet pertainingPacket;
+	
+	
+
+	/**
+	 * @return the pertainingPacket
+	 */
+	public Packet getPertainingPacket()
+	{
+		return pertainingPacket;
+	}
+
+	/**
+	 * @param pertainingPacket the pertainingPacket to set
+	 */
+	public void setPertainingPacket(Packet pertainingPacket)
+	{
+		this.pertainingPacket = pertainingPacket;
+	}
 
 	/**
 	 * @return the vendor

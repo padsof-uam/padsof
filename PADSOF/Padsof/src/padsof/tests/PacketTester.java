@@ -5,16 +5,20 @@ package padsof.tests;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import org.junit.Before;
 
 import padsof.bookings.*;
+import padsof.db.DBWrapper;
 import padsof.services.*;
 import padsof.system.*;
 
@@ -35,8 +39,20 @@ public class PacketTester
 	private ArrayList<Booking> testBookings = new ArrayList<Booking>();
 	private Packet testPacket = new Packet();
 	private Vendor vendor;
+	private static DBWrapper db;
 	
+	@BeforeClass
+	public static void setUpClass() throws SQLException
+	{
+		db = new DBWrapper("testPacketDB");
+	}
 	
+	@AfterClass
+	public static void tearDown() throws SQLException
+	{
+		db.close();
+		db.delete();
+	}
 	
 	@SuppressWarnings("deprecation")
 
@@ -118,19 +134,19 @@ public class PacketTester
 		testPacket.add(hotel);
 		testPacket.add(flight);
 	}
-	@Test public void TestCheckDates(){		
+	@Test public void TestCheckDates() throws SQLException{		
 		
 		
 		assertFalse(testPacket.checkIfAllPayed());
 		
 		//The lowest date is testStart_f
-		assertTrue(compare(testPacket.getStartDay(),testStart_f));
+		assertEquals(testStart_f, testPacket.getStartDay());
 		
 		//The lastest day is testEnd_IT
-		assertTrue(compare(testPacket.getEndDay(),testEnd_IT));
+		assertEquals(testEnd_IT, testPacket.getEndDay());
 	}
 	@Test
-	public void TestCloseIfPossible(){
+	public void TestCloseIfPossible() throws SQLException{
 		
 		assertFalse(testPacket.closeAutomatically());
 		Calendar calendar = new GregorianCalendar();

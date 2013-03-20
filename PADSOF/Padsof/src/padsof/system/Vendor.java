@@ -122,11 +122,7 @@ public class Vendor extends DBObject
 	
 	public int getNumberBookings() throws SQLException
 	{
-		int i = 0;
-		for (Booking iterator : getBookings())
-			if (iterator.getState() == PaymentState.Booked)
-				i++;
-		return i;
+		return getBookings().size();
 	}
 
 	public int getNumberConfirmed() throws SQLException

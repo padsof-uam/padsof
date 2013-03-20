@@ -5,10 +5,14 @@ package padsof.db;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.sql.SQLException;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
 
 import padsof.utils.Reflection;
 
@@ -16,6 +20,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.Dao.CreateOrUpdateStatus;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
@@ -54,7 +59,7 @@ public class DBWrapper
 		instance = this;
 	}
 
-	private Dao<?, Long> getDaoFor(Class<?> cls) throws SQLException
+	public Dao<?, Long> getDaoFor(Class<?> cls) throws SQLException
 	{
 		if (daos.containsKey(cls.getName()))
 			return daos.get(cls.getName());
@@ -67,13 +72,41 @@ public class DBWrapper
 		return dao;
 	}
 
+	private List<Class<?>> classesWithCreatedTables = new ArrayList<Class<?>>();
 	private void ensureTablesGeneratedFor(Class<?> cls) throws SQLException
 	{
-		TableUtils.createTableIfNotExists(dataSource, cls);
+		Stack<Class<?>> pendingClasses = new Stack<Class<?>>();
 
-		for (Field f : Reflection.getAllFieldsFrom(cls))
-			if (f.getType().isAnnotationPresent(DatabaseTable.class))
-				ensureTablesGeneratedFor(f.getType());
+		pendingClasses.push(cls);
+		
+		while (!pendingClasses.empty())
+		{
+			cls = pendingClasses.pop();
+
+			if(classesWithCreatedTables.contains(cls))
+				continue;
+			
+			for (Field f : Reflection.getAllFieldsFrom(cls))
+			{
+				Class<?> type = f.getType();
+				if (type.isAnnotationPresent(DatabaseTable.class)
+						&& !pendingClasses.contains(type))
+				{
+					pendingClasses.push(type);
+				}
+				else if (f.isAnnotationPresent(ForeignCollectionField.class)
+						&& Collection.class.isAssignableFrom(type))
+				{
+					Class<?> genericType = (Class<?>) ((ParameterizedType) f
+							.getGenericType()).getActualTypeArguments()[0];
+					if (!pendingClasses.contains(genericType))
+						pendingClasses.push(genericType);
+				}
+			}
+			
+			TableUtils.createTableIfNotExists(dataSource, cls);
+			classesWithCreatedTables.add(cls);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -116,7 +149,7 @@ public class DBWrapper
 			Object target = values[i + 1];
 
 			Field f = Reflection.getField(cls, fieldName);
-			
+
 			if (f != null)
 			{
 				DatabaseField df = f.getAnnotation(DatabaseField.class);

@@ -111,9 +111,9 @@ public class vendorTester
 		hotel.setState(PaymentState.Payed);
 		hotel.setVendorUser(testVendor);
 
-		assertEquals(testVendor.getNumberBookings(), 1);
-		assertEquals(testVendor.getNumberConfirmed(), 1);
-		assertEquals(testVendor.getNumberCanceled(), 1);
+		assertEquals("Number of bookings", 1, testVendor.getNumberBookings());
+		assertEquals("Number of confirmed bookings", 1, testVendor.getNumberConfirmed());
+		assertEquals("Number of canceled bookings", 1, testVendor.getNumberCanceled());
 
 		assertEquals((double) testVendor.getMoneyGot(), (double) 310, 0.0000001);
 	}
