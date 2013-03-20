@@ -1,9 +1,12 @@
 package padsof.bookings;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
+import padsof.db.DBWrapper;
+import padsof.services.Flight;
+import padsof.system.Client;
+import padsof.system.Vendor;
 
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
@@ -13,11 +16,6 @@ import com.j256.ormlite.table.DatabaseTable;
 import es.uam.eps.pads.services.InvalidParameterException;
 import es.uam.eps.pads.services.ServicesFactory;
 import es.uam.eps.pads.services.flights.FlightsProvider;
-
-import padsof.db.DBWrapper;
-import padsof.services.Flight;
-import padsof.system.Client;
-import padsof.system.Vendor;
 
 /**
  * @author gjulianm

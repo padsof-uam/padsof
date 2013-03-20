@@ -15,7 +15,6 @@ import padsof.system.Vendor;
 
 public class BookingFactory
 {
-
 	private Vendor vendor;
 
 	public BookingFactory(Vendor vendor)
