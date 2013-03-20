@@ -3,7 +3,8 @@ package padsof.tests;
 import static org.junit.Assert.*;
 import static padsof.tests.Assert.*;
 import org.junit.*;
-import padsof.db.feeder.CSVReader;
+
+import padsof.csv.CSVReader;
 
 import java.util.*;
 import java.io.*;
@@ -21,26 +22,28 @@ public class CSVReaderTester
 		Random rand = new Random();
 		BufferedWriter writer = null;
 		String field;
-		boolean emptyFieldAdded = false;
-		writer = new BufferedWriter(new FileWriter(file));
+		writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream(file), "ISO-8859-1"));
 		fields = new ArrayList<ArrayList<String>>();
-		
+
 		for (int i = 0; i < rows; i++)
 		{
 			fields.add(new ArrayList<String>());
 			for (int j = 0; j < columns; j++)
 			{
-				if (i == 1 && (rand.nextInt(3) == 1 || (!emptyFieldAdded && j == columns - 1)))
-				{
-					field = ""; // Some empty fields in line 2 to ensure the parser
+				if (i == 1 && (j % 2 == 0 || j == columns - 1))
+					field = ""; // Some empty fields at start and end in line 2
+								// to ensure the parser
 								// behaves well.
-					emptyFieldAdded = true;
-				}
 				else
 					field = Integer.toHexString(rand.nextInt(1276531));
-
+				
 				fields.get(i).add(field);
-				writer.write(field + ";");
+				
+				if(j < columns - 1)
+					field += ";";
+				
+				writer.write(field);
 			}
 			writer.write("\n");
 		}
@@ -54,18 +57,18 @@ public class CSVReaderTester
 		CSVReader reader = new CSVReader(file);
 
 		assertListEquals(reader.parseLine(), fields.get(0));
-	
+
 		reader.close();
 	}
-	
+
 	@Test
 	public void testParseLineEmptyField() throws Exception
 	{
 		CSVReader reader = new CSVReader(file);
 
 		reader.parseLine(); // Discard line 1.
-		assertListEquals(reader.parseLine(), fields.get(1));
-	
+		assertListEquals(fields.get(1), reader.parseLine());
+
 		reader.close();
 	}
 
@@ -83,5 +86,13 @@ public class CSVReaderTester
 		}
 		reader.close();
 
+	}
+	
+	@AfterClass 
+	public static void shutdown()
+	{
+		File f = new File(file);
+		if(f.exists())
+			f.delete();
 	}
 }

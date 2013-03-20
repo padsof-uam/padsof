@@ -1,5 +1,9 @@
 package padsof.tests;
+
 import static org.junit.Assert.*;
+import static padsof.tests.Assert.*;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,46 +16,104 @@ import padsof.system.*;
 
 public class DataBaseTester
 {
-	private DataBase DB;
+	private DBFeeder DB;
 	private Vendor testVendor;
+
 	@Before
-	public void setUp(){
-		testVendor = new Vendor ("Victor","VicdeJuan","qwerty");
-		DB = new DataBase();
-	}
-	@Test 
-	public void testHotelFeeder() throws Exception{
-		String file = new String("utils/Hoteles.csv");
-		Hotel h1 = new Hotel("Espa帽a","Madrid","NH Palacio de Tepa","91 555555",
-				"San Sebastian 2","28012","4",(double)80,(double)120,
-				(double)160,(double)15,(double)40,(double)60, "Restaurante, Bar, Recepci贸n 24 horas, Prensa , Habitaciones no fumadores, Adaptado personas de movilidad reducida, Ascensor, Registro de entrada y salida expr茅s, Caja fuerte, Calefacci贸n, Hotel de dise帽o, Guardaequipaje, Aire acondicionado, Zona de fumadores, Restaurante (a la carta), free wifi");
-		Hotel h2 = new Hotel("Espa帽a","Madrid","Hotel Lope de Vega","91 444444","Lope de Vega 49","28014","3",(double)75,(double)116,(double)0,(double)0,(double)0,(double)0,"Bar, Recepci贸n 24 horas, Prensa ,  Habitaciones no fumadores, Adaptado personas de movilidad reducida, Ascensor, Caja fuerte, Calefacci贸n, Guardaequipaje, Aire acondicionado, no wifi");
-		
-		DataBase DB2 = new DataBase();
-		DB2.DBFeederHotel(file);
-		//assertTrue(DB2.getHotels().contains(h1));
-		//assertEquals(DB2.getHotels().indexOf(h1),);
-		}
-	@Test
-	public void testImsersoTravelFeeder() throws Exception{
-		ImsersoTravel T1 = new ImsersoTravel("Mallorca-temporada baja", (double)125,8,7,"1 al 17 de diciembre, 1 al 31 de Enero","Madrid","Mallorca","Vuelo, Hotel 3* en r茅gimen de PC y desplazamiento");
-		ImsersoTravel T2 = new ImsersoTravel("Mallorca-temporada alta",(double)235,8,7,"Lunes de Febrero a Noviembre","Madrid","Mallorca","Vuelo, Hotel 3* en r茅gimen de PC y desplazamiento");
-		String file = new String ("utils/ViajesIMSERSO.csv");
-		DB.DBFeeder(file);
-		//assertEquals(DB.getIMTravels().indexOf(T1),1);
-		//assertEquals(DB.getIMTravels().indexOf(T2),2);
-	}
-	@Test
-	public void testTravelFeeder() throws Exception{
-		String file = new String("utils/ViajesOrganizados.csv");
-		Travel T1 = new Travel ("Mallorca-1","Halc贸n Viajes","91 218 21 28",(double)190,3,2,"Todos los lunes de Enero-Mayo y Octubre-Diciembre. Todos los d铆as de Junio a Septiembre","Madrid","Mallorca","Hotel Be Live Punta Amer 4* en Media Pensi贸n.");
-		Travel T2 = new Travel ("Menorca","Halc贸n Viajes","91 218 21 28",(double)226,6,5,"Todos los lunes de Enero-Mayo y Octubre-Diciembre. Todos los d铆as de Junio a Septiembre","Madrid","Menorca","Hotel Platja Gran 3* sup en Alojamiento y Desayuno");
-		DB.DBFeeder(file);
-		Assert.assertListContains(DB.getTravels(),T1);
-		//assertEquals(DB.getIMTravels().indexOf(T1),1);
-		//assertEquals(DB.getIMTravels().indexOf(T2),2);
+	public void setUp() throws Exception
+	{
+		testVendor = new Vendor("Victor", "VicdeJuan", "qwerty");
+		DB = new DBFeeder();
 	}
 
-	
+	@Test
+	public void testHotelFeeder() throws Exception
+	{
+		String file = new String("utils/Hoteles.csv");
+		Hotel h1 = new Hotel(
+				"Espa朼",
+				"Madrid",
+				"NH Palacio de Tepa",
+				"91 555555",
+				"San Sebastian 2",
+				"28012",
+				"4",
+				(double) 80,
+				(double) 120,
+				(double) 160,
+				(double) 15,
+				(double) 40,
+				(double) 60,
+				"Restaurante, Bar, Recepci梟 24 horas, Prensa , Habitaciones no fumadores, Adaptado personas de movilidad reducida, Ascensor, Registro de entrada y salida expr巗, Caja fuerte, Calefacci梟, Hotel de dise杘, Guardaequipaje, Aire acondicionado, Zona de fumadores, Restaurante (a la carta), free wifi");
+		Hotel h2 = new Hotel(
+				"Espa朼",
+				"Madrid",
+				"Hotel Lope de Vega",
+				"91 444444",
+				"Lope de Vega 49",
+				"28014",
+				"3",
+				(double) 75,
+				(double) 116,
+				(double) 0,
+				(double) 0,
+				(double) 0,
+				(double) 0,
+				"Bar, Recepci梟 24 horas, Prensa ,  Habitaciones no fumadores, Adaptado personas de movilidad reducida, Ascensor, Caja fuerte, Calefacci梟, Guardaequipaje, Aire acondicionado, no wifi");
+
+		DBFeeder feeder = new DBFeeder();
+		List<Hotel> hotels = feeder.loadHotelData(file);
+		
+		assertFieldWiseEquals(h1, hotels.get(0), "id");
+		assertFieldWiseEquals(h2, hotels.get(1), "id");
+	}
+
+	@Test
+	public void testImsersoTravelFeeder() throws Exception
+	{
+		ImsersoTravel T1 = new ImsersoTravel("Mallorca-temporada baja",
+				(double) 125, 8, 7, "1 al 17 de diciembre, 1 al 31 de Enero",
+				"Madrid", "Mallorca",
+				"Vuelo, Hotel 3* en r巊imen de PC y desplazamiento");
+		ImsersoTravel T2 = new ImsersoTravel("Mallorca-temporada alta",
+				(double) 235, 8, 7, "Lunes de Febrero a Noviembre", "Madrid",
+				"Mallorca",
+				"Vuelo, Hotel 3* en r巊imen de PC y desplazamiento");
+		String file = new String("utils/ViajesIMSERSO.csv");
+		List<ImsersoTravel> travels = DB.loadImsersoTravelData(file);
+		
+		assertFieldWiseEquals(T1, travels.get(0), "id");
+		assertFieldWiseEquals(T2, travels.get(1), "id");
+	}
+
+	@Test
+	public void testTravelFeeder() throws Exception
+	{
+		String file = new String("utils/ViajesOrganizados.csv");
+		Travel T1 = new Travel(
+				"Mallorca-1",
+				"Halc梟 Viajes",
+				"91 218 21 28",
+				(double) 190,
+				3,
+				2,
+				"Todos los lunes de Enero-Mayo y Octubre-Diciembre. Todos los d抋s de Junio a Septiembre",
+				"Madrid", "Mallorca",
+				"Hotel Be Live Punta Amer 4* en Media Pensi梟.");
+		Travel T2 = new Travel(
+				"Menorca",
+				"Halc梟 Viajes",
+				"91 218 21 28",
+				(double) 226,
+				6,
+				5,
+				"Todos los lunes de Enero-Mayo y Octubre-Diciembre. Todos los d抋s de Junio a Septiembre",
+				"Madrid", "Menorca",
+				"Hotel Platja Gran 3* sup en Alojamiento y Desayuno");
+		List<Travel> travels = new DBFeeder().loadTravelData(file);
+		
+		assertFieldWiseEquals("T1", T1, travels.get(0), "id");
+		assertFieldWiseEquals("T2", T2, travels.get(1), "id");
+	}
 
 }

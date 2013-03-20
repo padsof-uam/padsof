@@ -1,5 +1,6 @@
 package padsof.tests;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import static org.junit.Assert.*;
 
@@ -7,7 +8,7 @@ public class Assert
 {
 	public static <T extends Comparable<T>> void assertListEquals(List<T> expected, List<T> actual)
 	{
-		assertEquals(expected.size(), actual.size());
+		assertEquals("Wrong size", expected.size(), actual.size());
 		
 		for(int i = 0; i < expected.size(); i++)
 		{
@@ -45,5 +46,38 @@ public class Assert
 	{
 		assertIsSubset(expected, actual);
 		assertIsSubset(actual, expected);
+	}
+	
+	private static List<Field> getAllFieldsFrom(Class<?> cls)
+	{
+		ArrayList<Field> fields = new ArrayList<Field>();
+		
+		for(Field f : cls.getDeclaredFields())
+			fields.add(f);
+		
+		Class<?> sup = cls.getSuperclass();
+		if(sup != null)
+			fields.addAll(getAllFieldsFrom(sup));
+		
+		return fields;
+	}
+	
+	public static <T> void assertFieldWiseEquals(T expected, T actual, String...excludedFields) throws IllegalArgumentException, IllegalAccessException
+	{
+		assertFieldWiseEquals("", expected, actual, excludedFields);
+	}
+	
+	public static <T> void assertFieldWiseEquals(String message, T expected, T actual, String... excludedFields) throws IllegalArgumentException, IllegalAccessException
+	{
+		List<String> excluded = new ArrayList<String>();
+		for(String s : excludedFields)
+			excluded.add(s);
+		
+		for(Field field : getAllFieldsFrom(expected.getClass()))
+		{
+			field.setAccessible(true);
+			if(!excluded.contains(field.getName()))
+				assertEquals(message + " - failed field " + field.getName(), field.get(expected), field.get(actual));
+		}
 	}
 }
