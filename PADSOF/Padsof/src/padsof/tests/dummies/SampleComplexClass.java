@@ -9,7 +9,8 @@ public class SampleComplexClass
 	@DatabaseField(generatedId = true)
 	public long id;
 
-	@DatabaseField(foreign = true,foreignAutoCreate = true,foreignAutoRefresh = true)
+	@DatabaseField(foreign = true, foreignAutoCreate = true,
+			foreignAutoRefresh = true)
 	public SampleSimpleClass child;
 
 	@DatabaseField
@@ -18,8 +19,8 @@ public class SampleComplexClass
 	public boolean b;
 	@DatabaseField
 	public int i;
-	
 
+	@Override
 	public boolean equals(Object obj)
 	{
 		if (obj == null)
@@ -31,7 +32,8 @@ public class SampleComplexClass
 
 		SampleComplexClass rhs = (SampleComplexClass) obj;
 
-		return rhs.child.equals(child) && d == rhs.d && b == rhs.b && i == rhs.i;
+		return rhs.child.equals(child) && d == rhs.d && b == rhs.b
+				&& i == rhs.i;
 
 	}
 }

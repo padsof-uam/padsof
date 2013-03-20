@@ -7,29 +7,29 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
 public class Passenger extends DBObject
-{	
+{
 	@DatabaseField
 	private String name;
-	
+
 	@DatabaseField
 	private String surname;
-	
+
 	@DatabaseField
 	private String DNI;
-	
+
 	@DatabaseField(foreign = true)
 	private FlightBooking flight;
-	
+
 	FlightBooking getFlight()
 	{
 		return flight;
 	}
-	
+
 	void setFlight(FlightBooking flightBooking)
 	{
 		flight = flightBooking;
 	}
-	
+
 	/**
 	 * @return the name
 	 */
@@ -37,13 +37,16 @@ public class Passenger extends DBObject
 	{
 		return name;
 	}
+
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name)
 	{
 		this.name = name;
 	}
+
 	/**
 	 * @return the surname
 	 */
@@ -51,13 +54,16 @@ public class Passenger extends DBObject
 	{
 		return surname;
 	}
+
 	/**
-	 * @param surname the surname to set
+	 * @param surname
+	 *            the surname to set
 	 */
 	public void setSurname(String surname)
 	{
 		this.surname = surname;
 	}
+
 	/**
 	 * @return the dNI
 	 */
@@ -65,8 +71,10 @@ public class Passenger extends DBObject
 	{
 		return DNI;
 	}
+
 	/**
-	 * @param dNI the dNI to set
+	 * @param dNI
+	 *            the dNI to set
 	 */
 	public void setDNI(String dNI)
 	{

@@ -5,11 +5,10 @@ package padsof.tests;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import java.sql.SQLException;
 import java.util.*;
+
+import org.junit.*;
 
 import padsof.bookings.*;
 import padsof.services.*;
@@ -37,7 +36,7 @@ public class BookingFactoryTester
 		testClient.setName("Pepito");
 		testClient.setSurname("Grillo");
 
-		vendor = new Vendor("Victor","vicdejuan","qwerty");
+		vendor = new Vendor("Victor", "vicdejuan", "qwerty");
 		Calendar calendar = new GregorianCalendar();
 
 		testStart = calendar.getTime();
@@ -53,19 +52,22 @@ public class BookingFactoryTester
 	}
 
 	@Test(expected = UnsupportedOperationException.class)
-	public void testUnsupportedService() throws IllegalArgumentException, IllegalAccessException, SQLException
+	public void testUnsupportedService() throws IllegalArgumentException,
+			IllegalAccessException, SQLException
 	{
 		factory.book(new UnsupportedService(), testClient, testStart, testEnd);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testInvalidDates() throws IllegalArgumentException, IllegalAccessException, SQLException
+	public void testInvalidDates() throws IllegalArgumentException,
+			IllegalAccessException, SQLException
 	{
 		factory.book(new Hotel(), testClient, testEnd, testStart);
 	}
 
 	@Test
-	public void testFlightBooking() throws IllegalArgumentException, IllegalAccessException, SQLException
+	public void testFlightBooking() throws IllegalArgumentException,
+			IllegalAccessException, SQLException
 	{
 		Flight h = new Flight();
 		Booking b = factory.book(h, testClient, testStart, testEnd);
@@ -78,7 +80,8 @@ public class BookingFactoryTester
 	}
 
 	@Test
-	public void testHotelBooking() throws IllegalArgumentException, IllegalAccessException, SQLException
+	public void testHotelBooking() throws IllegalArgumentException,
+			IllegalAccessException, SQLException
 	{
 		Hotel h = new Hotel();
 		Booking b = factory.book(h, testClient, testStart, testEnd);
@@ -91,7 +94,8 @@ public class BookingFactoryTester
 	}
 
 	@Test
-	public void testTravelBooking() throws IllegalArgumentException, IllegalAccessException, SQLException
+	public void testTravelBooking() throws IllegalArgumentException,
+			IllegalAccessException, SQLException
 	{
 		Travel h = new Travel();
 		Booking b = factory.book(h, testClient, testStart, testEnd);
@@ -104,7 +108,8 @@ public class BookingFactoryTester
 	}
 
 	@Test
-	public void testImsersoTravelBooking() throws IllegalArgumentException, IllegalAccessException, SQLException
+	public void testImsersoTravelBooking() throws IllegalArgumentException,
+			IllegalAccessException, SQLException
 	{
 		ImsersoTravel h = new ImsersoTravel();
 		Client ic = new ImsersoClient();
@@ -118,7 +123,9 @@ public class BookingFactoryTester
 	}
 
 	@Test(expected = UnsupportedOperationException.class)
-	public void testInvalidClientImsersoTravelBooking() throws IllegalArgumentException, IllegalAccessException, SQLException
+	public void testInvalidClientImsersoTravelBooking()
+			throws IllegalArgumentException, IllegalAccessException,
+			SQLException
 	{
 		factory.book(new ImsersoTravel(), testClient, testStart, testEnd);
 	}

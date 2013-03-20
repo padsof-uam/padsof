@@ -4,13 +4,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import padsof.csv.CSVCreator;
-import padsof.csv.CSVReader;
-import padsof.csv.InvalidFormatException;
+import padsof.csv.*;
 import padsof.db.DBWrapper;
-import padsof.services.Hotel;
-import padsof.services.ImsersoTravel;
-import padsof.services.Travel;
+import padsof.services.*;
 
 public class DBFeeder
 {

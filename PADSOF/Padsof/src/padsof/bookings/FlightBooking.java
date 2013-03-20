@@ -5,16 +5,13 @@ import java.util.Date;
 
 import padsof.db.DBWrapper;
 import padsof.services.Flight;
-import padsof.system.Client;
-import padsof.system.Vendor;
+import padsof.system.*;
 
 import com.j256.ormlite.dao.ForeignCollection;
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.field.*;
 import com.j256.ormlite.table.DatabaseTable;
 
-import es.uam.eps.pads.services.InvalidParameterException;
-import es.uam.eps.pads.services.ServicesFactory;
+import es.uam.eps.pads.services.*;
 import es.uam.eps.pads.services.flights.FlightsProvider;
 
 /**
@@ -28,7 +25,7 @@ public class FlightBooking extends Booking
 	private String bookingLocalizer;
 	FlightsProvider fp = ServicesFactory.getServicesFactory()
 			.getFlightsProvider();
-	
+
 	@ForeignCollectionField(eager = true)
 	private ForeignCollection<Passenger> passengers;
 
@@ -36,7 +33,7 @@ public class FlightBooking extends Booking
 			Vendor vendor)
 	{
 		super(client, start, end, vendor);
-		this.associatedFlight = service;
+		associatedFlight = service;
 	}
 
 	/**
@@ -46,17 +43,21 @@ public class FlightBooking extends Booking
 	{
 		return passengers;
 	}
-	
-	public void addPassenger(Passenger passenger) throws IllegalArgumentException, IllegalAccessException, SQLException
+
+	public void addPassenger(Passenger passenger)
+			throws IllegalArgumentException, IllegalAccessException,
+			SQLException
 	{
 		passenger.setFlight(this);
 		DBWrapper.getInstance().save(this);
 		DBWrapper.getInstance().save(passenger);
 	}
-	
-	public void removePassenger(Passenger passenger) throws IllegalArgumentException, IllegalAccessException, SQLException
+
+	public void removePassenger(Passenger passenger)
+			throws IllegalArgumentException, IllegalAccessException,
+			SQLException
 	{
-		if(this.equals(passenger.getFlight()))
+		if (equals(passenger.getFlight()))
 		{
 			passenger.setFlight(null);
 			DBWrapper.getInstance().save(this);
@@ -95,12 +96,14 @@ public class FlightBooking extends Booking
 		return bookingLocalizer;
 	}
 
-	public FlightBooking () {}
-	
+	public FlightBooking()
+	{
+	}
+
 	@Override
 	public double book() throws Exception
 	{
-		if (this.getState() != PaymentState.Booked)
+		if (getState() != PaymentState.Booked)
 		{
 			bookingLocalizer = fp.book(getAssociatedService().getLocalizer(),
 					getClient().getName());
@@ -115,7 +118,7 @@ public class FlightBooking extends Booking
 	@Override
 	public void cancel() throws InvalidParameterException
 	{
-		if (this.getState() != PaymentState.None)
+		if (getState() != PaymentState.None)
 		{
 			fp.cancel(bookingLocalizer);
 			setState(PaymentState.None);

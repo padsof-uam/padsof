@@ -1,18 +1,18 @@
 package padsof.tests.dummies;
 
-import com.j256.ormlite.field.*;
-import com.j256.ormlite.table.*;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
 public class SimpleClass
 {
 	@DatabaseField(generatedId = true)
 	private long id;
-	
+
 	@DatabaseField
 	public String field;
-	
-	
+
+	@Override
 	public boolean equals(Object obj)
 	{
 		if (obj == null)

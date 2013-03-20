@@ -5,12 +5,11 @@ package padsof.bookings;
 
 import java.util.Date;
 
+import padsof.services.Travel;
+import padsof.system.*;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-
-import padsof.services.Travel;
-import padsof.system.Client;
-import padsof.system.Vendor;
 
 /**
  * @author gjulianm
@@ -23,14 +22,17 @@ public class TravelBooking extends Booking
 			foreignAutoRefresh = true)
 	private Travel associatedTravel;
 
-	public TravelBooking(Travel service, Client client, Date start, Date end, Vendor vendor)
+	public TravelBooking(Travel service, Client client, Date start, Date end,
+			Vendor vendor)
 	{
 		super(client, start, end, vendor);
-		this.associatedTravel = service;
+		associatedTravel = service;
 	}
 
-	public TravelBooking(){}
-	
+	public TravelBooking()
+	{
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see padsof.bookings.Booking#getAssociatedService()

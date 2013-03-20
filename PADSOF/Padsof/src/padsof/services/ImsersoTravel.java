@@ -1,6 +1,6 @@
 package padsof.services;
 
-import java.util.*;
+import java.util.Date;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -22,45 +22,57 @@ public class ImsersoTravel extends Service
 
 	@DatabaseField
 	private String visitedCities;
-	
-	public ImsersoTravel(){
+
+	public ImsersoTravel()
+	{
 
 	}
-	public ImsersoTravel(String name,double price_client, int days, int nights, 
-			String start, String departingCity, String visitedCities,String description){
-	
-	this.name = name;
-	this.price = price_client;
-	this.days = days;
-	this.nights = nights;
-	this.departingCity = departingCity;
-	this.visitedCities = visitedCities;
-	this.description = description;
+
+	public ImsersoTravel(String name, double price_client, int days,
+			int nights, String start, String departingCity,
+			String visitedCities, String description)
+	{
+
+		this.name = name;
+		price = price_client;
+		this.days = days;
+		this.nights = nights;
+		this.departingCity = departingCity;
+		this.visitedCities = visitedCities;
+		this.description = description;
 	}
-	
+
 	/**
 	 * 
 	 */
+	@Override
 	public String getName()
 	{
 		return name;
 	}
-	
+
+	@Override
 	public void setName(String name)
 	{
 		this.name = name;
 	}
+
+	@Override
 	public String getDescription()
 	{
 		return description;
 	}
+
+	@Override
 	public void setDescription(String description)
 	{
 		this.description = description;
 	}
+
 	/**
 	 * @return the price
 	 */
+	@Override
 	public double getPrice()
 	{
 		return price;
@@ -70,6 +82,7 @@ public class ImsersoTravel extends Service
 	 * @param price
 	 *            the price to set
 	 */
+	@Override
 	public void setPrice(double price)
 	{
 		this.price = price;
@@ -159,8 +172,10 @@ public class ImsersoTravel extends Service
 	{
 		this.visitedCities = visitedCities;
 	}
-	
-	public double getBookingPrice(){
-		return 0.1*price;
+
+	@Override
+	public double getBookingPrice()
+	{
+		return 0.1 * price;
 	}
 }

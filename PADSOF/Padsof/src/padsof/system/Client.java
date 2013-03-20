@@ -1,21 +1,22 @@
 package padsof.system;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.*;
-
 import padsof.db.DBObject;
+
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
 public class Client extends DBObject
-{	
+{
 	@DatabaseField
 	private String name;
-	
+
 	@DatabaseField
 	private String surname;
-	
+
 	@DatabaseField
 	private String DNI;
+
 	/**
 	 * @return the name
 	 */
@@ -23,13 +24,16 @@ public class Client extends DBObject
 	{
 		return name;
 	}
+
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name)
 	{
 		this.name = name;
 	}
+
 	/**
 	 * @return the surname
 	 */
@@ -37,13 +41,16 @@ public class Client extends DBObject
 	{
 		return surname;
 	}
+
 	/**
-	 * @param surname the surname to set
+	 * @param surname
+	 *            the surname to set
 	 */
 	public void setSurname(String surname)
 	{
 		this.surname = surname;
 	}
+
 	/**
 	 * @return the dNI
 	 */
@@ -51,8 +58,10 @@ public class Client extends DBObject
 	{
 		return DNI;
 	}
+
 	/**
-	 * @param dNI the dNI to set
+	 * @param dNI
+	 *            the dNI to set
 	 */
 	public void setDNI(String dNI)
 	{

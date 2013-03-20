@@ -48,46 +48,58 @@ public class Hotel extends Service
 	@DatabaseField
 	private String services;
 
-	public Hotel(){
-		
+	public Hotel()
+	{
+
 	}
-	public Hotel (String country, String city, String name, String phone, String address,
-				String postalcode,String category, double simple, double doublep,
-				double triple, double supplement,double mpSupplement,
-				double pcSupplement,String services){
+
+	public Hotel(String country, String city, String name, String phone,
+			String address, String postalcode, String category, double simple,
+			double doublep, double triple, double supplement,
+			double mpSupplement, double pcSupplement, String services)
+	{
 		this.country = country;
 		this.city = city;
 		this.name = name;
 		this.phone = phone;
 		this.address = address;
-		this.postalCode = postalcode;
+		postalCode = postalcode;
 		this.category = category;
-		this.simplePrice = simple;
+		simplePrice = simple;
 		doublePrice = doublep;
-		this.triplePrice = triple;
+		triplePrice = triple;
 		this.supplement = supplement;
-		if (supplement == 0) this.hasBreakfast = false;
-		else hasBreakfast = true;
+		if (supplement == 0)
+			hasBreakfast = false;
+		else
+			hasBreakfast = true;
 		this.mpSupplement = mpSupplement;
 		this.pcSupplement = pcSupplement;
 		this.services = services;
 	}
+
+	@Override
 	public String getName()
 	{
 		return name;
 	}
+
+	@Override
 	public void setName(String name)
 	{
 		this.name = name;
 	}
+
 	public String getServices()
 	{
 		return services;
 	}
+
 	public void setServices(String services)
 	{
 		this.services = services;
 	}
+
 	/**
 	 * @return the country
 	 */
@@ -309,10 +321,15 @@ public class Hotel extends Service
 		this.pcSupplement = pcSupplement;
 	}
 
-	public double getTotalPrice(int simple,int doublep, int triple){
-		return (simple * this.simplePrice + doublep * this.doublePrice + triple*this.triplePrice);
-		}
-	public double getBookingPrice(int simple,int doublep, int triple){
-		return 0.1*(simple * this.simplePrice + doublep * this.doublePrice + triple*this.triplePrice);
+	public double getTotalPrice(int simple, int doublep, int triple)
+	{
+		return simple * simplePrice + doublep * doublePrice + triple
+				* triplePrice;
+	}
+
+	public double getBookingPrice(int simple, int doublep, int triple)
+	{
+		return 0.1 * (simple * simplePrice + doublep * doublePrice + triple
+				* triplePrice);
 	}
 }

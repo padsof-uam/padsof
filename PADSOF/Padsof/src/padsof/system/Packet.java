@@ -1,19 +1,10 @@
 package padsof.system;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
-import padsof.bookings.Booking;
-import padsof.bookings.FlightBooking;
-import padsof.bookings.HotelBooking;
-import padsof.bookings.ImsersoTravelBooking;
-import padsof.bookings.TravelBooking;
-import padsof.db.DBObject;
-import padsof.db.DBWrapper;
+import padsof.bookings.*;
+import padsof.db.*;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -56,12 +47,8 @@ public class Packet extends DBObject
 		Date min = new Date(Long.MAX_VALUE);
 
 		for (Booking aux : getBookings())
-		{
 			if (min.compareTo(aux.getStart()) >= 0)
-			{
 				min = aux.getStart();
-			}
-		}
 		return min;
 	}
 
@@ -76,10 +63,8 @@ public class Packet extends DBObject
 		Date max = new Date(Long.MIN_VALUE);
 
 		for (Booking aux : getBookings())
-		{
 			if (max.compareTo(aux.getEnd()) <= 0)
 				max = aux.getEnd();
-		}
 		return max;
 	}
 
@@ -87,16 +72,14 @@ public class Packet extends DBObject
 	 * checks if all the bookings of the packet are payed.
 	 * 
 	 * @return true if all bookings are payed, false if not.
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public boolean checkIfAllPayed() throws SQLException
 	{
 
 		for (Booking aux : getBookings())
-		{
 			if (!aux.isPayed())
 				return false;
-		}
 		return true;
 	}
 
@@ -171,21 +154,25 @@ public class Packet extends DBObject
 	 * @throws SQLException
 	 */
 	List<Booking> bookings;
-	
+
 	public void refreshBookings() throws SQLException
 	{
 		bookings = new ArrayList<Booking>();
-		bookings.addAll(DBWrapper.getInstance().get(FlightBooking.class, "pertainingPacket", this));
-		bookings.addAll(DBWrapper.getInstance().get(HotelBooking.class, "pertainingPacket", this));
-		bookings.addAll(DBWrapper.getInstance().get(TravelBooking.class, "pertainingPacket", this));
-		bookings.addAll(DBWrapper.getInstance().get(ImsersoTravelBooking.class, "pertainingPacket", this));
+		bookings.addAll(DBWrapper.getInstance().get(FlightBooking.class,
+				"pertainingPacket", this));
+		bookings.addAll(DBWrapper.getInstance().get(HotelBooking.class,
+				"pertainingPacket", this));
+		bookings.addAll(DBWrapper.getInstance().get(TravelBooking.class,
+				"pertainingPacket", this));
+		bookings.addAll(DBWrapper.getInstance().get(ImsersoTravelBooking.class,
+				"pertainingPacket", this));
 	}
-	
+
 	public List<Booking> getBookings() throws SQLException
 	{
-		if(bookings == null)
+		if (bookings == null)
 			refreshBookings();
-		
+
 		return bookings;
 	}
 }

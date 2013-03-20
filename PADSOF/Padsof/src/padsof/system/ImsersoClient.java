@@ -10,7 +10,6 @@ import com.j256.ormlite.table.DatabaseTable;
 
 /**
  * @author gjulianm
- *
  */
 
 @DatabaseTable
@@ -18,10 +17,10 @@ public class ImsersoClient extends Client
 {
 	@DatabaseField
 	private long ssNumber;
-	
+
 	@DatabaseField
 	private Date birth;
-	
+
 	/**
 	 * @return the ssNumber
 	 */
@@ -29,13 +28,16 @@ public class ImsersoClient extends Client
 	{
 		return ssNumber;
 	}
+
 	/**
-	 * @param ssNumber the ssNumber to set
+	 * @param ssNumber
+	 *            the ssNumber to set
 	 */
 	public void setSsNumber(long ssNumber)
 	{
 		this.ssNumber = ssNumber;
 	}
+
 	/**
 	 * @return the birth date
 	 */
@@ -43,11 +45,13 @@ public class ImsersoClient extends Client
 	{
 		return birth;
 	}
+
 	/**
-	 * @param date the birth to set
+	 * @param date
+	 *            the birth to set
 	 */
 	public void setBirth(Date date)
 	{
-		this.birth = date;
+		birth = date;
 	}
 }

@@ -35,7 +35,7 @@ public class Vendor extends DBObject
 
 	public Vendor()
 	{
-		
+
 	}
 
 	public String getName()
@@ -64,7 +64,7 @@ public class Vendor extends DBObject
 		sha256.update(pass.getBytes("UTF-8"));
 		return new String(sha256.digest(), "UTF-8");
 	}
-	
+
 	public boolean checkPassword(String pass) throws Exception
 	{
 		return hashPassword(pass).equals(hashedPassword);
@@ -72,14 +72,14 @@ public class Vendor extends DBObject
 
 	public void setPassword(String password) throws Exception
 	{
-		this.hashedPassword = hashPassword(password);
+		hashedPassword = hashPassword(password);
 	}
 
 	public boolean IsAdmin()
 	{
 		return isAdmin;
 	}
-	
+
 	public void becomeAdmin()
 	{
 		isAdmin = true;
@@ -87,29 +87,33 @@ public class Vendor extends DBObject
 
 	public boolean contains(Booking b)
 	{
-		return this.contains(b);
+		return contains(b);
 	}
 
 	// Statistics:
 	List<Booking> bookings = null;
-	
+
 	public void refreshBookings()
 	{
 		bookings = null;
 	}
-	
+
 	public List<Booking> getBookings() throws SQLException
 	{
-		if(bookings != null)
+		if (bookings != null)
 			return bookings;
-		
+
 		bookings = new ArrayList<Booking>();
-		
-		bookings.addAll(DBWrapper.getInstance().get(FlightBooking.class, "vendor", this));
-		bookings.addAll(DBWrapper.getInstance().get(HotelBooking.class, "vendor", this));
-		bookings.addAll(DBWrapper.getInstance().get(TravelBooking.class, "vendor", this));
-		bookings.addAll(DBWrapper.getInstance().get(ImsersoTravelBooking.class, "vendor", this));
-		
+
+		bookings.addAll(DBWrapper.getInstance().get(FlightBooking.class,
+				"vendor", this));
+		bookings.addAll(DBWrapper.getInstance().get(HotelBooking.class,
+				"vendor", this));
+		bookings.addAll(DBWrapper.getInstance().get(TravelBooking.class,
+				"vendor", this));
+		bookings.addAll(DBWrapper.getInstance().get(ImsersoTravelBooking.class,
+				"vendor", this));
+
 		return bookings;
 	}
 }

@@ -3,37 +3,39 @@ package padsof.services;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-
 @DatabaseTable
 public class Travel extends Service
-{	
+{
 	@DatabaseField
 	private String company;
-	
+
 	@DatabaseField
 	private String phone;
-	
+
 	@DatabaseField
 	private int days;
-	
+
 	@DatabaseField
 	private int nights;
-	
+
 	@DatabaseField
 	private String start;
-	
+
 	@DatabaseField
 	private String departingCity;
-	
+
 	@DatabaseField
 	private String visitedCities;
-	
-	public Travel(){
+
+	public Travel()
+	{
 
 	}
-	public Travel(String name, String company, String phone,
-		double price, int days, int nights, String dates,
-		String departure, String visited, String description){
+
+	public Travel(String name, String company, String phone, double price,
+			int days, int nights, String dates, String departure,
+			String visited, String description)
+	{
 		this.name = name;
 		this.company = company;
 		this.price = price;
@@ -41,36 +43,44 @@ public class Travel extends Service
 		this.price = price;
 		this.days = days;
 		this.nights = nights;
-		this.start = dates;
-		this.departingCity = departure;
-		this.visitedCities = visited;
+		start = dates;
+		departingCity = departure;
+		visitedCities = visited;
 		this.description = description;
 	}
+
 	/**
 	 * 
 	 */
+	@Override
 	public String getName()
 	{
 		return name;
 	}
+
 	/**
 	 * 
 	 */
-	
+
+	@Override
 	public void setName(String name)
 	{
 		this.name = name;
 	}
+
 	/**
 	 * 
 	 */
+	@Override
 	public String getDescription()
 	{
 		return description;
 	}
+
 	/**
 	 * 
 	 */
+	@Override
 	public void setDescription(String description)
 	{
 		this.description = description;
@@ -80,7 +90,7 @@ public class Travel extends Service
 	 * @param start
 	 *            the start to set
 	 */
-	
+
 	public void setStart(String start)
 	{
 		this.start = start;
@@ -123,6 +133,7 @@ public class Travel extends Service
 	/**
 	 * @return the price
 	 */
+	@Override
 	public double getPrice()
 	{
 		return price;
@@ -132,6 +143,7 @@ public class Travel extends Service
 	 * @param price
 	 *            the price to set
 	 */
+	@Override
 	public void setPrice(double price)
 	{
 		this.price = price;
@@ -212,8 +224,10 @@ public class Travel extends Service
 	{
 		this.visitedCities = visitedCities;
 	}
-	public double getBookingPrice(){
-		return 0.1*price;
+
+	@Override
+	public double getBookingPrice()
+	{
+		return 0.1 * price;
 	}
 }
-

@@ -18,7 +18,8 @@ public class CSVReader implements Closeable
 	private Scanner getScanner() throws FileNotFoundException, IOException
 	{
 		if (scanner == null)
-			scanner = new Scanner(new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1")));
+			scanner = new Scanner(new BufferedReader(new InputStreamReader(
+					new FileInputStream(file), "ISO-8859-1")));
 
 		return scanner;
 	}
@@ -59,7 +60,6 @@ public class CSVReader implements Closeable
 		getScanner().reset();
 
 		while (!fileFinished)
-		{
 			try
 			{
 				rows.add(parseLine());
@@ -68,7 +68,6 @@ public class CSVReader implements Closeable
 			{
 				fileFinished = true;
 			}
-		}
 
 		return rows;
 	}
@@ -97,6 +96,7 @@ public class CSVReader implements Closeable
 		return items;
 	}
 
+	@Override
 	public void close()
 	{
 		if (scanner != null)

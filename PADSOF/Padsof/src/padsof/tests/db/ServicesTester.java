@@ -1,19 +1,13 @@
 package padsof.tests.db;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 import padsof.db.DBWrapper;
-import padsof.services.Flight;
-import padsof.services.Hotel;
-import padsof.services.ImsersoTravel;
-import padsof.services.Travel;
+import padsof.services.*;
 
 public class ServicesTester
 {
@@ -62,12 +56,12 @@ public class ServicesTester
 				"San Sebastian 2",
 				"28012",
 				"4",
-				(double) 80,
-				(double) 120,
-				(double) 160,
-				(double) 15,
-				(double) 40,
-				(double) 60,
+				80,
+				120,
+				160,
+				15,
+				40,
+				60,
 				"Restaurante, Bar, Recepción 24 horas, Prensa , Habitaciones no fumadores, Adaptado personas de movilidad reducida, Ascensor, Registro de entrada y salida exprés, Caja fuerte, Calefacción, Hotel de diseño, Guardaequipaje, Aire acondicionado, Zona de fumadores, Restaurante (a la carta), free wifi");
 
 		db.save(h);
@@ -81,10 +75,9 @@ public class ServicesTester
 	public void testCreateSaveImsersoTravel() throws IllegalArgumentException,
 			IllegalAccessException, SQLException
 	{
-		ImsersoTravel it = new ImsersoTravel("Mallorca-temporada baja",
-				(double) 125, 8, 7, "1 al 17 de diciembre, 1 al 31 de Enero",
-				"Madrid", "Mallorca",
-				"Vuelo, Hotel 3* en régimen de PC y desplazamiento");
+		ImsersoTravel it = new ImsersoTravel("Mallorca-temporada baja", 125, 8,
+				7, "1 al 17 de diciembre, 1 al 31 de Enero", "Madrid",
+				"Mallorca", "Vuelo, Hotel 3* en régimen de PC y desplazamiento");
 
 		db.save(it);
 
@@ -101,7 +94,7 @@ public class ServicesTester
 				"Mallorca-1",
 				"Halc�n Viajes",
 				"91 218 21 28",
-				(double) 190,
+				190,
 				3,
 				2,
 				"Todos los lunes de Enero-Mayo y Octubre-Diciembre. Todos los d�as de Junio a Septiembre",

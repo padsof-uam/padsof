@@ -1,13 +1,14 @@
 package padsof.tests;
 
-import static org.junit.Assert.*;
-import static padsof.tests.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static padsof.tests.Assert.assertListEquals;
+
+import java.io.*;
+import java.util.*;
+
 import org.junit.*;
 
 import padsof.csv.CSVReader;
-
-import java.util.*;
-import java.io.*;
 
 public class CSVReaderTester
 {
@@ -37,12 +38,12 @@ public class CSVReaderTester
 								// behaves well.
 				else
 					field = Integer.toHexString(rand.nextInt(1276531));
-				
+
 				fields.get(i).add(field);
-				
-				if(j < columns - 1)
+
+				if (j < columns - 1)
 					field += ";";
-				
+
 				writer.write(field);
 			}
 			writer.write("\n");
@@ -81,18 +82,16 @@ public class CSVReaderTester
 
 		assertEquals(fields.size(), fs.size());
 		for (int i = 0; i < fs.size(); i++)
-		{
 			assertListEquals(fields.get(i), fs.get(i));
-		}
 		reader.close();
 
 	}
-	
-	@AfterClass 
+
+	@AfterClass
 	public static void shutdown()
 	{
 		File f = new File(file);
-		if(f.exists())
+		if (f.exists())
 			f.delete();
 	}
 }

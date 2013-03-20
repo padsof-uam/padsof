@@ -1,10 +1,10 @@
 package padsof.system;
 
-import padsof.bookings.*;
-
 import java.sql.SQLException;
 import java.util.*;
-import padsof.db.*;
+
+import padsof.bookings.*;
+import padsof.db.DBWrapper;
 
 public class StatsReporter
 {
@@ -54,12 +54,10 @@ public class StatsReporter
 		double money = 0;
 
 		for (Booking b : getAllBookings())
-		{
 			if (b.isPayed())
 				money += b.getAssociatedService().getPrice();
 			else if (b.getState() == PaymentState.Booked)
 				money += b.getAssociatedService().getBookingPrice();
-		}
 
 		return money;
 	}
@@ -69,12 +67,10 @@ public class StatsReporter
 		double money = 0;
 
 		for (Booking b : vendor.getBookings())
-		{
 			if (b.isPayed())
 				money += b.getAssociatedService().getPrice();
 			else if (b.getState() == PaymentState.Booked)
 				money += b.getAssociatedService().getBookingPrice();
-		}
 
 		return money;
 	}
@@ -84,10 +80,8 @@ public class StatsReporter
 		double money = 0;
 
 		for (Booking b : getAllBookings())
-		{
 			if (b.getState() != PaymentState.None)
 				money += b.getAssociatedService().getPrice();
-		}
 
 		return money;
 	}
@@ -97,10 +91,8 @@ public class StatsReporter
 		double money = 0;
 
 		for (Booking b : vendor.getBookings())
-		{
 			if (b.getState() != PaymentState.None)
 				money += b.getAssociatedService().getPrice();
-		}
 
 		return money;
 	}

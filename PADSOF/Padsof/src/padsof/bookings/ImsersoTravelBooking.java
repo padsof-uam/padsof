@@ -5,13 +5,11 @@ package padsof.bookings;
 
 import java.util.Date;
 
+import padsof.services.ImsersoTravel;
+import padsof.system.*;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-
-import padsof.services.*;
-import padsof.system.Client;
-import padsof.system.ImsersoClient;
-import padsof.system.Vendor;
 
 /**
  * @author gjulianm
@@ -27,19 +25,23 @@ public class ImsersoTravelBooking extends Booking
 			foreignAutoRefresh = true)
 	private ImsersoTravel associatedService;
 
-	@DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
-	private ImsersoClient iClient; // Forget the inherited Client field for DB purposes.
-	
+	@DatabaseField(foreign = true, foreignAutoCreate = true,
+			foreignAutoRefresh = true)
+	private ImsersoClient iClient; // Forget the inherited Client field for DB
+									// purposes.
+
 	public ImsersoTravelBooking(ImsersoTravel service, ImsersoClient client,
 			Date start, Date end, Vendor vendor)
 	{
 		super(client, start, end, vendor);
-		iClient = client;		
-		this.associatedService = service;
+		iClient = client;
+		associatedService = service;
 	}
 
-	public ImsersoTravelBooking(){}
-	
+	public ImsersoTravelBooking()
+	{
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see padsof.bookings.Booking#getAssociatedService()
@@ -71,13 +73,13 @@ public class ImsersoTravelBooking extends Booking
 	{
 		this.couponCode = couponCode;
 	}
-	
+
 	@Override
 	public Client getClient()
 	{
 		return iClient;
 	}
-	
+
 	public void setClient(ImsersoClient client)
 	{
 		iClient = client;

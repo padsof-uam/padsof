@@ -20,6 +20,7 @@ public class SampleSimpleClass
 		privateField = s;
 	}
 
+	@Override
 	public boolean equals(Object obj)
 	{
 		if (obj == null)

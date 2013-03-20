@@ -1,8 +1,8 @@
 package padsof.services;
 
-import com.j256.ormlite.field.DatabaseField;
-
 import padsof.db.DBObject;
+
+import com.j256.ormlite.field.DatabaseField;
 
 public abstract class Service extends DBObject
 {
@@ -48,14 +48,15 @@ public abstract class Service extends DBObject
 	{
 		this.price = price;
 	}
-	
+
 	/**
-	 * 
 	 * @return the price to pay for booking the service
 	 */
-	public double getBookingPrice(){
-		return 0.1*price;
+	public double getBookingPrice()
+	{
+		return 0.1 * price;
 	}
+
 	/**
 	 * @return the name
 	 */

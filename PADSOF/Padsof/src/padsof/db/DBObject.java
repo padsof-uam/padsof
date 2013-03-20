@@ -6,7 +6,7 @@ public abstract class DBObject
 {
 	@DatabaseField(generatedId = true)
 	protected long id;
-	
+
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -21,7 +21,7 @@ public abstract class DBObject
 
 		return rhs.id == id;
 	}
-	
+
 	@Override
 	public String toString()
 	{

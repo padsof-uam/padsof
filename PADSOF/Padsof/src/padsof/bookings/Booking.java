@@ -2,14 +2,13 @@ package padsof.bookings;
 
 import java.util.Date;
 
-import com.j256.ormlite.field.DatabaseField;
 import padsof.db.DBObject;
+import padsof.services.Service;
 import padsof.system.*;
 
-import es.uam.eps.pads.services.InvalidParameterException;
+import com.j256.ormlite.field.DatabaseField;
 
-import padsof.services.Service;
-import padsof.system.Client;
+import es.uam.eps.pads.services.InvalidParameterException;
 
 public abstract class Booking extends DBObject
 {
@@ -29,11 +28,10 @@ public abstract class Booking extends DBObject
 	@DatabaseField(foreign = true, foreignAutoCreate = true,
 			foreignAutoRefresh = true)
 	private Vendor vendor;
-	
-	@DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
+
+	@DatabaseField(foreign = true, foreignAutoCreate = true,
+			foreignAutoRefresh = true)
 	private Packet pertainingPacket;
-	
-	
 
 	/**
 	 * @return the pertainingPacket
@@ -44,7 +42,8 @@ public abstract class Booking extends DBObject
 	}
 
 	/**
-	 * @param pertainingPacket the pertainingPacket to set
+	 * @param pertainingPacket
+	 *            the pertainingPacket to set
 	 */
 	public void setPertainingPacket(Packet pertainingPacket)
 	{
@@ -67,7 +66,7 @@ public abstract class Booking extends DBObject
 	public Booking(Client client, Date start, Date end, Vendor vendor)
 	{
 		this.client = client;
-		this.state = PaymentState.None;
+		state = PaymentState.None;
 		this.start = start;
 		this.end = end;
 		this.vendor = vendor;
@@ -156,7 +155,7 @@ public abstract class Booking extends DBObject
 
 	public void setVendorUser(Vendor vendorUser)
 	{
-		this.vendor = vendorUser;
+		vendor = vendorUser;
 	}
 
 	/**
@@ -224,9 +223,7 @@ public abstract class Booking extends DBObject
 	public void cancel() throws InvalidParameterException
 	{
 		if (getState() != PaymentState.None)
-		{
 			setState(PaymentState.None);
-		}
 		else
 			throw new UnsupportedOperationException(
 					"This service is already cancel");

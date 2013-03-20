@@ -5,12 +5,11 @@ package padsof.bookings;
 
 import java.util.Date;
 
+import padsof.services.Hotel;
+import padsof.system.*;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-
-import padsof.services.Hotel;
-import padsof.system.Client;
-import padsof.system.Vendor;
 
 /**
  * @author gjulianm
@@ -27,10 +26,12 @@ public class HotelBooking extends Booking
 			Vendor vendor)
 	{
 		super(client, start, end, vendor);
-		this.associatedService = service;
+		associatedService = service;
 	}
-	
-	public HotelBooking() {}
+
+	public HotelBooking()
+	{
+	}
 
 	/*
 	 * (non-Javadoc)

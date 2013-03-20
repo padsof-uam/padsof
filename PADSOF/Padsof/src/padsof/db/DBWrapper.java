@@ -4,28 +4,18 @@
 package padsof.db;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.*;
 import java.sql.SQLException;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 import padsof.utils.Reflection;
 
-import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.*;
 import com.j256.ormlite.dao.Dao.CreateOrUpdateStatus;
-import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.field.*;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
-import com.j256.ormlite.table.TableUtils;
-
-import com.j256.ormlite.table.DatabaseTable;
+import com.j256.ormlite.table.*;
 
 /**
  * @author gjulianm
@@ -73,27 +63,26 @@ public class DBWrapper
 	}
 
 	private List<Class<?>> classesWithCreatedTables = new ArrayList<Class<?>>();
+
 	private void ensureTablesGeneratedFor(Class<?> cls) throws SQLException
 	{
 		Stack<Class<?>> pendingClasses = new Stack<Class<?>>();
 
 		pendingClasses.push(cls);
-		
+
 		while (!pendingClasses.empty())
 		{
 			cls = pendingClasses.pop();
 
-			if(classesWithCreatedTables.contains(cls))
+			if (classesWithCreatedTables.contains(cls))
 				continue;
-			
+
 			for (Field f : Reflection.getAllFieldsFrom(cls))
 			{
 				Class<?> type = f.getType();
 				if (type.isAnnotationPresent(DatabaseTable.class)
 						&& !pendingClasses.contains(type))
-				{
 					pendingClasses.push(type);
-				}
 				else if (f.isAnnotationPresent(ForeignCollectionField.class)
 						&& Collection.class.isAssignableFrom(type))
 				{
@@ -103,7 +92,7 @@ public class DBWrapper
 						pendingClasses.push(genericType);
 				}
 			}
-			
+
 			TableUtils.createTableIfNotExists(dataSource, cls);
 			classesWithCreatedTables.add(cls);
 		}
