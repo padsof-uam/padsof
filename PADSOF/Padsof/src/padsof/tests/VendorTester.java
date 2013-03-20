@@ -7,7 +7,7 @@ import org.junit.*;
 import padsof.db.DBWrapper;
 import padsof.system.Vendor;
 
-public class vendorTester
+public class VendorTester
 {
 	private static Vendor testVendor;
 	private static DBWrapper db;
