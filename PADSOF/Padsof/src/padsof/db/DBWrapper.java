@@ -45,10 +45,15 @@ public class DBWrapper
 	public DBWrapper(String dbName) throws SQLException
 	{
 		dbFile = dbName + ".sqlite";
-		dataSource = new JdbcConnectionSource("jdbc:sqlite:" + dbFile);
 		instance = this;
+		open();
 	}
 
+	public void open() throws SQLException
+	{
+		dataSource = new JdbcConnectionSource("jdbc:sqlite:" + dbFile);
+	}
+	
 	public Dao<?, Long> getDaoFor(Class<?> cls) throws SQLException
 	{
 		if (daos.containsKey(cls.getName()))
@@ -171,8 +176,9 @@ public class DBWrapper
 
 	public void clear() throws ClassNotFoundException, SQLException
 	{
-		for (String cls : daos.keySet())
-			clear(Class.forName(cls));
+		close();
+		delete();
+		open();
 	}
 
 	public <T> void save(Iterable<T> items) throws SQLException,

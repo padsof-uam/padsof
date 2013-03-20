@@ -17,6 +17,11 @@ public class StatsReporterTester
 	private static DBWrapper db;
 	private static Vendor vendor1, vendor2;
 
+	/**
+	 * Inicialización con todos los datos.
+	 * 
+	 * @throws Exception
+	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
 	{
@@ -151,6 +156,12 @@ public class StatsReporterTester
 		db.delete();
 	}
 
+	/**
+	 * Comprueba que todos los métodos de reporte de estadísticas funcionen
+	 * adecuadamente y sin errores.
+	 * 
+	 * @throws SQLException
+	 */
 	@Test
 	public void test() throws SQLException
 	{

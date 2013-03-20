@@ -12,9 +12,6 @@ public class VendorTester
 	private static Vendor testVendor;
 	private static DBWrapper db;
 
-	/**
-	 * @throws Exception
-	 */
 	@BeforeClass
 	public static void setUp() throws Exception
 	{
@@ -29,6 +26,10 @@ public class VendorTester
 		db.delete();
 	}
 
+	/**
+	 * Comprueba que el hashing de contraseñas funcione correctamente.
+	 * @throws Exception
+	 */
 	@Test
 	public void testPasswordHashing() throws Exception
 	{
