@@ -144,11 +144,9 @@ public abstract class Booking extends DBObject
 	/**
 	 * @return true if is Payed, false if not
 	 */
-	public boolean checkIfPayed()
+	public boolean isPayed()
 	{
-		if (state == PaymentState.Payed)
-			return true;
-		return false;
+		return state == PaymentState.Payed;
 	}
 
 	public Vendor getVendorUser()

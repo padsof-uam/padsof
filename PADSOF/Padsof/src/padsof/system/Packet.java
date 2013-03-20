@@ -94,7 +94,7 @@ public class Packet extends DBObject
 
 		for (Booking aux : getBookings())
 		{
-			if (!aux.checkIfPayed())
+			if (!aux.isPayed())
 				return false;
 		}
 		return true;

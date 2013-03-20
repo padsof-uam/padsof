@@ -1,33 +1,17 @@
 package padsof.tests.db;
 
-import static org.junit.Assert.*;
-import static padsof.tests.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static padsof.tests.Assert.assertAreSameCollection;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
-import padsof.bookings.BookingFactory;
-import padsof.bookings.FlightBooking;
-import padsof.bookings.HotelBooking;
-import padsof.bookings.ImsersoTravelBooking;
-import padsof.bookings.Passenger;
-import padsof.bookings.TravelBooking;
+import padsof.bookings.*;
 import padsof.db.DBWrapper;
-import padsof.services.Flight;
-import padsof.services.Hotel;
-import padsof.services.ImsersoTravel;
-import padsof.services.Travel;
-import padsof.system.Client;
-import padsof.system.ImsersoClient;
-import padsof.system.Packet;
-import padsof.system.Vendor;
-import padsof.tests.Assert;
+import padsof.services.*;
+import padsof.system.*;
 
 public class SystemObjectsTest
 {

@@ -3,15 +3,8 @@ package padsof.bookings;
 import java.sql.SQLException;
 import java.util.Date;
 
-import padsof.db.DBWrapper;
-import padsof.services.Flight;
-import padsof.services.Hotel;
-import padsof.services.ImsersoTravel;
-import padsof.services.Service;
-import padsof.services.Travel;
-import padsof.system.Client;
-import padsof.system.ImsersoClient;
-import padsof.system.Vendor;
+import padsof.services.*;
+import padsof.system.*;
 
 public class BookingFactory
 {

@@ -2,17 +2,10 @@ package padsof.system;
 
 import java.security.MessageDigest;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import padsof.bookings.Booking;
-import padsof.bookings.FlightBooking;
-import padsof.bookings.HotelBooking;
-import padsof.bookings.ImsersoTravelBooking;
-import padsof.bookings.PaymentState;
-import padsof.bookings.TravelBooking;
-import padsof.db.DBObject;
-import padsof.db.DBWrapper;
+import padsof.bookings.*;
+import padsof.db.*;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -119,39 +112,4 @@ public class Vendor extends DBObject
 		
 		return bookings;
 	}
-	
-	public int getNumberBookings() throws SQLException
-	{
-		return getBookings().size();
-	}
-
-	public int getNumberConfirmed() throws SQLException
-	{
-		int i = 0;
-		for (Booking iterator : getBookings())
-			if (iterator.getState() == PaymentState.Payed)
-				i++;
-		return i;
-	}
-
-	public int getNumberCanceled() throws SQLException
-	{
-		int i = 0;
-		for (Booking iterator : getBookings())
-			if (iterator.getState() == PaymentState.None)
-				i++;
-		return i;
-	}
-
-	public double getMoneyGot() throws SQLException
-	{
-		int i = 0;
-		for (Booking iterator : getBookings())
-			if (iterator.getState() == PaymentState.Payed)
-				i += iterator.getAssociatedService().getPrice();
-			else if (iterator.getState() == PaymentState.Booked)
-				i += iterator.getAssociatedService().getBookingPrice();
-		return i;
-	}
-
 }
