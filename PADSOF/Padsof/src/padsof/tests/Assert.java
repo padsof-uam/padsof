@@ -28,7 +28,7 @@ public class Assert
 			if(item.equals(object))
 				return;
 		
-		fail();
+		fail("list doesn't contain " + object.toString());
 	}
 	
 	public static <T> void assertListDoesntContain(Iterable<T> list, T object)

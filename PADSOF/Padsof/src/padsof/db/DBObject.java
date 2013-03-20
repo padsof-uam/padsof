@@ -7,6 +7,7 @@ public abstract class DBObject
 	@DatabaseField(generatedId = true)
 	protected long id;
 	
+	@Override
 	public boolean equals(Object obj)
 	{
 		if (obj == null)
@@ -19,5 +20,11 @@ public abstract class DBObject
 		DBObject rhs = (DBObject) obj;
 
 		return rhs.id == id;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return getClass().getName() + ":id-" + id;
 	}
 }

@@ -40,6 +40,11 @@ public class Vendor extends DBObject
 		isAdmin = false;
 	}
 
+	public Vendor()
+	{
+		
+	}
+
 	public String getName()
 	{
 		return name;

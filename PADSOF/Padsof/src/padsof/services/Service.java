@@ -9,11 +9,11 @@ public abstract class Service extends DBObject
 	@DatabaseField
 	private double cost;
 	@DatabaseField
-	private double price;
+	protected double price;
 	@DatabaseField
-	private String name;
+	protected String name;
 	@DatabaseField
-	private String description;
+	protected String description;
 
 	/**
 	 * @return the cost

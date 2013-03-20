@@ -8,16 +8,6 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class ImsersoTravel extends Service
 {
-
-	@DatabaseField(generatedId = true)
-	private long id;
-	
-	@DatabaseField
-	private String name;
-	
-	@DatabaseField
-	private double price;
-
 	@DatabaseField
 	private int days;
 
@@ -32,11 +22,6 @@ public class ImsersoTravel extends Service
 
 	@DatabaseField
 	private String visitedCities;
-
-	@DatabaseField
-	private String description;
-
-
 	
 	public ImsersoTravel(){
 

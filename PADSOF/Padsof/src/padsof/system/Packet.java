@@ -9,8 +9,6 @@ public class Packet
 	private ArrayList<Booking> bookings = new ArrayList<Booking>();
 	private boolean isClose = false;
 	
-	
-	
 	/**
 	 * 
 	 * @param book to add to the packet

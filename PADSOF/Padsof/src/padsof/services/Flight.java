@@ -5,10 +5,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
 public class Flight extends Service
-{
-	@DatabaseField(generatedId = true)
-	private long id;
-	
+{	
 	@DatabaseField
 	private String localizer;
 

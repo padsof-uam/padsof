@@ -7,10 +7,7 @@ import padsof.db.DBObject;
 
 @DatabaseTable
 public class Client extends DBObject
-{
-	@DatabaseField(generatedId = true)
-	protected long id;
-	
+{	
 	@DatabaseField
 	private String name;
 	

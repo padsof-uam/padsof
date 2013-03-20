@@ -4,10 +4,13 @@
 package padsof.db;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.sql.SQLException;
 
 import java.util.HashMap;
 import java.util.List;
+
+import padsof.utils.Reflection;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.Dao.CreateOrUpdateStatus;
@@ -16,6 +19,7 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
+import com.j256.ormlite.table.DatabaseTable;
 /**
  * @author gjulianm
  */
@@ -55,10 +59,19 @@ public class DBWrapper
 
 		Dao<?, Long> dao = DaoManager.createDao(dataSource, cls);
 		daos.put(cls.getName(), dao);
-
-		TableUtils.createTableIfNotExists(dataSource, cls);
+		
+		ensureTablesGeneratedFor(cls);
 
 		return dao;
+	}
+	
+	private void ensureTablesGeneratedFor(Class<?> cls) throws SQLException
+	{
+		TableUtils.createTableIfNotExists(dataSource, cls);
+		
+		for(Field f : Reflection.getAllFieldsFrom(cls))
+			if(f.getType().isAnnotationPresent(DatabaseTable.class))
+				ensureTablesGeneratedFor(f.getType());
 	}
 
 	@SuppressWarnings("unchecked")

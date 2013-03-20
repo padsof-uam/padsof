@@ -43,8 +43,6 @@ public class BookingFactory
 					+ service.getClass().getName()
 					+ " doesn't have a booking constructor.");
 		
-		DBWrapper.getInstance().save(booking);
-		
 		return booking;
 	}
 
@@ -72,9 +70,9 @@ public class BookingFactory
 			Client client, Date start, Date end)
 	{
 		if (!ImsersoClient.class.isInstance(client))
-			throw new UnsupportedOperationException(
+			throw new UnsupportedOperationException( 
 					"Client must be ImsersoClient");
-		return new ImsersoTravelBooking(service, client, start, end,
+		return new ImsersoTravelBooking(service, (ImsersoClient) client, start, end,
 				this.vendor);
 	}
 }

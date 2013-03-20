@@ -50,6 +50,7 @@ public class FlightBooking extends Booking
 	public void addPassenger(Passenger passenger) throws IllegalArgumentException, IllegalAccessException, SQLException
 	{
 		passenger.setFlight(this);
+		DBWrapper.getInstance().save(this);
 		DBWrapper.getInstance().save(passenger);
 	}
 	
@@ -58,6 +59,7 @@ public class FlightBooking extends Booking
 		if(this.equals(passenger.getFlight()))
 		{
 			passenger.setFlight(null);
+			DBWrapper.getInstance().save(this);
 			DBWrapper.getInstance().save(passenger);
 		}
 	}

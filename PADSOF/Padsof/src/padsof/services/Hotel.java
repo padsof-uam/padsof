@@ -6,9 +6,6 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class Hotel extends Service
 {
-	@DatabaseField(generatedId = true)
-	private long id;
-
 	@DatabaseField
 	private String country;
 
@@ -47,9 +44,6 @@ public class Hotel extends Service
 
 	@DatabaseField
 	private double pcSupplement;
-
-	@DatabaseField
-	private String name;
 
 	@DatabaseField
 	private String services;

@@ -5,13 +5,21 @@ package padsof.system;
 
 import java.util.Date;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 /**
  * @author gjulianm
  *
  */
+
+@DatabaseTable
 public class ImsersoClient extends Client
 {
+	@DatabaseField
 	private long ssNumber;
+	
+	@DatabaseField
 	private Date birth;
 	
 	/**
