@@ -3,8 +3,6 @@ package padsof.bookings;
 import java.util.Date;
 
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-
 import padsof.db.DBObject;
 import padsof.system.*;
 

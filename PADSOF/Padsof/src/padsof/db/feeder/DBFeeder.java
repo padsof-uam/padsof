@@ -1,25 +1,16 @@
 package padsof.db.feeder;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.IllegalFormatException;
 import java.util.List;
-
-import es.uam.eps.pads.services.Info;
-import es.uam.eps.pads.services.InvalidParameterException;
-import es.uam.eps.pads.services.ServicesFactory;
-import es.uam.eps.pads.services.flights.AirportInfo;
-import es.uam.eps.pads.services.flights.FlightsProvider;
 
 import padsof.csv.CSVCreator;
 import padsof.csv.CSVReader;
 import padsof.csv.InvalidFormatException;
 import padsof.db.DBWrapper;
-import padsof.services.*;
-import padsof.system.*;
+import padsof.services.Hotel;
+import padsof.services.ImsersoTravel;
+import padsof.services.Travel;
 
 public class DBFeeder
 {

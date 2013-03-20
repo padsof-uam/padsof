@@ -1,28 +1,23 @@
 package padsof.tests;
 
-import static org.junit.Assert.*;
-import static padsof.tests.Assert.*;
+import static padsof.tests.Assert.assertFieldWiseEquals;
 
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import padsof.db.feeder.*;
+import padsof.db.feeder.DBFeeder;
 import padsof.services.Hotel;
 import padsof.services.ImsersoTravel;
 import padsof.services.Travel;
-import padsof.system.*;
 
 public class DataBaseTester
 {
 	private DBFeeder DB;
-	private Vendor testVendor;
-
 	@Before
 	public void setUp() throws Exception
 	{
-		testVendor = new Vendor("Victor", "VicdeJuan", "qwerty");
 		DB = new DBFeeder();
 	}
 

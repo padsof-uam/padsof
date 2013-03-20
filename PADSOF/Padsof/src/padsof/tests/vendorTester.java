@@ -1,24 +1,24 @@
 package padsof.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import padsof.bookings.Booking;
 import padsof.bookings.BookingFactory;
 import padsof.bookings.PaymentState;
-import padsof.services.Flight;
 import padsof.services.Hotel;
 import padsof.services.ImsersoTravel;
 import padsof.services.Travel;
 import padsof.system.Client;
 import padsof.system.ImsersoClient;
 import padsof.system.Vendor;
-
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.Test;
 
 public class vendorTester
 {
