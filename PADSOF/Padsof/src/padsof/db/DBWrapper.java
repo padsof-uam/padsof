@@ -15,11 +15,13 @@ import padsof.utils.Reflection;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.Dao.CreateOrUpdateStatus;
 import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import com.j256.ormlite.table.DatabaseTable;
+
 /**
  * @author gjulianm
  */
@@ -59,18 +61,18 @@ public class DBWrapper
 
 		Dao<?, Long> dao = DaoManager.createDao(dataSource, cls);
 		daos.put(cls.getName(), dao);
-		
+
 		ensureTablesGeneratedFor(cls);
 
 		return dao;
 	}
-	
+
 	private void ensureTablesGeneratedFor(Class<?> cls) throws SQLException
 	{
 		TableUtils.createTableIfNotExists(dataSource, cls);
-		
-		for(Field f : Reflection.getAllFieldsFrom(cls))
-			if(f.getType().isAnnotationPresent(DatabaseTable.class))
+
+		for (Field f : Reflection.getAllFieldsFrom(cls))
+			if (f.getType().isAnnotationPresent(DatabaseTable.class))
 				ensureTablesGeneratedFor(f.getType());
 	}
 
@@ -109,7 +111,25 @@ public class DBWrapper
 		HashMap<String, Object> fieldValues = new HashMap<String, Object>();
 
 		for (int i = 0; i < values.length - 1; i += 2)
-			fieldValues.put((String) values[i], values[i + 1]);
+		{
+			String fieldName = (String) values[i];
+			Object target = values[i + 1];
+
+			Field f = Reflection.getField(cls, fieldName);
+			
+			if (f != null)
+			{
+				DatabaseField df = f.getAnnotation(DatabaseField.class);
+				if (df != null && df.foreign()
+						&& DBObject.class.isInstance(target))
+				{
+					fieldName += "_id";
+					target = ((DBObject) target).id;
+				}
+			}
+
+			fieldValues.put(fieldName, target);
+		}
 
 		Dao<T, Long> dao = (Dao<T, Long>) getDaoFor(cls);
 		return dao.queryForFieldValues(fieldValues);

@@ -19,4 +19,15 @@ public class Reflection
 		
 		return fields;
 	}
+	
+	public static Field getField(Class<?> cls, String fieldName)
+	{
+		List<Field> fList = getAllFieldsFrom(cls);
+		
+		for(Field f : fList)
+			if(f.getName().equals(fieldName))
+				return f;
+		
+		return null;
+	}
 }

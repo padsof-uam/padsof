@@ -3,16 +3,20 @@ package padsof.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import padsof.bookings.Booking;
 import padsof.bookings.BookingFactory;
 import padsof.bookings.PaymentState;
+import padsof.db.DBWrapper;
 import padsof.services.Hotel;
 import padsof.services.ImsersoTravel;
 import padsof.services.Travel;
@@ -22,20 +26,28 @@ import padsof.system.Vendor;
 
 public class vendorTester
 {
-	private Vendor testVendor;
-	private Vendor testAdmin;
-
+	private static Vendor testVendor;
+	private static Vendor testAdmin;
+	private static DBWrapper db;
 	/**
 	 * @throws Exception
 	 */
-	@Before
-	public void setUp() throws Exception
+	@BeforeClass
+	public static void setUp() throws Exception
 	{
 		testVendor = new Vendor("Victor", "VicdeJuan", "qwerty");
 		testAdmin = new Vendor("Victor", "VicdeJuan", "qwerty");
 		testAdmin.becomeAdmin();
+		db = new DBWrapper("testVendor");
 	}
 
+	@AfterClass
+	public static void tearDown() throws SQLException
+	{
+		db.close();
+		db.delete();
+	}
+	
 	@Test
 	public void checkMoneyGot() throws Exception
 	{

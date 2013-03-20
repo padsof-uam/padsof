@@ -112,10 +112,10 @@ public class Vendor extends DBObject
 		
 		bookings = new ArrayList<Booking>();
 		
-		bookings.addAll(DBWrapper.getInstance().get(FlightBooking.class, "Vendor", this));
-		bookings.addAll(DBWrapper.getInstance().get(HotelBooking.class, "Vendor", this));
-		bookings.addAll(DBWrapper.getInstance().get(TravelBooking.class, "Vendor", this));
-		bookings.addAll(DBWrapper.getInstance().get(ImsersoTravelBooking.class, "Vendor", this));
+		bookings.addAll(DBWrapper.getInstance().get(FlightBooking.class, "vendor", this));
+		bookings.addAll(DBWrapper.getInstance().get(HotelBooking.class, "vendor", this));
+		bookings.addAll(DBWrapper.getInstance().get(TravelBooking.class, "vendor", this));
+		bookings.addAll(DBWrapper.getInstance().get(ImsersoTravelBooking.class, "vendor", this));
 		
 		return bookings;
 	}

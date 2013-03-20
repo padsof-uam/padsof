@@ -28,7 +28,15 @@ public abstract class Booking extends DBObject
 
 	@DatabaseField(foreign = true, foreignAutoCreate = true,
 			foreignAutoRefresh = true)
-	private Vendor vendorUser;
+	private Vendor vendor;
+
+	/**
+	 * @return the vendor
+	 */
+	public Vendor getVendor()
+	{
+		return vendor;
+	}
 
 	public Booking()
 	{
@@ -41,7 +49,7 @@ public abstract class Booking extends DBObject
 		this.state = PaymentState.None;
 		this.start = start;
 		this.end = end;
-		this.vendorUser = vendor;
+		this.vendor = vendor;
 	}
 
 	/**
@@ -124,12 +132,12 @@ public abstract class Booking extends DBObject
 
 	public Vendor getVendorUser()
 	{
-		return vendorUser;
+		return vendor;
 	}
 
 	public void setVendorUser(Vendor vendorUser)
 	{
-		this.vendorUser = vendorUser;
+		this.vendor = vendorUser;
 	}
 
 	/**
