@@ -9,7 +9,11 @@ import padsof.system.*;
 import com.j256.ormlite.field.DatabaseField;
 
 import es.uam.eps.pads.services.InvalidParameterException;
-
+/**
+ * 
+ * @author Víctor de Juan Sanz - Guillermo Julián Moreno
+ *
+ */
 public abstract class Booking extends DBObject
 {
 	@DatabaseField(foreign = true, foreignAutoCreate = true,
@@ -147,7 +151,7 @@ public abstract class Booking extends DBObject
 	{
 		return state == PaymentState.Payed;
 	}
-
+	
 	public Vendor getVendorUser()
 	{
 		return vendor;
@@ -164,10 +168,10 @@ public abstract class Booking extends DBObject
 	public abstract Service getAssociatedService();
 
 	/**
-	 * Set the booking as booked.
+	 * Set the booking as booked if its not already booked.
 	 * 
 	 * @return Payment to make.
-	 * @throws Exception
+	 * @throws Exception if the booking is already book or payed.
 	 */
 	public double book() throws Exception
 	{
@@ -190,11 +194,11 @@ public abstract class Booking extends DBObject
 	}
 
 	/**
-	 * Confirm the booking.
+	 * Confirm the booking (if its not booked yet, confirm() books it)
 	 * 
 	 * @return Payment to make.
-	 * @throws InvalidParameterException
-	 * @throws Exception
+	 * @throws InvalidParameterException.
+	 * @throws Exception if the booking is already payed.
 	 */
 	public double confirm() throws Exception
 	{
@@ -218,7 +222,9 @@ public abstract class Booking extends DBObject
 	}
 
 	/**
-	 * @throws InvalidParameterException
+	 * Cancel the booking
+	 * 
+	 * @throws InvalidParameterException (if its already cancel)
 	 */
 	public void cancel() throws InvalidParameterException
 	{

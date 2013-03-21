@@ -15,7 +15,9 @@ import es.uam.eps.pads.services.*;
 import es.uam.eps.pads.services.flights.FlightsProvider;
 
 /**
- * @author gjulianm
+ * 
+ * @author Víctor de Juan Sanz - Guillermo Julián Moreno
+ *
  */
 
 @DatabaseTable

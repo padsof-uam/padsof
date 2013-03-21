@@ -15,6 +15,17 @@ public class BookingFactory
 		this.vendor = vendor;
 	}
 
+	/**
+	 * 
+	 * @param service
+	 * @param client
+	 * @param start
+	 * @param end
+	 * 
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws SQLException
+	 */
 	public Booking book(Service service, Client client, Date start, Date end)
 			throws IllegalArgumentException, IllegalAccessException,
 			SQLException
@@ -41,12 +52,29 @@ public class BookingFactory
 		return booking;
 	}
 
+	/**
+	 * Create a TravelBooking with the param. recieved.
+	 * 
+	 * @param service
+	 * @param client
+	 * @param start
+	 * @param end
+	 * @return
+	 */
 	private Booking createTravelBooking(Travel service, Client client,
 			Date start, Date end)
 	{
 		return new TravelBooking(service, client, start, end, vendor);
 	}
 
+	/**
+	 * Create a FlightBooking with the param. received.
+	 * 
+	 * @param service
+	 * @param client
+	 * @param start
+	 * @param end
+	 */
 	private Booking createFlightBooking(Flight service, Client client,
 			Date start, Date end)
 	{
@@ -55,12 +83,28 @@ public class BookingFactory
 		return FB;
 	}
 
+	/**
+	 * Create an HotelBooking with the param. recieved.
+	 * @param service
+	 * @param client
+	 * @param start
+	 * @param end
+	 * @return
+	 */
 	private Booking createHotelBooking(Hotel service, Client client,
 			Date start, Date end)
 	{
 		return new HotelBooking(service, client, start, end, vendor);
 	}
 
+	/**
+	 * Create an ImsersoTravelBooking with the param. recieved.
+	 * @param service
+	 * @param client
+	 * @param start
+	 * @param end
+	 * @return
+	 */
 	private Booking createImsersoTravelBooking(ImsersoTravel service,
 			Client client, Date start, Date end)
 	{
