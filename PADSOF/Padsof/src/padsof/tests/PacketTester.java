@@ -16,7 +16,7 @@ import padsof.services.*;
 import padsof.system.*;
 
 /**
- * @author vicdejuan
+ * @author Víctor de Juan Sanz - Guillermo Julián Moreno
  */
 public class PacketTester
 {
@@ -71,7 +71,7 @@ public class PacketTester
 		testClient.setName("Pepito");
 		testClient.setSurname("Grillo");
 
-		vendor = new Vendor("Victor", "vicdejuan", "qwerty");
+		vendor = new Vendor("Victor", "Víctor de Juan Sanz - Guillermo Julián Moreno", "qwerty");
 
 		factory = new BookingFactory(vendor);
 

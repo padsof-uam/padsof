@@ -15,7 +15,7 @@ public class VendorTester
 	@BeforeClass
 	public static void setUp() throws Exception
 	{
-		testVendor = new Vendor("Victor", "VicdeJuan", "qwerty");
+		testVendor = new Vendor("Victor", "Víctor de Juan Sanz - Guillermo Julián Moreno", "qwerty");
 		db = new DBWrapper("testVendor");
 	}
 

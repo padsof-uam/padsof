@@ -15,7 +15,7 @@ import padsof.services.*;
 import padsof.system.*;
 
 /**
- * @author gjulianm
+ * @author Víctor de Juan Sanz - Guillermo Julián Moreno
  */
 public class BookingFactoryTester
 {
@@ -36,7 +36,7 @@ public class BookingFactoryTester
 		testClient.setName("Pepito");
 		testClient.setSurname("Grillo");
 
-		vendor = new Vendor("Victor", "vicdejuan", "qwerty");
+		vendor = new Vendor("Victor", "Víctor de Juan Sanz - Guillermo Julián Moreno", "qwerty");
 		Calendar calendar = new GregorianCalendar();
 
 		testStart = calendar.getTime();
