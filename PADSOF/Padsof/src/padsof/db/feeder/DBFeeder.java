@@ -73,7 +73,7 @@ public class DBFeeder
 			throws IllegalArgumentException, IllegalAccessException,
 			SQLException, InvalidFormatException, IOException
 	{
-		DBWrapper.getInstance().save(loadImsersoTravelData(file));
+		DBWrapper.getInstance().saveCollection(loadImsersoTravelData(file));
 	}
 
 	public List<Travel> loadTravelData(String file)
@@ -97,13 +97,13 @@ public class DBFeeder
 			IllegalAccessException, SQLException, InvalidFormatException,
 			IOException
 	{
-		DBWrapper.getInstance().save(loadTravelData(file));
+		DBWrapper.getInstance().saveCollection(loadTravelData(file));
 	}
 
 	public void saveHotelData(String file) throws IllegalArgumentException,
 			IllegalAccessException, SQLException, Exception
 	{
-		DBWrapper.getInstance().save(loadHotelData(file));
+		DBWrapper.getInstance().saveCollection(loadHotelData(file));
 	}
 
 	public List<Hotel> loadHotelData(String file)
