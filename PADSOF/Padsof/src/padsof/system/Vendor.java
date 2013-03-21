@@ -10,6 +10,9 @@ import padsof.db.*;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+/**
+ * @author Víctor de Juan Sanz - Guillermo Julián Moreno
+ */
 @DatabaseTable
 public class Vendor extends DBObject
 {
@@ -58,6 +61,13 @@ public class Vendor extends DBObject
 		this.user = user;
 	}
 
+	/**
+	 * Hashes a password with SHA-256
+	 * 
+	 * @param pass
+	 * @return the password hashed to save.
+	 * @throws Exception
+	 */
 	private String hashPassword(String pass) throws Exception
 	{
 		MessageDigest sha256 = MessageDigest.getInstance("SHA-256");

@@ -6,6 +6,9 @@ import java.util.*;
 import padsof.bookings.*;
 import padsof.db.DBWrapper;
 
+/**
+ * @author Víctor de Juan Sanz - Guillermo Julián Moreno
+ */
 public class StatsReporter
 {
 	List<Booking> bookings;
@@ -18,6 +21,12 @@ public class StatsReporter
 		return bookings;
 	}
 
+	/**
+	 * @param bookings
+	 * @param state
+	 * @return all the bookings of the param bookings that has state equals to
+	 *         the state given
+	 */
 	public List<Booking> filterState(List<Booking> bookings, PaymentState state)
 	{
 		ArrayList<Booking> lst = new ArrayList<Booking>();
@@ -44,6 +53,11 @@ public class StatsReporter
 		return getTotalMoneyIn() - getTotalMoneyOut();
 	}
 
+	/**
+	 * @param vendor
+	 * @return the benefits a vendor has made.
+	 * @throws SQLException
+	 */
 	public double getBenefitsOf(Vendor vendor) throws SQLException
 	{
 		return getTotalMoneyInOf(vendor) - getTotalMoneyOutOf(vendor);
@@ -97,11 +111,21 @@ public class StatsReporter
 		return money;
 	}
 
+	/**
+	 * @return the number of services.
+	 * @throws SQLException
+	 */
 	public int getTotalServices() throws SQLException
 	{
 		return getAllBookings().size();
 	}
 
+	/**
+	 * @param vendor
+	 * @return the number of services booked,payed or canceled of the vendor
+	 *         given as param.
+	 * @throws SQLException
+	 */
 	public int getTotalServicesOf(Vendor vendor) throws SQLException
 	{
 		return vendor.getBookings().size();

@@ -5,6 +5,9 @@ import padsof.db.DBObject;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+/**
+ * @author Víctor de Juan Sanz - Guillermo Julián Moreno
+ */
 @DatabaseTable
 public class Client extends DBObject
 {

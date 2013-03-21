@@ -9,9 +9,8 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
- * @author gjulianm
+ * @author Víctor de Juan Sanz - Guillermo Julián Moreno
  */
-
 @DatabaseTable
 public class ImsersoClient extends Client
 {

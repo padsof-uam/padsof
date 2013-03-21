@@ -9,6 +9,9 @@ import padsof.db.*;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+/**
+ * @author Víctor de Juan Sanz - Guillermo Julián Moreno
+ */
 @DatabaseTable
 public class Packet extends DBObject
 {
@@ -24,6 +27,15 @@ public class Packet extends DBObject
 	 * @throws SQLException
 	 * @throws IllegalAccessException
 	 * @throws IllegalArgumentException
+	 */
+
+	/**
+	 * Add a booking to the packet and saves it into the database.
+	 * 
+	 * @param book
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws SQLException
 	 */
 	public void add(Booking book) throws IllegalArgumentException,
 			IllegalAccessException, SQLException
@@ -69,7 +81,7 @@ public class Packet extends DBObject
 	}
 
 	/**
-	 * checks if all the bookings of the packet are payed.
+	 * Checks if all the bookings of the packet are payed.
 	 * 
 	 * @return true if all bookings are payed, false if not.
 	 * @throws SQLException
@@ -84,7 +96,7 @@ public class Packet extends DBObject
 	}
 
 	/**
-	 * close package automatically if possible
+	 * Close package automatically if possible
 	 * 
 	 * @return true if the package was closed or false if is still open
 	 * @throws SQLException
@@ -96,12 +108,6 @@ public class Packet extends DBObject
 			GregorianCalendar c = new GregorianCalendar();
 			c.add(Calendar.DAY_OF_MONTH, 1);
 			Date d = c.getTime();
-			/*
-			 * Guridi dice:
-			 * Date dTemp = new Date();
-			 * Date d = new Date(dTemp.getYear(), dTemp.getMonth(),
-			 * dTemp.getDay()-1)
-			 */
 			if (getStartDay().before(d))
 			{
 				closePacket();
@@ -148,12 +154,15 @@ public class Packet extends DBObject
 		this.client = client;
 	}
 
+	List<Booking> bookings;
+
 	/**
+	 * Load in memory the bookings from the database.
+	 * 
 	 * @return the bookings. This is a copy, objects added here WILL NOT be
 	 *         saved.
 	 * @throws SQLException
 	 */
-	List<Booking> bookings;
 
 	public void refreshBookings() throws SQLException
 	{
@@ -168,6 +177,12 @@ public class Packet extends DBObject
 				"pertainingPacket", this));
 	}
 
+	/**
+	 * Get the bookings of the packet checking the database.
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
 	public List<Booking> getBookings() throws SQLException
 	{
 		if (bookings == null)

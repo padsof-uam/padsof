@@ -5,7 +5,11 @@ import java.util.Date;
 
 import padsof.services.*;
 import padsof.system.*;
-
+/**
+ * 
+ * @author Víctor de Juan Sanz - Guillermo Julián Moreno
+ *
+ */
 public class BookingFactory
 {
 	private Vendor vendor;
