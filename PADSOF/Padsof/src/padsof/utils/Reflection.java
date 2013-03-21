@@ -10,7 +10,8 @@ public class Reflection
 		ArrayList<Field> fields = new ArrayList<Field>();
 
 		for (Field f : cls.getDeclaredFields())
-			fields.add(f);
+			if(!f.getName().equals("this$0")) // Exclude inner fields
+				fields.add(f);
 
 		Class<?> sup = cls.getSuperclass();
 		if (sup != null)
