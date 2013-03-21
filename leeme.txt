@@ -9,3 +9,8 @@ Que esa es otra: hay que escribir métodos equal para todas las mierdas estas. P
 18/03 18:00 - Dejuan: era plenamente consciente de que ese test no comprueba una mierda pero no sabia como ponerlo bien.
 Estoy simplificando las mierdas como las fechas en plan "Todos los lunes de los meses impares y los martes en los meses pares" que esta como String y a tomar, xk para interpretar eso en fechas...
 Otra simplificacion es: "Ciudades visitadas: Mallorca y Madrid" que lo he tomado como 1 String tbm porque no se como ponerlo como lista de Strings... porque si es por palabras "Rio de Janeiro" es una ciudad... 
+
+
+20/03 13:00
+Que yo sepa faltan CSV y db por comentar. 
+Se entrega el proyecto de eclipse comprimido.
