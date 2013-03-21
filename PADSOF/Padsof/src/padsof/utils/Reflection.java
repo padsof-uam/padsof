@@ -3,6 +3,11 @@ package padsof.utils;
 import java.lang.reflect.Field;
 import java.util.*;
 
+/**
+ * Methods needed in tests to compare instances of a class filed by field.
+ * 
+ * @author Víctor de Juan Sanz - Guillermo Julián Moreno
+ */
 public class Reflection
 {
 	public static List<Field> getAllFieldsFrom(Class<?> cls)
@@ -10,7 +15,7 @@ public class Reflection
 		ArrayList<Field> fields = new ArrayList<Field>();
 
 		for (Field f : cls.getDeclaredFields())
-			if(!f.getName().equals("this$0")) // Exclude inner fields
+			if (!f.getName().equals("this$0")) // Exclude inner fields
 				fields.add(f);
 
 		Class<?> sup = cls.getSuperclass();
