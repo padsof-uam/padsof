@@ -178,6 +178,8 @@ public class DBWrapper
 	{
 		close();
 		delete();
+		daos.clear();
+		classesWithCreatedTables.clear();
 		open();
 	}
 
