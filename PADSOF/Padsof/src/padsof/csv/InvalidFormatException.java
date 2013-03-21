@@ -4,7 +4,9 @@
 package padsof.csv;
 
 /**
- * @author gjulianm
+ * Invalid format exception.
+ * @author Víctor de Juan Sanz - Guillermo Julián Moreno
+ *
  */
 public class InvalidFormatException extends Exception
 {
@@ -24,7 +26,7 @@ public class InvalidFormatException extends Exception
 	}
 
 	/**
-	 * @return the line
+	 * @return the line where the error occurred.
 	 */
 	public int getLine()
 	{
