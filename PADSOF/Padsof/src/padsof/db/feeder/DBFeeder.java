@@ -8,6 +8,12 @@ import padsof.csv.*;
 import padsof.db.DBWrapper;
 import padsof.services.*;
 
+/**
+ * The class for reading files and load them into memory. It has methods to save
+ * them into the database.
+ * 
+ * @author Víctor de Juan Sanz - Guillermo Julián Moreno
+ */
 public class DBFeeder
 {
 	private class ImsersoTravelCreator implements CSVCreator<ImsersoTravel>
@@ -52,6 +58,13 @@ public class DBFeeder
 		}
 	}
 
+	/**
+	 * Load the file of IMSERSO travels.
+	 * @param file
+	 * @return a list of ImsersoTravels
+	 * @throws InvalidFormatException
+	 * @throws IOException
+	 */
 	public List<ImsersoTravel> loadImsersoTravelData(String file)
 			throws InvalidFormatException, IOException
 	{
@@ -69,6 +82,15 @@ public class DBFeeder
 		return travels;
 	}
 
+	/**
+	 * Save into the database the catalog of IMSERSO travels
+	 * @param file
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws SQLException
+	 * @throws InvalidFormatException
+	 * @throws IOException
+	 */
 	public void saveImsersoTravelData(String file)
 			throws IllegalArgumentException, IllegalAccessException,
 			SQLException, InvalidFormatException, IOException
@@ -76,6 +98,13 @@ public class DBFeeder
 		DBWrapper.getInstance().save(loadImsersoTravelData(file));
 	}
 
+	/**
+	 * Load the file of travels.
+	 * @param file to read
+	 * @return a list of Travels
+	 * @throws InvalidFormatException
+	 * @throws IOException
+	 */
 	public List<Travel> loadTravelData(String file)
 			throws InvalidFormatException, IOException
 	{
@@ -93,6 +122,15 @@ public class DBFeeder
 		return travels;
 	}
 
+	/**
+	 * Save into database the catalog of travels.
+	 * @param file to read
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws SQLException
+	 * @throws InvalidFormatException
+	 * @throws IOException
+	 */
 	public void saveTravelData(String file) throws IllegalArgumentException,
 			IllegalAccessException, SQLException, InvalidFormatException,
 			IOException
@@ -100,12 +138,27 @@ public class DBFeeder
 		DBWrapper.getInstance().save(loadTravelData(file));
 	}
 
+	/**
+	 * Save into database the catalog of hotels.
+	 * @param file to read
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 * @throws SQLException
+	 * @throws Exception
+	 */
 	public void saveHotelData(String file) throws IllegalArgumentException,
 			IllegalAccessException, SQLException, Exception
 	{
 		DBWrapper.getInstance().save(loadHotelData(file));
 	}
 
+	/**
+	 * Load from file.
+	 * @param file to read
+	 * @return a list of Hotels.
+	 * @throws InvalidFormatException
+	 * @throws IOException
+	 */
 	public List<Hotel> loadHotelData(String file)
 			throws InvalidFormatException, IOException
 	{
