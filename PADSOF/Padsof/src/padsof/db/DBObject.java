@@ -2,6 +2,13 @@ package padsof.db;
 
 import com.j256.ormlite.field.DatabaseField;
 
+/**
+ * Base object to implement DB behaviour to objects: including an ID field and
+ * an equals method which compares the ID of two DBObject. Also includes a
+ * toString method for better debugging.
+ * 
+ * @author Víctor de Juan Sanz - Guillermo Julián Moreno
+ */
 public abstract class DBObject
 {
 	@DatabaseField(generatedId = true)
