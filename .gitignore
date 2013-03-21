@@ -6,3 +6,5 @@ PADSOF/Padsof/.settings/*
 .*
 !/.gitignore
 *Temp
+*.sqlite
+*.bin
