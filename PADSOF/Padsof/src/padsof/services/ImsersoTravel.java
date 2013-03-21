@@ -173,6 +173,9 @@ public class ImsersoTravel extends Service
 		this.visitedCities = visitedCities;
 	}
 
+	/**
+	 * @return the price for the payment to make.
+	 */
 	@Override
 	public double getBookingPrice()
 	{
