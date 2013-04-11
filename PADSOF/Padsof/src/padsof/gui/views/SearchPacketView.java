@@ -6,12 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class SearchPacketView extends View
-{
-	private JButton forgotPw;
-	private JPasswordField pass;
-	private JTextField usuario;
-	private JButton login;
-	
+{	
 	public SearchPacketView()
 	{
 		super("Login");

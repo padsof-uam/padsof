@@ -10,6 +10,11 @@ import com.toedter.calendar.JDateChooser;
 public class AdminView extends View
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3957591110532891073L;
+
 	public AdminView()
 	{
 		super("Admin");
