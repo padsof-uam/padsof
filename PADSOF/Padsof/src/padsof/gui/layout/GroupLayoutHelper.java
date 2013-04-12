@@ -10,6 +10,8 @@ import javax.swing.GroupLayout.SequentialGroup;
 
 public class GroupLayoutHelper
 {
+	private List<JComponent> horizontallyLinked = new ArrayList<JComponent>();
+	private List<JComponent> verticallyLinked = new ArrayList<JComponent>();
 	private List<List<JComponent>> columns = new ArrayList<List<JComponent>>();
 	private int leftMargin = 0;
 	private int rightMargin = 0;
@@ -33,6 +35,9 @@ public class GroupLayoutHelper
 		
 		layout.setHorizontalGroup(horizontal);
 		layout.setVerticalGroup(vertical);
+		
+		layout.linkSize(SwingConstants.HORIZONTAL, horizontallyLinked.toArray(new JComponent[horizontallyLinked.size()]));
+		layout.linkSize(SwingConstants.VERTICAL, verticallyLinked.toArray(new JComponent[verticallyLinked.size()]));
 		
 		return layout;
 	}
@@ -112,6 +117,18 @@ public class GroupLayoutHelper
 		panel.setLayout(layout);
 		
 		return panel;
+	}
+	
+	public void linkHorizontalSize(JComponent... components)
+	{
+		for(JComponent c : components)
+			horizontallyLinked.add(c);
+	}
+	
+	public void linkVerticalSize(JComponent... components)
+	{
+		for(JComponent c : components)
+			verticallyLinked.add(c);
 	}
 	
 	public void setInnerMargins(int left, int top, int right, int bottom)
