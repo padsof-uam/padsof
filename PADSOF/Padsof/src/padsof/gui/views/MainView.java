@@ -1,6 +1,7 @@
 package padsof.gui.views;
 
 import java.awt.EventQueue;
+import java.rmi.NoSuchObjectException;
 
 import javax.swing.*;
 
@@ -33,16 +34,18 @@ public class MainView
 
 	/**
 	 * Create the application.
+	 * @throws NoSuchObjectException 
 	 */
-	public MainView()
+	public MainView() throws NoSuchObjectException
 	{
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws NoSuchObjectException 
 	 */
-	private void initialize()
+	private void initialize() throws NoSuchObjectException
 	{
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);

@@ -2,8 +2,12 @@ package padsof.gui.views;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.rmi.NoSuchObjectException;
+import java.util.Arrays;
 
 import javax.swing.*;
+
+import padsof.gui.layout.GroupLayoutHelper;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -15,7 +19,8 @@ public class AdminView extends View
 	 */
 	private static final long serialVersionUID = -3957591110532891073L;
 
-	public AdminView()
+	@SuppressWarnings("unchecked")
+	public AdminView() throws NoSuchObjectException
 	{
 		super("Admin");
 		
@@ -91,11 +96,7 @@ public class AdminView extends View
 		container.add(leftPanel);
 		
 		JPanel rightPanel = new JPanel();
-		GroupLayout rightLayout = new GroupLayout(rightPanel);
-		rightPanel.setLayout(rightLayout);
-		
-		rightLayout.setAutoCreateContainerGaps(true);
-		rightLayout.setAutoCreateGaps(true);
+		GroupLayoutHelper rightLayoutHelper = new GroupLayoutHelper();
 		
 		JLabel lblNuevo = new JLabel("Nuevo vendedor");
 		lblNuevo.setFont(lblEstadisticas.getFont().deriveFont((float) 20.0));
@@ -114,29 +115,18 @@ public class AdminView extends View
 		
 		JButton createButton = new JButton("Crear");
 		
-		rightLayout.setVerticalGroup(rightLayout.createSequentialGroup()
-					.addComponent(lblNuevo)
-					.addComponent(lblUsuario)
-					.addComponent(txtUsuario)
-					.addComponent(lblNombre)
-					.addComponent(txtNombre)
-					.addComponent(lblPass)
-					.addComponent(txtPass)
-					.addComponent(createButton)
-				);
-		
-		rightLayout.setHorizontalGroup(rightLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addComponent(lblNuevo)
-				.addComponent(lblUsuario)
-				.addComponent(txtUsuario)
-				.addComponent(lblNombre)
-				.addComponent(txtNombre)
-				.addComponent(lblPass)
-				.addComponent(txtPass)
-				.addComponent(createButton)
-			);
-		
-		rightLayout.linkSize(SwingConstants.VERTICAL, txtUsuario, txtNombre, txtPass);
+		rightLayoutHelper.addColumn(
+				lblNuevo, 
+				GroupLayoutHelper.fluidGenerateGroupLayout(
+						Arrays.asList(lblUsuario, lblNombre, lblPass),
+						Arrays.asList(txtUsuario, txtNombre, txtPass)
+						)
+						.linkVerticalSize(txtUsuario, txtNombre, txtPass)
+						.generatePanel(),
+				createButton
+		);
+	
+		rightPanel.setLayout(rightLayoutHelper.generateLayout(rightPanel));
 		
 		container.add(rightPanel);
 		

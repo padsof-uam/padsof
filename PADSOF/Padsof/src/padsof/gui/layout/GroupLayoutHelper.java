@@ -1,26 +1,37 @@
 package padsof.gui.layout;
 
-import java.awt.Container;
+import java.awt.*;
+import java.rmi.NoSuchObjectException;
 import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Group;
 import javax.swing.GroupLayout.ParallelGroup;
-import javax.swing.GroupLayout.SequentialGroup;
 
 public class GroupLayoutHelper
 {
-	private List<JComponent> horizontallyLinked = new ArrayList<JComponent>();
-	private List<JComponent> verticallyLinked = new ArrayList<JComponent>();
-	private List<List<JComponent>> columns = new ArrayList<List<JComponent>>();
+	private List<Component> horizontallyLinked = new ArrayList<Component>();
+	private List<Component> verticallyLinked = new ArrayList<Component>();
+	private List<List<? extends Component>> columns = new ArrayList<List<? extends Component>>();
 	private int leftMargin = 0;
 	private int rightMargin = 0;
 	private int topMargin = 0;
 	private int bottomMargin = 0;
 	
-	public void addColumn(List<JComponent> column)
+	public void addColumn(List<? extends Component> column)
 	{
 		columns.add(column);
+	}
+	
+	public void addColumn(Component... components)
+	{
+		List<Component> column = new ArrayList<Component>();
+		
+		for(Component c : components)
+			column.add(c);
+		
+		addColumn(column);
 	}
 	
 	public GroupLayout generateLayout(Container container)
@@ -36,8 +47,11 @@ public class GroupLayoutHelper
 		layout.setHorizontalGroup(horizontal);
 		layout.setVerticalGroup(vertical);
 		
-		layout.linkSize(SwingConstants.HORIZONTAL, horizontallyLinked.toArray(new JComponent[horizontallyLinked.size()]));
-		layout.linkSize(SwingConstants.VERTICAL, verticallyLinked.toArray(new JComponent[verticallyLinked.size()]));
+		if(horizontallyLinked.size() > 0)
+			layout.linkSize(SwingConstants.HORIZONTAL, horizontallyLinked.toArray(new Component[horizontallyLinked.size()]));
+		
+		if(verticallyLinked.size() > 0)
+			layout.linkSize(SwingConstants.VERTICAL, verticallyLinked.toArray(new Component[verticallyLinked.size()]));
 		
 		return layout;
 	}
@@ -55,13 +69,15 @@ public class GroupLayoutHelper
 		{
 			ParallelGroup rowGroup = layout.createParallelGroup(GroupLayout.Alignment.LEADING);
 			
-			for(List<JComponent> column : columns)
+			for(List<? extends Component> column : columns)
 			{
 				if(i >= column.size())
 					rowGroup.addComponent(Box.createGlue());
 				else
 					rowGroup.addComponent(column.get(i));
 			}
+			
+			vertical.addGroup(rowGroup);
 		}
 		
 		if(bottomMargin > 0)
@@ -79,7 +95,7 @@ public class GroupLayoutHelper
 		
 		int maxColumnHeight = findMaxColumnHeight();
 		
-		for(List<JComponent> column: columns)
+		for(List<? extends Component> column: columns)
 		{
 			ParallelGroup columnGroup = layout.createParallelGroup(GroupLayout.Alignment.LEADING);
 			int i;
@@ -103,7 +119,7 @@ public class GroupLayoutHelper
 	{
 		int max = -1;
 		
-		for(List<JComponent> column: columns)
+		for(List<? extends Component> column: columns)
 			if(column.size() > max)
 				max = column.size();
 		
@@ -114,38 +130,63 @@ public class GroupLayoutHelper
 	{
 		JPanel panel = new JPanel();
 		GroupLayout layout = generateLayout(panel);
-		panel.setLayout(layout);
 		
+		panel.setLayout(layout);
+	
 		return panel;
 	}
 	
-	public void linkHorizontalSize(JComponent... components)
+	public GroupLayoutHelper linkHorizontalSize(Component... components) throws NoSuchObjectException
 	{
-		for(JComponent c : components)
+		for(Component c : components)
+		{
+			if(!componentExists(c))
+				throw new NoSuchObjectException("Component " + c.toString() + " doesn't exist in the layout.");
 			horizontallyLinked.add(c);
+		}
+		
+		
+		return this;
 	}
 	
-	public void linkVerticalSize(JComponent... components)
+	private boolean componentExists(Component c)
 	{
-		for(JComponent c : components)
+		for(List<? extends Component> column : columns)
+			if(column.contains(c))
+				return true;
+		
+		return false;
+	}
+
+	public GroupLayoutHelper linkVerticalSize(Component... components) throws NoSuchObjectException
+	{
+		for(Component c : components)
+		{
+			if(!componentExists(c))
+				throw new NoSuchObjectException("Component " + c.toString() + " doesn't exist in the layout.");
 			verticallyLinked.add(c);
+		}
+		
+		return this;
 	}
 	
-	public void setInnerMargins(int left, int top, int right, int bottom)
+	public GroupLayoutHelper setInnerMargins(int left, int top, int right, int bottom)
 	{
 		leftMargin = left;
 		topMargin = top;
 		rightMargin = right;
 		bottomMargin = bottom;
+		
+		return this;
 	}
 	
-	public static JPanel generateGroupLayout(List<JComponent>... columns)
+	public static GroupLayoutHelper fluidGenerateGroupLayout(List<? extends Component>... columns)
 	{
 		GroupLayoutHelper helper = new GroupLayoutHelper();
 		
-		for(List<JComponent> column : columns)
+		for(List<? extends Component> column : columns)
 			helper.addColumn(column);
 		
-		return helper.generatePanel();
+		return helper;
 	}
 }
