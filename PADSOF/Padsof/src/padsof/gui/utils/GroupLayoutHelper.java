@@ -1,4 +1,4 @@
-package padsof.gui.layout;
+package padsof.gui.utils;
 
 import java.awt.*;
 import java.rmi.NoSuchObjectException;
@@ -18,6 +18,7 @@ public class GroupLayoutHelper
 	private int rightMargin = 0;
 	private int topMargin = 0;
 	private int bottomMargin = 0;
+	private boolean innerPanel = false;
 	
 	public void addColumn(List<? extends Component> column)
 	{
@@ -38,7 +39,7 @@ public class GroupLayoutHelper
 	{
 		GroupLayout layout = new GroupLayout(container);
 		
-		layout.setAutoCreateContainerGaps(true);
+		layout.setAutoCreateContainerGaps(!innerPanel);
 		layout.setAutoCreateGaps(true);
 		
 		Group horizontal = generateHorizontalGroup(layout);	
@@ -136,6 +137,18 @@ public class GroupLayoutHelper
 		return panel;
 	}
 	
+	public JPanel generateCenteredPanel()
+	{
+		JPanel container = new JPanel();
+		container.setLayout(new GridLayout(3,1));
+		
+		container.add(Box.createHorizontalGlue());
+		container.add(generatePanel());
+		container.add(Box.createHorizontalGlue());
+		
+		return container;
+	}
+	
 	public GroupLayoutHelper linkHorizontalSize(Component... components) throws NoSuchObjectException
 	{
 		for(Component c : components)
@@ -145,6 +158,13 @@ public class GroupLayoutHelper
 			horizontallyLinked.add(c);
 		}
 		
+		
+		return this;
+	}
+	
+	public GroupLayoutHelper setIsInnerPanel(boolean innerPanel)
+	{
+		this.innerPanel = innerPanel;
 		
 		return this;
 	}
@@ -188,5 +208,15 @@ public class GroupLayoutHelper
 			helper.addColumn(column);
 		
 		return helper;
+	}
+
+	public GroupLayoutHelper linkVerticalSize(List<? extends Component> components) throws NoSuchObjectException
+	{
+		return linkVerticalSize(components.toArray(new Component[components.size()]));		
+	}
+	
+	public GroupLayoutHelper linkHorizontalSize(List<? extends Component> components) throws NoSuchObjectException
+	{
+		return linkHorizontalSize(components.toArray(new Component[components.size()]));		
 	}
 }
