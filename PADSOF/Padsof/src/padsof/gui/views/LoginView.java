@@ -20,8 +20,8 @@ public class LoginView extends View
 
 		generator.addFields("Usuario","Contraseña");
 		
-		generator.setButton(new JButton("Entrar"));
-		generator.setButton(new JButton("Contraseña olvidada"));
+		generator.addButton(new JButton("Entrar"));
+		generator.addButton(new JButton("Contraseña olvidada"));
 		
 		JPanel form = generator.generateForm();
 		setLayout(new FlowLayout());
