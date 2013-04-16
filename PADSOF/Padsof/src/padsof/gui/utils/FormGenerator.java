@@ -12,7 +12,7 @@ public class FormGenerator
 	private List<String> fields = new ArrayList<String>();
 	private boolean isInnerPanel = true;
 	private String title = null;
-	private JButton button = null;
+	private List<JButton> buttons = new ArrayList<JButton>();
 	
 	public FormGenerator addFields(String...fields)
 	{
@@ -36,9 +36,9 @@ public class FormGenerator
 		return this;
 	}
 	
-	public FormGenerator setButton(JButton button)
+	public FormGenerator addButton(JButton button)
 	{
-		this.button = button;
+		this.buttons.add(button);
 		
 		return this;
 	}
@@ -71,24 +71,17 @@ public class FormGenerator
 		
 		JPanel panel;
 		
-		if(title != null || button != null)
+		if(title != null || buttons.size() > 0)
 		{
 			List<Component> column = new ArrayList<Component>();
 			
 			if(title != null)
-			{			
-				JLabel titleLabel = new JLabel(title);
-				titleLabel.setFont(titleLabel.getFont().deriveFont((float) 20.0));
-				
-				column.add(titleLabel);
-			}
+				column.add(generateTitleLabel());
 			
 			column.add(layoutHelper.setIsInnerPanel(true).generatePanel());
 			
-			if(button != null)
-			{
-				column.add(button);
-			}
+			if(buttons.size() > 0)
+				column.add(generateButtonPanel());
 			
 			panel = GroupLayoutHelper.fluidGenerateGroupLayout(column).generatePanel();
 		}
@@ -98,5 +91,24 @@ public class FormGenerator
 		}
 		
 		return panel;
+	}
+	
+	private JPanel generateButtonPanel()
+	{
+		JPanel container = new JPanel();
+		container.setLayout(new FlowLayout());
+		
+		for(JButton button: buttons)
+			container.add(button);
+		
+		return container;
+	}
+
+	private JLabel generateTitleLabel()
+	{
+		JLabel titleLabel = new JLabel(title);
+		titleLabel.setFont(titleLabel.getFont().deriveFont((float) 20.0));
+		
+		return titleLabel;
 	}
 }
