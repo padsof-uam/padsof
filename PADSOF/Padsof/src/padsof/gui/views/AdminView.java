@@ -75,7 +75,7 @@ public class AdminView extends View
 		generator.addFields("Nombre", "Usuario", "Contraseña");
 		generator.setTitle("Nuevo vendedor");
 		generator.setIsInnerPanel(true);
-		generator.setButton(new JButton("Crear"));
+		generator.addButton(new JButton("Crear"));
 		JPanel rightPanel = generator.generateForm();
 		
 		mainLayout.addColumn(leftPanel);

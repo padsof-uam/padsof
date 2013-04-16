@@ -32,7 +32,7 @@ public class RegisterClientView extends View
 		generator.addFields("DNI", "Nombre", "Apellido 1", "Apellido 2", "Nº Seguridad Social",
 				"Código de verificación", "Fecha de nacimiento");
 		
-		generator.setButton(new JButton("Crear"));
+		generator.addButton(new JButton("Crear"));
 		generator.setTitle("Alta de cliente");
 		
 		JPanel form = generator.generateForm();
