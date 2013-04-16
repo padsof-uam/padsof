@@ -2,49 +2,30 @@ package padsof.gui.views;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.rmi.NoSuchObjectException;
 
 import javax.swing.*;
 
+import padsof.gui.utils.*;
+
 public class LoginView extends View
 {
-	private JButton forgotPw;
-	private JPasswordField pass;
-	private JTextField usuario;
-	private JButton login;
 	
-	public LoginView()
+	public LoginView() throws NoSuchObjectException
 	{
 		super("Login");
 		
-		this.setLayout(new BorderLayout(0,0));
 		
-		Box box = new Box(BoxLayout.Y_AXIS);
-		add(box);
+		FormGenerator generator = new FormGenerator();
 
-		usuario = new JTextField();
-		usuario.setText("Usuario");
-		usuario.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		usuario.setMaximumSize(new Dimension(200, 28));
-
-		pass = new JPasswordField();
-		pass.setText("Contraseña");
-		pass.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		pass.setMaximumSize(new Dimension(200, 28));
-
-		login = new JButton("Entrar");
-		login.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+		generator.addFields("Usuario","Contraseña");
 		
-		forgotPw = new JButton("Contraseña olvidada");
-		forgotPw.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+		generator.setButton(new JButton("Entrar"));
+		generator.setButton(new JButton("Contraseña olvidada"));
 		
-		
-		box.add(Box.createVerticalGlue());
-		box.add(usuario);
-		box.add(pass);
-		box.add(login);
-		box.add(forgotPw);
-		box.add(Box.createVerticalGlue());
-		
+		JPanel form = generator.generateForm();
+		setLayout(new FlowLayout());
+		add(form);
 		
 		this.setSize(200, 200);
 	}
@@ -64,6 +45,10 @@ public class LoginView extends View
 		
 		window.setVisible(true);
 	}
+
+
+			
+		
 	
 		
 }
