@@ -5,6 +5,7 @@ import java.util.*;
 
 import padsof.bookings.*;
 import padsof.db.*;
+import padsof.services.*;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -189,5 +190,45 @@ public class Packet extends DBObject
 			refreshBookings();
 
 		return bookings;
+	}
+
+	public String toString(int nPacket) throws SQLException
+	{
+		List<Booking> bookings = getBookings();
+		String retval = new String("Paquete " + nPacket);
+		int hotel = 0, flight = 0, travel = 0;
+		for (int i = 0; i < bookings.size(); ++i)
+		{
+			if (bookings.get(i).getAssociatedService().getClass() == Hotel.class)
+			{
+				hotel++;
+			}
+			else if (bookings.get(i).getAssociatedService().getClass() == Flight.class)
+			{
+				flight++;
+			}
+			else if (bookings.get(i).getAssociatedService().getClass() == Travel.class
+					|| (bookings.get(i).getAssociatedService().getClass() == ImsersoTravel.class))
+			{
+				travel++;
+			}
+		}
+		String strTrip = new String("Viaje");
+		if (travel == 1)
+			strTrip += "s";
+		strTrip += " organizados: " + travel;
+
+		String strFlight = new String("Vuelo");
+		if (hotel == 1)
+			strFlight += "s";
+		strFlight += ": " + flight;
+
+		String strHotel = new String("Hotel");
+		if (hotel == 1)
+			strHotel += "s";
+		strHotel += ": " + hotel;
+
+		return retval + strHotel + strTrip + strFlight;
+
 	}
 }
