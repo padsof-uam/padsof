@@ -33,6 +33,8 @@ public class Application implements NavigationService
 	{
 		frame = new JFrame();
 		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		registerControllers();
 	}
 	
@@ -57,7 +59,7 @@ public class Application implements NavigationService
 		currentView = new LoginView();
 		setControllerForView(currentView);
 		frame.setContentPane(currentView);
-		frame.pack();
+		center();
 	}
 	
 	private void showUserInterface()
@@ -65,17 +67,20 @@ public class Application implements NavigationService
 		JPanel container = new JPanel();
 		
 		topPanel = new JPanel();
-		topPanel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
+		topPanel.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(220, 220, 220)), 
+				BorderFactory.createEmptyBorder(8, 8, 8, 8)));
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
+		
 		topPanel.add(Box.createHorizontalGlue());
+		topPanel.add(new JLabel("Vendedor: " + vendor.getName()));
 		
-		JLabel vendorLabel = new JLabel("Vendedor: " + vendor.getName());
-		topPanel.add(vendorLabel);
-	
+		
+		
 		container.setLayout(new BorderLayout());
-		
 		container.add(topPanel, BorderLayout.NORTH);
 		container.add(currentView, BorderLayout.CENTER);
+		container.add(Box.createVerticalStrut(10), BorderLayout.SOUTH);
 		
 		frame.setContentPane(container);
 	}
@@ -138,6 +143,18 @@ public class Application implements NavigationService
 		frame.pack();
 	}
 
+	private void center()
+	{
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		
+		frame.pack();
+		
+		int x = (int) (screenSize.getWidth() - frame.getWidth()) / 2;
+		int y = (int) (screenSize.getHeight() - frame.getHeight()) / 2;
+		
+		frame.setLocation(x, y);
+	}
+	
 	@SuppressWarnings("unchecked")
 	private <V extends View> void setControllerForView(V view)
 	{

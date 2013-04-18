@@ -89,7 +89,7 @@ public class AdminView extends View
 		mainLayout.addColumn(Box.createHorizontalStrut(10));
 		mainLayout.addColumn(rightPanel);
 		
-		mainLayout.setInnerMargins(10, 10, 10, 10);
+		mainLayout.setInnerMargins(10, 0, 10, 10);
 		
 		this.setMinimumSize(new Dimension(500, 500));
 		this.setLayout(mainLayout.generateLayout(this));
