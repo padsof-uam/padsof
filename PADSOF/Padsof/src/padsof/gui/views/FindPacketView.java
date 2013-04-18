@@ -25,8 +25,9 @@ public class FindPacketView extends View
 	
 		String[] data = { "test", "it", "darling,test it darling, test darling it" };
 		JList<String> listPacket = new JList<String>(data);
-        add( new JScrollPane( listPacket ) );
-
+        new JScrollPane( listPacket );
+        listPacket.setAlignmentX(LEFT_ALIGNMENT);
+        
         GroupLayoutHelper midLayoutHelper = new GroupLayoutHelper();
 		JPanel midPanel = new JPanel();
 		
@@ -45,6 +46,7 @@ public class FindPacketView extends View
 		JPanel rightPanel = new JPanel();
 		
 		rightLayoutHelper.addColumn(listPacket);
+		rightLayoutHelper.addColumn(Box.createHorizontalGlue());
 		
 		rightPanel.setLayout(rightLayoutHelper.generateLayout(rightPanel));
 		
