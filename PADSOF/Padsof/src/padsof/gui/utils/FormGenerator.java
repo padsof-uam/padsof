@@ -11,6 +11,7 @@ import com.toedter.calendar.JDateChooser;
 public class FormGenerator
 {
 	private List<String> fields = new ArrayList<String>();
+	private List<Component> components = new ArrayList<Component>();
 	private boolean isInnerPanel = true;
 	private String title = null;
 	private List<JButton> buttons = new ArrayList<JButton>();
@@ -67,7 +68,7 @@ public class FormGenerator
 		layoutHelper.setIsInnerPanel(isInnerPanel);
 		
 		ArrayList<JLabel> labels = new ArrayList<JLabel>();
-		ArrayList<Component> compFields = new ArrayList<Component>();
+		components.clear();
 		
 		for(String field: fields)
 		{
@@ -75,15 +76,15 @@ public class FormGenerator
 			
 			Component comp = generateComponentFor(field);
 			label.setLabelFor(comp);
-			
+	
 			labels.add(label);
-			compFields.add(comp);
+			components.add(comp);
 		}
 		
 		layoutHelper.addColumn(labels);
-		layoutHelper.addColumn(compFields);
+		layoutHelper.addColumn(components);
 		
-		layoutHelper.linkVerticalSize(compFields);
+		layoutHelper.linkVerticalSize(components);
 		
 		JPanel panel;
 		
@@ -111,12 +112,46 @@ public class FormGenerator
 	
 	private Component generateComponentFor(String field)
 	{
-		if(field.matches("[Cc]ontraseña") || field.matches("[Pp]assword"))
+		if(isPasswordField(field))
 			return new JPasswordField();
-		else if (field.indexOf("Fecha") != -1 || field.indexOf("fecha") != -1)
+		else if (isDateField(field))
 			return new JDateChooser();
 		else
 			return new JTextField();
+	}
+	
+	private boolean isPasswordField(String field)
+	{
+		return field.matches("[Cc]ontraseña") || field.matches("[Pp]assword");
+	}
+	
+	private boolean isDateField(String field)
+	{
+		return field.indexOf("Fecha") != -1 || field.indexOf("fecha") != -1;
+	}
+	
+	public String getValueFor(String field) 
+	{
+		int index = fields.indexOf(field);
+		
+		if(index == -1)
+			throw new ComponentNotFoundException("Component not found", field);
+		
+		if(isPasswordField(field))
+		{
+			JPasswordField p = (JPasswordField) components.get(index);
+			return new String(p.getPassword()); // Security issues if we let the password around without clearing it after use... well.
+		}
+		else if(isDateField(field))
+		{
+			JDateChooser dc = (JDateChooser) components.get(index);
+			return dc.getDate().toString();
+		}
+		else
+		{
+			JTextField tf = (JTextField) components.get(index);
+			return tf.getText();
+		}		
 	}
 
 	private JPanel generateButtonPanel()
