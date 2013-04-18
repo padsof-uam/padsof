@@ -51,7 +51,7 @@ public class MainView
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
-		View pene = new FindPacketView();
+		View pene = new VendorFirstView();
 		pene.show(frame);
 		
 	
