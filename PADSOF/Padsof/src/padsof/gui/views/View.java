@@ -29,5 +29,4 @@ public abstract class View extends JPanel
 	}
 	
 	public abstract void setController(ActionListener c);
-	public abstract void show(JFrame window);
 }

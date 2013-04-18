@@ -49,18 +49,4 @@ public class RegisterClientView extends View
 		// TODO Auto-generated method stub
 
 	}
-
-	/* (non-Javadoc)
-	 * @see padsof.gui.views.View#show(javax.swing.JFrame)
-	 */
-	@Override
-	public void show(JFrame window)
-	{
-		Container container = window.getContentPane();
-		container.add(this);
-		window.setMinimumSize(new Dimension(550, 220));
-		
-		window.setVisible(true);
-	}
-
 }

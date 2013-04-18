@@ -61,15 +61,4 @@ public class FindTravelView extends View
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public void show(JFrame window)
-	{
-		Container container = window.getContentPane();
-		container.add(this);
-		window.setMinimumSize(new Dimension(550, 220));
-
-		window.setVisible(true);
-	}
-
 }

@@ -64,16 +64,5 @@ public class SearchPacketView extends View
 	@Override
 	public void setController(ActionListener c)
 	{
-	}
-
-	@Override
-	public void show(JFrame window)
-	{
-		Container container = window.getContentPane();
-		container.add(this);
-		
-		window.setVisible(true);
-	}
-	
-		
+	}		
 }

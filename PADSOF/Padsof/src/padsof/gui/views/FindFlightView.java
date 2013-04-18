@@ -56,17 +56,5 @@ public class FindFlightView extends View
 	public void setController(ActionListener c)
 	{
 		// TODO Auto-generated method stub
-
 	}
-
-	@Override
-	public void show(JFrame window)
-	{
-		Container container = window.getContentPane();
-		container.add(this);
-		window.setMinimumSize(new Dimension(550, 220));
-
-		window.setVisible(true);
-	}
-
 }
