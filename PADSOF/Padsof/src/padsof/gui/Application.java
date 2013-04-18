@@ -32,6 +32,7 @@ public class Application implements NavigationService
 	
 	private void registerControllers()
 	{
+		ControllerLocator.registerController(LoginView.class, LoginController.class);
 	}
 
 	public void start() throws NoSuchObjectException
