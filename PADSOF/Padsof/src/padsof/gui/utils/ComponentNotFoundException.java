@@ -34,4 +34,17 @@ public class ComponentNotFoundException extends RuntimeException
 		this.message = message;
 		this.component = component;
 	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return "ComponentNotFoundException [message=" + message
+				+ ", component=" + component + "]";
+	}
+	
+	
 }	
