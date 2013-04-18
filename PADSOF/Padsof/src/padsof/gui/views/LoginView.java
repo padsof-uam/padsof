@@ -15,14 +15,14 @@ public class LoginView extends View
 	{
 		super("Login");
 		
-		
 		FormGenerator generator = new FormGenerator();
-
+		generator.setTitle("Entrar a la aplicación");
+		
 		generator.addFields("Usuario","Contraseña");
 		
 		generator.addButton(new JButton("Entrar"));
 		generator.addButton(new JButton("Contraseña olvidada"));
-		
+		generator.setInnerMargins(8, 8, 8, 8);
 		JPanel form = generator.generateForm();
 		setLayout(new FlowLayout());
 		add(form);

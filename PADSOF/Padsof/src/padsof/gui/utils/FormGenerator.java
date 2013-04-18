@@ -15,6 +15,10 @@ public class FormGenerator
 	private boolean isInnerPanel = true;
 	private String title = null;
 	private List<JButton> buttons = new ArrayList<JButton>();
+	private int leftMargin = 0;
+	private int topMargin = 0;
+	private int rightMargin = 0;
+	private int bottomMargin = 0;
 	
 	public FormGenerator addFields(String...fields)
 	{
@@ -28,6 +32,16 @@ public class FormGenerator
 	{
 		isInnerPanel = inner;
 		
+		return this;
+	}
+	
+	public FormGenerator setInnerMargins(int left, int top, int right, int bottom)
+	{
+		leftMargin = left;
+		topMargin = top;
+		rightMargin = right;
+		bottomMargin = bottom;
+	
 		return this;
 	}
 	
@@ -50,6 +64,7 @@ public class FormGenerator
 	{
 		GroupLayoutHelper layoutHelper = new GroupLayoutHelper();
 		
+		layoutHelper.setInnerMargins(leftMargin, topMargin, rightMargin, bottomMargin);
 		layoutHelper.setIsInnerPanel(isInnerPanel);
 		
 		ArrayList<JLabel> labels = new ArrayList<JLabel>();
