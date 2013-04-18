@@ -42,6 +42,11 @@ public class Application implements NavigationService
 	{
 		ControllerLocator.registerController(LoginView.class, LoginController.class);
 	}
+	
+	public void setDefaultButton(JButton button)
+	{
+		frame.getRootPane().setDefaultButton(button);
+	}
 
 	public void start() throws NoSuchObjectException
 	{

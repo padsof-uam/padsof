@@ -4,23 +4,24 @@ import java.awt.FlowLayout;
 
 import javax.swing.*;
 
+import padsof.gui.Application;
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.FormGenerator;
 
 public class LoginView extends View
 {
-	JButton loginButton;
-	FormGenerator generator;
+	private JButton loginButton;
+	private FormGenerator generator;
 	public LoginView()
 	{
 		super("Login");
 		
 		generator = new FormGenerator();
 		generator.setTitle("Entrar a la aplicación");
-		
 		generator.addFields("Usuario","Contraseña");
-		loginButton = new JButton("Entrar");
 		
+		loginButton = new JButton("Entrar");
+		Application.getInstance().setDefaultButton(loginButton);
 		generator.addButton(loginButton);
 		generator.addButton(new JButton("Contraseña olvidada"));
 		generator.setInnerMargins(8, 8, 8, 8);
