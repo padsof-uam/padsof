@@ -18,10 +18,16 @@ public class Application implements NavigationService
 	private View currentView;
 	
 	private Vendor vendor;
-	private JLabel vendorLabel;
 	
 	private boolean started = false;
-	private boolean loggedIn = false;
+	
+	/**
+	 * @param vendor the vendor to set
+	 */
+	public void setVendor(Vendor vendor)
+	{
+		this.vendor = vendor;
+	}
 	
 	private Application()
 	{
@@ -49,24 +55,29 @@ public class Application implements NavigationService
 	private void showLoginDialog() 
 	{
 		currentView = new LoginView();
-		currentView.setController(null);
+		setControllerForView(currentView);
 		frame.setContentPane(currentView);
+		frame.pack();
 	}
 	
 	private void showUserInterface()
 	{
+		JPanel container = new JPanel();
+		
 		topPanel = new JPanel();
 		topPanel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
 		topPanel.add(Box.createHorizontalGlue());
-		vendorLabel = new JLabel("Vendedor: " + vendor.getName());
-		topPanel.add(vendorLabel);
 		
-		Container container = frame.getContentPane();
+		JLabel vendorLabel = new JLabel("Vendedor: " + vendor.getName());
+		topPanel.add(vendorLabel);
+	
 		container.setLayout(new BorderLayout());
 		
 		container.add(topPanel, BorderLayout.NORTH);
 		container.add(currentView, BorderLayout.CENTER);
+		
+		frame.setContentPane(container);
 	}
 
 	public static Application getInstance()
@@ -80,12 +91,25 @@ public class Application implements NavigationService
 	@Override
 	public <V extends View> void navigate(Class<V> to)
 	{
-		if(to.isAssignableFrom(LoginView.class))
-			loggedIn = false;
-		else
-			loggedIn = true; // De momento no hay más páginas que se puedan acceder sin login así que esto vale.
-		
 		setView(to);
+	}
+	
+	private boolean hasComponent(Container container, Component component)
+	{
+		for(Component c : container.getComponents())
+			if(c == component)
+				return true;
+		
+		return false;
+	}
+	
+	private void replaceMainView(View view)
+	{
+		if(currentView != null && hasComponent(frame.getContentPane(), currentView))
+			frame.getContentPane().remove(currentView);
+		
+		frame.getContentPane().add(view, BorderLayout.CENTER);
+		currentView = view;
 	}
 
 	private <V extends View> void setView(Class<V> view)
@@ -98,24 +122,32 @@ public class Application implements NavigationService
 		else if(LoginView.class.isInstance(currentView))
 			showUserInterface();
 		
-		if(currentView != null)
-			frame.getContentPane().remove(currentView);
+		V newView;
 		
 		try
 		{
-			currentView = view.newInstance();
-			setControllerForView(currentView);
+			newView = view.newInstance();
 		}
 		catch(Exception e)
 		{
 			throw new RuntimeException("Can't instantiate view of type " + view.getName() + ": " + e.toString());
 		}
+		
+		replaceMainView(newView);	
+		setControllerForView(newView);
+		frame.pack();
 	}
 
+	@SuppressWarnings("unchecked")
 	private <V extends View> void setControllerForView(V view)
 	{
-		Controller<V> controller = ControllerLocator.getController(view);
+		Controller<V> controller = ControllerLocator.getController((Class<V>) view.getClass());
+		
+		if(controller == null)
+			return;
+		
 		view.setController(controller);
+		controller.setNavigator(this);
 		controller.setView(view);
 	}	
 }

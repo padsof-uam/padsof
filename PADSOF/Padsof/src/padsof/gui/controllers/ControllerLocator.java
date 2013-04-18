@@ -14,9 +14,12 @@ public class ControllerLocator
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <V extends View> Controller<V> getController(V view)
+	public static <V extends View> Controller<V> getController(Class<? extends V> view)
 	{
 		Class<? extends Controller<V>> controllerClass =  (Class<? extends Controller<V>>) controllers.get(view);
+		
+		if(controllerClass == null)
+			return null;
 		
 		try
 		{
