@@ -20,7 +20,7 @@ public class FindPacketView extends View
 				"<html><p align="+"justify"+">Introduzca el dni del cliente<br>" +
 				"<p align="+"justify"+">para identificar el paquete" +
 				"<br><small>con letra</html>");
-		JTextField JtfDni = new JTextField("");
+		JTextField JtfDni = new JTextField(9);
 		JButton btnBuscar = new JButton ("Buscar");
 	
 		String[] data = { "test", "it", "darling,test it darling, test darling it" };
@@ -33,7 +33,8 @@ public class FindPacketView extends View
 		midLayoutHelper.addColumn(
 				descripcion,
 				GroupLayoutHelper.fluidGenerateGroupLayout(
-						Arrays.asList(JtfDni,btnBuscar)
+						Arrays.asList(JtfDni),
+						Arrays.asList(btnBuscar)
 						)
 						.linkHorizontalSize(JtfDni,btnBuscar)
 						.linkVerticalSize(JtfDni,btnBuscar)

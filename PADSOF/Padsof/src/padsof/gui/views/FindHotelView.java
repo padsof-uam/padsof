@@ -27,8 +27,12 @@ public class FindHotelView extends View
 		JPanel midPanel = new JPanel();
 		JLabel lblHotel = new JLabel("<html><b><u><big>Hotel</b></u></html>");
 		// JLabel lblFechas = new JLabel("Rango de fechas");
-		generator.addFields("Fecha Inicial", "Fecha Final", "Ciudad",
-				"Precio mínimo", "Precio máximo");
+		generator.addFields("Pais", "Ciudad", "Fecha inicial", "Fecha final",
+				"Nombre", "CP", "Categoría", "Precio Simple mínimo",
+				"Precio Simple máximo", "Precio Doble mínimo",
+				"Precio Doble máximo", "Precio Triple mínimo",
+				"Precio Triple máximo", "Suplemento Desayuno", "Supl. MP",
+				"Supl. PC");
 		generator.addButton(new JButton("Buscar"));
 
 		JPanel form = generator.generateForm();
