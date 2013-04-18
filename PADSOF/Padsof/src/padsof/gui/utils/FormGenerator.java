@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.swing.*;
 
+import com.toedter.calendar.JDateChooser;
+
 public class FormGenerator
 {
 	private List<String> fields = new ArrayList<String>();
@@ -51,23 +53,23 @@ public class FormGenerator
 		layoutHelper.setIsInnerPanel(isInnerPanel);
 		
 		ArrayList<JLabel> labels = new ArrayList<JLabel>();
-		ArrayList<JTextField> textFields = new ArrayList<JTextField>();
+		ArrayList<Component> compFields = new ArrayList<Component>();
 		
 		for(String field: fields)
 		{
 			JLabel label = new JLabel(field + ": ");
-			JTextField textField = new JTextField();
-			textField.setMinimumSize(new Dimension(200, 18));
-			label.setLabelFor(textField);
+			
+			Component comp = generateComponentFor(field);
+			label.setLabelFor(comp);
 			
 			labels.add(label);
-			textFields.add(textField);
+			compFields.add(comp);
 		}
 		
 		layoutHelper.addColumn(labels);
-		layoutHelper.addColumn(textFields);
+		layoutHelper.addColumn(compFields);
 		
-		layoutHelper.linkVerticalSize(textFields);
+		layoutHelper.linkVerticalSize(compFields);
 		
 		JPanel panel;
 		
@@ -93,6 +95,16 @@ public class FormGenerator
 		return panel;
 	}
 	
+	private Component generateComponentFor(String field)
+	{
+		if(field.matches("[Cc]ontraseña") || field.matches("[Pp]assword"))
+			return new JPasswordField();
+		else if (field.indexOf("Fecha") != -1 || field.indexOf("fecha") != -1)
+			return new JDateChooser();
+		else
+			return new JTextField();
+	}
+
 	private JPanel generateButtonPanel()
 	{
 		JPanel container = new JPanel();
