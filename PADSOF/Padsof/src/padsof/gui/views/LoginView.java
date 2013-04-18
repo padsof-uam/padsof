@@ -2,7 +2,6 @@ package padsof.gui.views;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.rmi.NoSuchObjectException;
 
 import javax.swing.*;
 
@@ -11,7 +10,7 @@ import padsof.gui.utils.*;
 public class LoginView extends View
 {
 	
-	public LoginView() throws NoSuchObjectException
+	public LoginView()
 	{
 		super("Login");
 		

@@ -1,7 +1,6 @@
 package padsof.gui.utils;
 
 import java.awt.*;
-import java.rmi.NoSuchObjectException;
 import java.util.*;
 import java.util.List;
 
@@ -149,12 +148,12 @@ public class GroupLayoutHelper
 		return container;
 	}
 	
-	public GroupLayoutHelper linkHorizontalSize(Component... components) throws NoSuchObjectException
+	public GroupLayoutHelper linkHorizontalSize(Component... components) throws ComponentNotFoundException
 	{
 		for(Component c : components)
 		{
 			if(!componentExists(c))
-				throw new NoSuchObjectException("Component " + c.toString() + " doesn't exist in the layout.");
+				throw new ComponentNotFoundException("Add all components before linking horizontal size.", c.toString());
 			horizontallyLinked.add(c);
 		}
 		
@@ -178,12 +177,12 @@ public class GroupLayoutHelper
 		return false;
 	}
 
-	public GroupLayoutHelper linkVerticalSize(Component... components) throws NoSuchObjectException
+	public GroupLayoutHelper linkVerticalSize(Component... components) throws ComponentNotFoundException
 	{
 		for(Component c : components)
 		{
 			if(!componentExists(c))
-				throw new NoSuchObjectException("Component " + c.toString() + " doesn't exist in the layout.");
+				throw new ComponentNotFoundException("Add all components before linking vertical size.", c.toString());
 			verticallyLinked.add(c);
 		}
 		
@@ -210,12 +209,12 @@ public class GroupLayoutHelper
 		return helper;
 	}
 
-	public GroupLayoutHelper linkVerticalSize(List<? extends Component> components) throws NoSuchObjectException
+	public GroupLayoutHelper linkVerticalSize(List<? extends Component> components)
 	{
 		return linkVerticalSize(components.toArray(new Component[components.size()]));		
 	}
 	
-	public GroupLayoutHelper linkHorizontalSize(List<? extends Component> components) throws NoSuchObjectException
+	public GroupLayoutHelper linkHorizontalSize(List<? extends Component> components)
 	{
 		return linkHorizontalSize(components.toArray(new Component[components.size()]));		
 	}

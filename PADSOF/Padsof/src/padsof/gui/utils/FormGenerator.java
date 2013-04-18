@@ -1,7 +1,6 @@
 package padsof.gui.utils;
 
 import java.awt.*;
-import java.rmi.NoSuchObjectException;
 import java.util.*;
 import java.util.List;
 
@@ -60,7 +59,7 @@ public class FormGenerator
 	}
 	
 	@SuppressWarnings("unchecked")
-	public JPanel generateForm() throws NoSuchObjectException
+	public JPanel generateForm()
 	{
 		GroupLayoutHelper layoutHelper = new GroupLayoutHelper();
 		
