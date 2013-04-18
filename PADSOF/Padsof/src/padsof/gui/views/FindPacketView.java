@@ -1,12 +1,12 @@
 package padsof.gui.views;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.Dimension;
 import java.rmi.NoSuchObjectException;
 import java.util.Arrays;
 
 import javax.swing.*;
 
+import padsof.gui.controllers.Controller;
 import padsof.gui.utils.GroupLayoutHelper;
 
 public class FindPacketView extends View
@@ -72,9 +72,9 @@ public class FindPacketView extends View
 	private static final long serialVersionUID = -5632029553992648537L;
 
 	@Override
-	public void setController(ActionListener c)
+	public <V extends View> void setController(Controller<V> c)
 	{
 		// TODO Auto-generated method stub
-
+		
 	}
 }

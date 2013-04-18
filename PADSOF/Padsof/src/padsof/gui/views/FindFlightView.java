@@ -1,11 +1,11 @@
 package padsof.gui.views;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.rmi.NoSuchObjectException;
 
 import javax.swing.*;
 
+import padsof.gui.controllers.Controller;
 import padsof.gui.utils.*;
 
 public class FindFlightView extends View
@@ -53,8 +53,9 @@ public class FindFlightView extends View
 	private static final long serialVersionUID = 9012509925372645373L;
 
 	@Override
-	public void setController(ActionListener c)
+	public <V extends View> void setController(Controller<V> c)
 	{
 		// TODO Auto-generated method stub
+		
 	}
 }

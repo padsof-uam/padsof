@@ -4,5 +4,5 @@ import padsof.gui.views.View;
 
 public interface NavigationService
 {
-	public void navigate(Class<? extends View> to);
+	public <V extends View> void navigate(Class<V> to);
 }

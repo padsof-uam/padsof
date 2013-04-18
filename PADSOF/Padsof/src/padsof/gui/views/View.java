@@ -1,10 +1,9 @@
 package padsof.gui.views;
 
-import java.awt.event.ActionListener;
-
-import javax.swing.*;
+import javax.swing.JPanel;
 
 import padsof.gui.NavigationService;
+import padsof.gui.controllers.Controller;
 
 public abstract class View extends JPanel
 {
@@ -30,7 +29,7 @@ public abstract class View extends JPanel
 		this.title = title;
 	}
 	
-	public abstract void setController(ActionListener c);
+	public abstract <V extends View> void setController(Controller<V> c);
 	
 	protected void navigate(Class<? extends View> to)
 	{

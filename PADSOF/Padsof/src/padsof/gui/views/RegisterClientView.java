@@ -3,13 +3,13 @@
  */
 package padsof.gui.views;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.FlowLayout;
 import java.rmi.NoSuchObjectException;
 
 import javax.swing.*;
 
-import padsof.gui.utils.*;
+import padsof.gui.controllers.Controller;
+import padsof.gui.utils.FormGenerator;
 
 /**
  * @author Víctor de Juan Sanz - Guillermo Julián Moreno
@@ -40,13 +40,11 @@ public class RegisterClientView extends View
 		add(form);
 	}
 
-	/* (non-Javadoc)
-	 * @see padsof.gui.views.View#setController(java.awt.event.ActionListener)
-	 */
+
 	@Override
-	public void setController(ActionListener c)
+	public <V extends View> void setController(Controller<V> c)
 	{
 		// TODO Auto-generated method stub
-
+		
 	}
 }

@@ -1,11 +1,11 @@
 package padsof.gui.views;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.FlowLayout;
 
 import javax.swing.*;
 
-import padsof.gui.utils.*;
+import padsof.gui.controllers.Controller;
+import padsof.gui.utils.FormGenerator;
 
 public class LoginView extends View
 {
@@ -32,7 +32,9 @@ public class LoginView extends View
 	private static final long serialVersionUID = 4113492593900193949L;
 
 	@Override
-	public void setController(ActionListener c)
+	public <V extends View> void setController(Controller<V> c)
 	{
-	}		
+		// TODO Auto-generated method stub
+		
+	}	
 }

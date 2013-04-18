@@ -1,12 +1,12 @@
 package padsof.gui.views;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.Dimension;
 import java.rmi.NoSuchObjectException;
 import java.util.Arrays;
 
 import javax.swing.*;
 
+import padsof.gui.controllers.Controller;
 import padsof.gui.utils.*;
 
 import com.toedter.calendar.JDateChooser;
@@ -19,6 +19,8 @@ public class AdminView extends View
 	 */
 	private static final long serialVersionUID = -3957591110532891073L;
 
+	JButton createButton;
+	
 	@SuppressWarnings("unchecked")
 	public AdminView() throws NoSuchObjectException
 	{
@@ -75,7 +77,12 @@ public class AdminView extends View
 		generator.addFields("Nombre", "Usuario", "Contraseña");
 		generator.setTitle("Nuevo vendedor");
 		generator.setIsInnerPanel(true);
-		generator.addButton(new JButton("Crear"));
+		
+		createButton = new JButton("Crear");
+		createButton.setActionCommand("Crear");
+		
+		generator.addButton(createButton);
+		
 		JPanel rightPanel = generator.generateForm();
 		
 		mainLayout.addColumn(leftPanel);
@@ -89,9 +96,9 @@ public class AdminView extends View
 	}
 
 	@Override
-	public void setController(ActionListener c)
+	public <V extends View> void setController(Controller<V> c)
 	{
 		// TODO Auto-generated method stub
-
+		
 	}
 }

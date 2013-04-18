@@ -1,9 +1,10 @@
 package padsof.gui.views;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
+
+import padsof.gui.controllers.Controller;
 
 public class SearchPacketView extends View
 {	
@@ -62,7 +63,9 @@ public class SearchPacketView extends View
 	private static final long serialVersionUID = 4113492593900193949L;
 
 	@Override
-	public void setController(ActionListener c)
+	public <V extends View> void setController(Controller<V> c)
 	{
+		// TODO Auto-generated method stub
+		
 	}		
 }
