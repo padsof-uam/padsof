@@ -22,19 +22,32 @@ public class Main
 	 */
 	public static void main(String[] args) throws Exception
 	{
+		// Suppress debug messages.
+		System.setProperty(LocalLog.LOCAL_LOG_LEVEL_PROPERTY, "error");
+		
+		List<Vendor> vendors = DBWrapper.getInstance().getAll(Vendor.class);
+		
+		if(vendors.isEmpty())
+		{
+			Vendor admin = new Vendor();
+			admin.setName("Administrador");
+			admin.setPassword("admin");
+			admin.setUser("admin"); // Well...
+			DBWrapper.getInstance().save(admin);
+		}
+		
 		startGui();
 	}
 	
 	private static void startGui() throws Exception
 	{
 		Application app = Application.getInstance();
+		app.start();
 	}
 
 	@SuppressWarnings("unused")
 	private static void consoleDemo() throws Exception
 	{
-		// Suppress debug messages.
-		System.setProperty(LocalLog.LOCAL_LOG_LEVEL_PROPERTY, "error");
 		System.out.println("Creating database...");
 		DBWrapper db = new DBWrapper("TestMain");
 
