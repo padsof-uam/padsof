@@ -18,7 +18,7 @@ public class VendorFirstView extends View
 		
 		JButton addCliente = new JButton ("<html><big><p align="+"justify"+"><b>Dar de alta</big></b><br><p align="+"justify"+">a un cliente</html>");
 		JButton addReserva = new JButton ("<html><big><p align="+"justify"+"><b>Añadir reserva</big></b><br><p align="+"justify"+">a un paquete existente</html>");
-		JButton newPacket = new JButton ("<html><big><p align="+"justify"+">Crear paquete</html>");
+		JButton newPacket = new JButton ("<html><big><p align="+"justify"+"><b>Crear paquete</html>");
 		
 		GroupLayoutHelper mainLayout = new GroupLayoutHelper();
 		JPanel mainpanel = new JPanel();
