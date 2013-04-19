@@ -1,6 +1,6 @@
 package padsof.gui.views;
 
-import java.awt.*;
+import java.awt.Dimension;
 import java.rmi.NoSuchObjectException;
 
 import javax.swing.*;

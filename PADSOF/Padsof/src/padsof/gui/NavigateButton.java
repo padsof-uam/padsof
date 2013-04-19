@@ -20,6 +20,7 @@ public class NavigateButton extends JButton implements ActionListener
 	{
 		super(title);
 		setNavigationView(destination);
+		this.addActionListener(this);
 	}
 	
 	@Override

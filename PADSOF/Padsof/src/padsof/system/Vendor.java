@@ -126,4 +126,13 @@ public class Vendor extends DBObject
 
 		return bookings;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return getName();
+	}	
 }

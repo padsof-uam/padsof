@@ -32,12 +32,22 @@ public class Controller<V extends View> implements ActionListener
 		try
 		{
 			if (listener != null)
-				listener.invoke(this, e);
+			{
+				if(methodReceivesArgs(listener))
+					listener.invoke(this, e);
+				else
+					listener.invoke(this);
+			}
 		}
 		catch (Exception e1)
 		{
 			e1.printStackTrace();
 		}
+	}
+
+	private boolean methodReceivesArgs(Method listener)
+	{
+		return listener.getParameterTypes().length > 0;
 	}
 
 	private Method findListenerFor(String command)
@@ -67,6 +77,6 @@ public class Controller<V extends View> implements ActionListener
 	{
 		Class<?>[] params = method.getParameterTypes();
 		
-		return params.length == 1 && params[0].isAssignableFrom(ActionEvent.class);
+		return params.length == 0 || (params.length == 1 && params[0].isAssignableFrom(ActionEvent.class));
 	}
 }
