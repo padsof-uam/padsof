@@ -2,11 +2,14 @@ package padsof.gui.views;
 
 import java.awt.Dimension;
 import java.rmi.NoSuchObjectException;
+import java.util.List;
 
 import javax.swing.*;
 
+import padsof.gui.NavigateButton;
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.GroupLayoutHelper;
+import padsof.system.Packet;
 
 public class BookingView extends View
 {
@@ -16,6 +19,23 @@ public class BookingView extends View
 	 */
 	private static final long serialVersionUID = -5982811955870714412L;
 
+	private JList<Packet> packet;
+	private DefaultListModel<Packet> packets;
+
+	private NavigateButton btnHotel;
+
+	private NavigateButton btnVuelo;
+
+	private NavigateButton btnViaje;
+
+	public void setModel(List<Packet> packets)
+	{
+		this.packets = new DefaultListModel<Packet>();
+		for (Packet aux : packets)
+			this.packets.addElement(aux);
+		packet.setModel(this.packets);
+	}
+
 	public BookingView() throws NoSuchObjectException
 	{
 
@@ -23,11 +43,14 @@ public class BookingView extends View
 
 		GroupLayoutHelper mainLayout = new GroupLayoutHelper();
 
+		/**
+		 * Left Panel
+		 */
 		JLabel lblAdd = new JLabel("Añadir");
 
-		JButton btnHotel = new JButton("Hotel");
-		JButton btnVuelo = new JButton("Vuelo");
-		JButton btnViaje = new JButton("Viaje organizado");
+		btnHotel = new NavigateButton("Hotel",FindHotelView.class);
+		btnVuelo = new NavigateButton("Vuelo",FindFlightView.class);
+		btnViaje = new NavigateButton("Viaje organizado",FindTravelView.class);
 
 		JPanel leftPanel = new JPanel();
 		GroupLayoutHelper leftLayoutHelper = new GroupLayoutHelper();
@@ -35,22 +58,29 @@ public class BookingView extends View
 		leftLayoutHelper.addColumn(lblAdd, btnHotel, btnVuelo, btnViaje);
 
 		leftLayoutHelper.linkVerticalSize(btnHotel, btnVuelo, btnViaje);
-		
+
 		leftPanel.setLayout(leftLayoutHelper.generateLayout(leftPanel));
 
-		String[] data = { "test", "it", "darling" };
-		JList<String> packet = new JList<String>(data);
-        add( new JScrollPane( packet ) );
+		/**
+		 * Right panel
+		 */
+		JPanel rightPanel = new JPanel();
+		
+		GroupLayoutHelper rightLayoutHelper = new GroupLayoutHelper();
+		
+		packet = new JList<Packet>();
+		packet.setAlignmentX(LEFT_ALIGNMENT);
 
 		JLabel lblPacket = new JLabel("<html>Elementos del paquete</html>");
 
-		JPanel rightPanel = new JPanel();
-		GroupLayoutHelper rightLayoutHelper = new GroupLayoutHelper();
-
+		
 		rightLayoutHelper.addColumn(lblPacket, packet);
 
 		rightPanel.setLayout(rightLayoutHelper.generateLayout(rightPanel));
 
+		/**
+		 * Main panel
+		 */
 		mainLayout.addColumn(leftPanel);
 		mainLayout.addColumn(Box.createHorizontalStrut(10));
 		mainLayout.addColumn(rightPanel);
@@ -65,7 +95,6 @@ public class BookingView extends View
 	@Override
 	public <V extends View> void setController(Controller<V> c)
 	{
-		// TODO Auto-generated method stub
-		
+
 	}
 }
