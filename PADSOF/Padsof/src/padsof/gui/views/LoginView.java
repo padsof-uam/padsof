@@ -12,6 +12,7 @@ public class LoginView extends View
 {
 	private JButton loginButton;
 	private FormGenerator generator;
+	private JButton forgotButton;
 	public LoginView()
 	{
 		super("Login");
@@ -23,7 +24,8 @@ public class LoginView extends View
 		loginButton = new JButton("Entrar");
 		Application.getInstance().setDefaultButton(loginButton);
 		generator.addButton(loginButton);
-		generator.addButton(new JButton("Contraseña olvidada"));
+		forgotButton = new JButton("Contraseña olvidada");
+		generator.addButton(forgotButton);
 		generator.setInnerMargins(8, 8, 8, 8);
 		JPanel form = generator.generateForm();
 		setLayout(new FlowLayout());
@@ -45,6 +47,10 @@ public class LoginView extends View
 	@Override
 	public <V extends View> void setController(Controller<V> c)
 	{
+		loginButton.setActionCommand("login");
 		loginButton.addActionListener(c);
+		
+		forgotButton.setActionCommand("forgot");
+		forgotButton.addActionListener(c);		
 	}	
 }

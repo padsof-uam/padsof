@@ -48,12 +48,25 @@ public class Controller<V extends View> implements ActionListener
 		{
 			if (method.isAnnotationPresent(Listener.class))
 			{
+				if(!hasListenerSignature(method))
+				{
+					System.out.println("Warning: method " + method.getName() + " doesn't have listener signature.");
+					continue;
+				}
+				
 				Listener annotation = method.getAnnotation(Listener.class);
-				if (command.equals(annotation.command()) || annotation.command().equals("__SINGLE__"))
+				if (command.equals(annotation.value()) || annotation.value().equals("__SINGLE__"))
 					return method;
 			}
 		}
 
 		return null;
+	}
+
+	private boolean hasListenerSignature(Method method)
+	{
+		Class<?>[] params = method.getParameterTypes();
+		
+		return params.length == 1 && params[0].isAssignableFrom(ActionEvent.class);
 	}
 }

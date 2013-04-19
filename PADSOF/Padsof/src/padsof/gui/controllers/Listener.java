@@ -6,5 +6,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Listener
 {
-	String command() default "__SINGLE__";
+	public String value() default "__SINGLE__";
 }

@@ -77,9 +77,9 @@ public class AdminView extends View
 		generator.addFields("Nombre", "Usuario", "Contraseña");
 		generator.setTitle("Nuevo vendedor");
 		generator.setIsInnerPanel(true);
+		generator.setMinimumFieldWidth(200);
 		
 		createButton = new JButton("Crear");
-		createButton.setActionCommand("Crear");
 		
 		generator.addButton(createButton);
 		
@@ -91,7 +91,6 @@ public class AdminView extends View
 		
 		mainLayout.setInnerMargins(10, 0, 10, 10);
 		
-		this.setMinimumSize(new Dimension(500, 500));
 		this.setLayout(mainLayout.generateLayout(this));
 	}
 

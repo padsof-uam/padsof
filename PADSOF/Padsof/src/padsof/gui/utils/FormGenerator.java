@@ -19,7 +19,8 @@ public class FormGenerator
 	private int topMargin = 0;
 	private int rightMargin = 0;
 	private int bottomMargin = 0;
-
+	private int fieldWidth = 20;
+	
 	public FormGenerator addFields(String... fields)
 	{
 		for (String field : fields)
@@ -79,6 +80,9 @@ public class FormGenerator
 			Component comp = generateComponentFor(field);
 			label.setLabelFor(comp);
 
+			Dimension size = comp.getSize();
+			comp.setMinimumSize(new Dimension(fieldWidth, size.height));
+			
 			labels.add(label);
 			components.add(comp);
 		}
@@ -192,5 +196,10 @@ public class FormGenerator
 		titleLabel.setFont(titleLabel.getFont().deriveFont((float) 20.0));
 
 		return titleLabel;
+	}
+
+	public void setMinimumFieldWidth(int width)
+	{
+		fieldWidth = width;
 	}
 }

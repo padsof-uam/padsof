@@ -13,8 +13,8 @@ import padsof.system.Vendor;
 
 public class LoginController extends Controller<LoginView>
 {
-	@Listener
-	public void event(ActionEvent e) throws HeadlessException, Exception
+	@Listener("login")
+	public void login(ActionEvent e) throws HeadlessException, Exception
 	{
 		String user = view.getUser();
 		String pass = view.getPassword();
@@ -34,7 +34,17 @@ public class LoginController extends Controller<LoginView>
 			return;
 		}
 		
-		Application.getInstance().setVendor(vendor);		
-		navigator.navigate(AdminView.class);
+		Application.getInstance().setVendor(vendor);	
+		
+		if(vendor.IsAdmin())
+			navigator.navigate(AdminView.class);
+		else
+			navigator.navigate(VendorFirstView.class);
+	}
+	
+	@Listener("forgot")
+	public void forgot(ActionEvent e)
+	{
+		JOptionPane.showMessageDialog(view, "Avise al administrador para que resetee su contraseña.");
 	}
 }

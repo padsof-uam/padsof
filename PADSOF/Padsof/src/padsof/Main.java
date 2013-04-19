@@ -33,6 +33,7 @@ public class Main
 			admin.setName("Administrador");
 			admin.setPassword("admin");
 			admin.setUser("admin"); // Well...
+			admin.becomeAdmin();
 			DBWrapper.getInstance().save(admin);
 		}
 		
