@@ -1,11 +1,11 @@
 package padsof.gui.views;
 
-import java.awt.Dimension;
 import java.rmi.NoSuchObjectException;
 import java.util.Arrays;
 
 import javax.swing.*;
 
+import padsof.gui.NavigateButton;
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.*;
 
@@ -84,10 +84,11 @@ public class AdminView extends View
 		generator.addButton(createButton);
 		
 		JPanel rightPanel = generator.generateForm();
+		NavigateButton vendorViewButton = new NavigateButton("Vista de vendedor",VendorFirstView.class);
 		
-		mainLayout.addColumn(leftPanel);
-		mainLayout.addColumn(Box.createHorizontalStrut(10));
-		mainLayout.addColumn(rightPanel);
+		mainLayout.addColumn(leftPanel, Box.createGlue());
+		mainLayout.addColumn(Box.createHorizontalStrut(10), vendorViewButton);
+		mainLayout.addColumn(rightPanel, Box.createGlue());
 		
 		mainLayout.setInnerMargins(10, 0, 10, 10);
 		
