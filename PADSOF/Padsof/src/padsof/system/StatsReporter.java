@@ -21,6 +21,7 @@ public class StatsReporter
 		return bookings;
 	}
 
+	
 	/**
 	 * @param bookings
 	 * @param state

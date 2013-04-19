@@ -1,13 +1,14 @@
 package padsof.gui.views;
 
 import java.rmi.NoSuchObjectException;
-import java.util.Arrays;
+import java.util.*;
 
 import javax.swing.*;
 
 import padsof.gui.NavigateButton;
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.*;
+import padsof.system.Vendor;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -19,7 +20,14 @@ public class AdminView extends View
 	 */
 	private static final long serialVersionUID = -3957591110532891073L;
 
-	JButton createButton;
+	private JButton createButton;
+	private JComboBox<Vendor> vendorList;
+	private ComboBoxModel<Vendor> vendors;
+	private FormGenerator generator;
+	private JDateChooser fromChooser;
+	private JDateChooser toChooser;
+
+	private JButton viewButton;
 	
 	@SuppressWarnings("unchecked")
 	public AdminView() throws NoSuchObjectException
@@ -33,11 +41,10 @@ public class AdminView extends View
 		
 		JLabel lblVendors = new JLabel("Vendedores: ");
 		
-		String[] data = { "test", "it", "darling" };
-		JComboBox<String> vendors = new JComboBox<String>(data);
+		vendorList = new JComboBox<Vendor>();
 		
-		JDateChooser fromChooser = new JDateChooser();
-		JDateChooser toChooser = new JDateChooser();
+		fromChooser = new JDateChooser();
+		toChooser = new JDateChooser();
 		
 		JLabel fromLabel = new JLabel("Desde: ");
 		JLabel toLabel = new JLabel("Hasta: ");
@@ -45,7 +52,7 @@ public class AdminView extends View
 		fromLabel.setLabelFor(fromChooser);
 		toLabel.setLabelFor(toChooser);
 		
-		JButton viewButton = new JButton("Ver");
+		viewButton = new JButton("Ver");
 		
 		JPanel leftPanel = new JPanel();
 		
@@ -54,7 +61,7 @@ public class AdminView extends View
 		leftLayoutHelper.addColumn(
 				lblEstadisticas,
 				lblVendors,
-				vendors,
+				vendorList,
 				GroupLayoutHelper.fluidGenerateGroupLayout(
 						Arrays.asList(fromLabel, fromChooser),
 						Arrays.asList(toLabel, toChooser)
@@ -67,12 +74,12 @@ public class AdminView extends View
 				viewButton
 		);
 		
-		leftLayoutHelper.linkVerticalSize(viewButton, vendors);
-		leftLayoutHelper.linkHorizontalSize(vendors);
+		leftLayoutHelper.linkVerticalSize(viewButton, vendorList);
+		leftLayoutHelper.linkHorizontalSize(vendorList);
 		
 		leftPanel.setLayout(leftLayoutHelper.generateLayout(leftPanel));
 		
-		FormGenerator generator = new FormGenerator();
+		generator = new FormGenerator();
 		
 		generator.addFields("Nombre", "Usuario", "Contraseña");
 		generator.setTitle("Nuevo vendedor");
@@ -84,7 +91,7 @@ public class AdminView extends View
 		generator.addButton(createButton);
 		
 		JPanel rightPanel = generator.generateForm();
-		NavigateButton vendorViewButton = new NavigateButton("Vista de vendedor",VendorFirstView.class);
+		NavigateButton vendorViewButton = new NavigateButton("Vista vendedor",VendorFirstView.class);
 		
 		mainLayout.addColumn(leftPanel, Box.createGlue());
 		mainLayout.addColumn(Box.createHorizontalStrut(10), vendorViewButton);
@@ -94,11 +101,50 @@ public class AdminView extends View
 		
 		this.setLayout(mainLayout.generateLayout(this));
 	}
+	
+	public void setModel(List<Vendor> vendors)
+	{
+		this.vendors = new DefaultComboBoxModel<Vendor>(vendors.toArray(new Vendor[vendors.size()]));
+		vendorList.setModel(this.vendors);
+	}
 
+	public String getNewVendorName()
+	{
+		return generator.getValueFor("Nombre");
+	}
+	
+	public String getNewVendorPass()
+	{
+		return generator.getValueFor("Contraseña");
+	}
+	
+	public String getNewVendorUser()
+	{
+		return generator.getValueFor("Usuario");
+	}
+	
+	public Vendor getSelectedVendor()
+	{
+		return (Vendor) vendors.getSelectedItem();
+	}
+	
+	public Date getReportStartDate()
+	{
+		return fromChooser.getDate();
+	}
+	
+	public Date getReportEndDate()
+	{
+		return toChooser.getDate();
+	}
+	
 	@Override
 	public <V extends View> void setController(Controller<V> c)
 	{
-		// TODO Auto-generated method stub
+		createButton.setActionCommand("CreateVendor");
+		createButton.addActionListener(c);	
 		
+		viewButton.setActionCommand("ViewStats");
+		viewButton.addActionListener(c);
 	}
 }
