@@ -15,7 +15,7 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable
 public class Vendor extends DBObject
-{
+{	
 	@DatabaseField
 	private String name;
 

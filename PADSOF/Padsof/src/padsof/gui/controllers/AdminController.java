@@ -1,12 +1,12 @@
 package padsof.gui.controllers;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.*;
 
 import javax.swing.JOptionPane;
 
 import padsof.db.DBWrapper;
-import padsof.gui.views.AdminView;
+import padsof.gui.views.*;
 import padsof.system.Vendor;
 
 
@@ -14,17 +14,20 @@ public class AdminController extends Controller<AdminView>
 {
 	public void refreshVendors()
 	{
-		List<Vendor> vendors;
+		List<Vendor> vendors = new ArrayList<Vendor>();
+		
 		
 		try
 		{
-			vendors = DBWrapper.getInstance().getAll(Vendor.class);
+			vendors.add(new Vendor("Todos", "--all--", "--none--"));
+			vendors.addAll(DBWrapper.getInstance().getAll(Vendor.class));
 		}
-		catch (SQLException e)
+		catch (Exception e)
 		{
 			JOptionPane.showMessageDialog(view, "No se pueden recuperar los vendedores.");
 			return;
 		}
+		
 		
 		view.setModel(vendors);
 	}
@@ -84,6 +87,10 @@ public class AdminController extends Controller<AdminView>
 	@Listener("ViewStats")
 	public void viewStats()
 	{
+		StatsController.maxDate = view.getReportEndDate();
+		StatsController.minDate = view.getReportStartDate();
+		StatsController.vendor = view.getSelectedVendor();
 		
+		navigator.navigate(StatsView.class);
 	}
 }

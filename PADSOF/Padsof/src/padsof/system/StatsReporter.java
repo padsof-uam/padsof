@@ -11,8 +11,56 @@ import padsof.db.DBWrapper;
  */
 public class StatsReporter
 {
-	List<Booking> bookings;
+	private List<Booking> bookings;
+	private Date minDate = new Date(Long.MIN_VALUE);
+	private Date maxDate = new Date(Long.MAX_VALUE);
+	
+	/**
+	 * @return the maxDate
+	 */
+	public Date getMaxDate()
+	{
+		return maxDate;
+	}
 
+
+	/**
+	 * @param maxDate the maxDate to set
+	 */
+	public void setMaxDate(Date maxDate)
+	{
+		this.maxDate = maxDate;
+	}
+
+	/**
+	 * @return the minDate
+	 */
+	public Date getMinDate()
+	{
+		return minDate;
+	}
+
+
+	/**
+	 * @param minDate the minDate to set
+	 */
+	public void setMinDate(Date minDate)
+	{
+		this.minDate = minDate;
+	}
+
+
+	private List<Booking> filterDate(List<Booking> bookings)
+	{
+		ArrayList<Booking> filtered = new ArrayList<Booking>();
+		
+		for(Booking b : bookings)
+			if(b.getStart().after(minDate) && b.getEnd().before(maxDate))
+				filtered.add(b);
+		
+		return filtered;
+	}
+	
 	public List<Booking> getAllBookings() throws SQLException
 	{
 		if (bookings == null)
@@ -32,7 +80,7 @@ public class StatsReporter
 	{
 		ArrayList<Booking> lst = new ArrayList<Booking>();
 
-		for (Booking b : bookings)
+		for (Booking b : filterDate(bookings))
 			if (b.getState() == state)
 				lst.add(b);
 
@@ -45,8 +93,7 @@ public class StatsReporter
 		bookings.addAll(DBWrapper.getInstance().getAll(FlightBooking.class));
 		bookings.addAll(DBWrapper.getInstance().getAll(HotelBooking.class));
 		bookings.addAll(DBWrapper.getInstance().getAll(TravelBooking.class));
-		bookings.addAll(DBWrapper.getInstance().getAll(
-				ImsersoTravelBooking.class));
+		bookings.addAll(DBWrapper.getInstance().getAll(ImsersoTravelBooking.class));
 	}
 
 	public double getBenefits() throws SQLException
@@ -68,7 +115,7 @@ public class StatsReporter
 	{
 		double money = 0;
 
-		for (Booking b : getAllBookings())
+		for (Booking b : filterDate(getAllBookings()))
 			if (b.isPayed())
 				money += b.getAssociatedService().getPrice();
 			else if (b.getState() == PaymentState.Booked)
@@ -81,7 +128,7 @@ public class StatsReporter
 	{
 		double money = 0;
 
-		for (Booking b : vendor.getBookings())
+		for (Booking b : filterDate(vendor.getBookings()))
 			if (b.isPayed())
 				money += b.getAssociatedService().getPrice();
 			else if (b.getState() == PaymentState.Booked)
@@ -94,7 +141,7 @@ public class StatsReporter
 	{
 		double money = 0;
 
-		for (Booking b : getAllBookings())
+		for (Booking b : filterDate(getAllBookings()))
 			if (b.getState() != PaymentState.None)
 				money += b.getAssociatedService().getPrice();
 
@@ -105,7 +152,7 @@ public class StatsReporter
 	{
 		double money = 0;
 
-		for (Booking b : vendor.getBookings())
+		for (Booking b : filterDate(vendor.getBookings()))
 			if (b.getState() != PaymentState.None)
 				money += b.getAssociatedService().getPrice();
 

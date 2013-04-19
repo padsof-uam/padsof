@@ -42,6 +42,7 @@ public class Application implements NavigationService
 	{
 		ControllerLocator.registerController(LoginView.class, LoginController.class);
 		ControllerLocator.registerController(AdminView.class, AdminController.class);
+		ControllerLocator.registerController(StatsView.class, StatsController.class);
 	}
 	
 	public void setDefaultButton(JButton button)

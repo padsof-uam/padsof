@@ -1,7 +1,9 @@
 package padsof.gui.views;
 
+import java.awt.*;
 import java.rmi.NoSuchObjectException;
 import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -46,6 +48,12 @@ public class AdminView extends View
 		fromChooser = new JDateChooser();
 		toChooser = new JDateChooser();
 		
+		Calendar calendar = Calendar.getInstance();
+		toChooser.setDate(calendar.getTime());
+		calendar.add(Calendar.MONTH, -1);
+		fromChooser.setDate(calendar.getTime());
+		
+		
 		JLabel fromLabel = new JLabel("Desde: ");
 		JLabel toLabel = new JLabel("Hasta: ");
 		
@@ -77,6 +85,11 @@ public class AdminView extends View
 		leftLayoutHelper.linkVerticalSize(viewButton, vendorList);
 		leftLayoutHelper.linkHorizontalSize(vendorList);
 		
+		Dimension chooserSize = new Dimension((int) fromChooser.getSize().getHeight(), 70);
+		fromChooser.setMinimumSize(chooserSize);
+		toChooser.setMinimumSize(chooserSize);
+		
+		
 		leftPanel.setLayout(leftLayoutHelper.generateLayout(leftPanel));
 		
 		generator = new FormGenerator();
@@ -93,13 +106,19 @@ public class AdminView extends View
 		JPanel rightPanel = generator.generateForm();
 		NavigateButton vendorViewButton = new NavigateButton("Vista vendedor",VendorFirstView.class);
 		
-		mainLayout.addColumn(leftPanel, Box.createGlue());
-		mainLayout.addColumn(Box.createHorizontalStrut(10), vendorViewButton);
-		mainLayout.addColumn(rightPanel, Box.createGlue());
-		
+		mainLayout.addColumn(leftPanel);
+		mainLayout.addColumn(Box.createHorizontalStrut(10));
+		mainLayout.addColumn(rightPanel);
 		mainLayout.setInnerMargins(10, 0, 10, 10);
 		
-		this.setLayout(mainLayout.generateLayout(this));
+		JPanel mainPanel = mainLayout.generatePanel();
+		JPanel lowerPanel = new JPanel();
+		lowerPanel.setLayout(new FlowLayout());
+		lowerPanel.add(vendorViewButton);
+        
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.add(mainPanel);
+		this.add(lowerPanel);
 	}
 	
 	public void setModel(List<Vendor> vendors)
