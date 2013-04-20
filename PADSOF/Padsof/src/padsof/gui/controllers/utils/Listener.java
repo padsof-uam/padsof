@@ -1,4 +1,4 @@
-package padsof.gui.controllers;
+package padsof.gui.controllers.utils;
 
 import java.lang.annotation.*;
 

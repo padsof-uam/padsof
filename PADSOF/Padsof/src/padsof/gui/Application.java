@@ -7,6 +7,7 @@ import java.util.Stack;
 import javax.swing.*;
 
 import padsof.gui.controllers.*;
+import padsof.gui.controllers.utils.ControllerLocator;
 import padsof.gui.views.*;
 import padsof.system.Vendor;
 

@@ -6,6 +6,7 @@ import java.util.*;
 import javax.swing.JOptionPane;
 
 import padsof.db.DBWrapper;
+import padsof.gui.controllers.utils.Listener;
 import padsof.gui.views.*;
 import padsof.system.Vendor;
 

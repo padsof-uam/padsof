@@ -1,7 +1,8 @@
-package padsof.gui.controllers;
+package padsof.gui.controllers.utils;
 
 import java.util.*;
 
+import padsof.gui.controllers.Controller;
 import padsof.gui.views.View;
 
 public class ControllerLocator

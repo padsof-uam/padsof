@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.lang.reflect.*;
 
 import padsof.gui.NavigationService;
+import padsof.gui.controllers.utils.Listener;
 import padsof.gui.views.View;
 
 public class Controller<V extends View> implements ActionListener
