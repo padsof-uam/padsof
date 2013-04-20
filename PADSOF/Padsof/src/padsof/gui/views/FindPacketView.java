@@ -6,6 +6,7 @@ import java.util.*;
 
 import javax.swing.*;
 
+import padsof.gui.NavigateButton;
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.GroupLayoutHelper;
 import padsof.system.Packet;
@@ -13,7 +14,8 @@ import padsof.system.Packet;
 public class FindPacketView extends View
 {
 
-	private JButton modificar;
+	private NavigateButton modificar;
+	private NavigateButton crear;
 	private JList<Packet> listPacket;
 	private DefaultListModel<Packet> packets;
 	
@@ -22,7 +24,8 @@ public class FindPacketView extends View
 	public FindPacketView() throws NoSuchObjectException
 	{
 		super("Buscar paquete");
-		modificar = new JButton("Elegir paquete");
+		modificar = new NavigateButton("Elegir paquete",BookingView.class);
+		crear = new NavigateButton ("Crear uno nuevo",BookingView.class);
 		listPacket = new JList<Packet>();
 		listPacket.setAlignmentX(LEFT_ALIGNMENT);
 
@@ -32,7 +35,8 @@ public class FindPacketView extends View
 				.fluidGenerateGroupLayout(Arrays.asList(modificar),
 						Arrays.asList(listPacket))
 				.setIsInnerPanel(true)
-				.generatePanel());
+				.generatePanel(),
+				crear);
 
 		JPanel midPanel =  new JPanel();
 		midPanel.setLayout(midLayoutHelper.generateLayout(midPanel));

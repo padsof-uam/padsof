@@ -36,6 +36,10 @@ public class BookingView extends View
 		packet.setModel(this.packets);
 	}
 
+	/**
+	 * Tendria que tener un argumento que fuese el paquete al que esta asociado o algo asi?
+	 * @throws NoSuchObjectException
+	 */
 	public BookingView() throws NoSuchObjectException
 	{
 
