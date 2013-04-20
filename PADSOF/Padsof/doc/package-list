@@ -3,6 +3,12 @@ padsof.bookings
 padsof.csv
 padsof.db
 padsof.db.feeder
+padsof.gui
+padsof.gui.controllers
+padsof.gui.controllers.utils
+padsof.gui.models
+padsof.gui.utils
+padsof.gui.views
 padsof.services
 padsof.system
 padsof.tests

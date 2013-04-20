@@ -16,7 +16,7 @@ import padsof.gui.views.View;
  * 
  * <pre>
  * <code>
- * @Listener("method")
+ * {@literal @}Listener("method")
  * public void listener(ActionEvent e)
  * {
  * 		// ...
