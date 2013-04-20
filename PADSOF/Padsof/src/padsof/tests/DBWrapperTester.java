@@ -9,7 +9,7 @@ import java.util.*;
 
 import org.junit.*;
 
-import padsof.db.DBWrapper;
+import padsof.db.*;
 import padsof.tests.dummies.*;
 
 public class DBWrapperTester
@@ -167,6 +167,35 @@ public class DBWrapperTester
 				"publicField", "thisIsATest");
 
 		assertListContains(entities, a);
+	}
+	
+	@Test
+	public void testQuery() throws IllegalArgumentException, IllegalAccessException, SQLException
+	{
+		int numElements = 100;
+		int from = 30;
+		int to = 50;
+		
+		List<SampleIntClass> all = new ArrayList<SampleIntClass>();
+		List<SampleIntClass> subset = new ArrayList<SampleIntClass>();
+		
+		for(int i = 0; i < numElements; i++)
+		{
+			SampleIntClass c = new SampleIntClass();
+			c.i = i;
+			if(i > from && i < to)
+				subset.add(c);
+			all.add(c);
+		}
+		
+		db.saveCollection(all);
+		
+		Query<SampleIntClass> query = new Query<SampleIntClass>();
+		query.addRestriction("i", from, to);
+		
+		List<SampleIntClass> queried = db.executeQuery(SampleIntClass.class, query);
+		
+		assertAreSameCollection(subset, queried);
 	}
 
 	@AfterClass
