@@ -8,6 +8,13 @@ import javax.swing.*;
 
 import com.toedter.calendar.JDateChooser;
 
+/**
+ * Generate a form automatically using label names.
+ * This class supports fluent/fluid syntax, so most methods
+ * return the instance itself.
+ * 
+ * @author Víctor de Juan Sanz - Guillermo Julián Moreno
+ */
 public class FormGenerator
 {
 	private List<String> fields = new ArrayList<String>();
@@ -20,7 +27,14 @@ public class FormGenerator
 	private int rightMargin = 0;
 	private int bottomMargin = 0;
 	private int fieldWidth = 20;
-	
+
+	/**
+	 * Add fields (label names) to the generator.
+	 * 
+	 * @param fields
+	 *            Varying number of fields.
+	 * @return The instance.
+	 */
 	public FormGenerator addFields(String... fields)
 	{
 		for (String field : fields)
@@ -29,6 +43,13 @@ public class FormGenerator
 		return this;
 	}
 
+	/**
+	 * Sets if the panel will be used as an inner panel.
+	 * 
+	 * @param inner
+	 *            False if this is a standalone panel.
+	 * @return The instance.
+	 */
 	public FormGenerator setIsInnerPanel(boolean inner)
 	{
 		isInnerPanel = inner;
@@ -36,6 +57,19 @@ public class FormGenerator
 		return this;
 	}
 
+	/**
+	 * Sets the innter margins of the panel.
+	 * 
+	 * @param left
+	 *            Left margin
+	 * @param top
+	 *            Top margin
+	 * @param right
+	 *            Right margin
+	 * @param bottom
+	 *            Bottom margin
+	 * @return The instance
+	 */
 	public FormGenerator setInnerMargins(int left, int top, int right,
 			int bottom)
 	{
@@ -47,6 +81,13 @@ public class FormGenerator
 		return this;
 	}
 
+	/**
+	 * Set the title of the form.
+	 * 
+	 * @param title
+	 *            Title
+	 * @return The instance
+	 */
 	public FormGenerator setTitle(String title)
 	{
 		this.title = title;
@@ -54,6 +95,13 @@ public class FormGenerator
 		return this;
 	}
 
+	/**
+	 * Adds a button to the last row of the form.
+	 * 
+	 * @param button
+	 *            Button.
+	 * @return The instance
+	 */
 	public FormGenerator addButton(JButton button)
 	{
 		this.buttons.add(button);
@@ -61,6 +109,12 @@ public class FormGenerator
 		return this;
 	}
 
+	/**
+	 * Generates the form and returns a JPanel with all the fields
+	 * in it.
+	 * 
+	 * @return The panel.
+	 */
 	@SuppressWarnings("unchecked")
 	public JPanel generateForm()
 	{
@@ -82,7 +136,7 @@ public class FormGenerator
 
 			Dimension size = comp.getSize();
 			comp.setMinimumSize(new Dimension(fieldWidth, size.height));
-			
+
 			labels.add(label);
 			components.add(comp);
 		}
@@ -137,6 +191,16 @@ public class FormGenerator
 		return field.indexOf("Fecha") != -1 || field.indexOf("fecha") != -1;
 	}
 
+	/**
+	 * Returns the string value of a given field. Throws
+	 * ComponentNotFoundException if that field doesn't exist.
+	 * 
+	 * @param field
+	 *            Field name
+	 * @return String value
+	 * @throws ComponentNotFoundException
+	 *             if the field is not found.
+	 */
 	public String getValueFor(String field)
 	{
 		int index = fields.indexOf(field);
@@ -164,18 +228,27 @@ public class FormGenerator
 		}
 	}
 
+	/**
+	 * Returns the Date value of a date field. Throws ComponentNotFoundException
+	 * if the field doesn't exist or isn't a date field.
+	 * 
+	 * @param field Field name
+	 * @return Date value
+	 * @throws ComponentNotFoundException if the field doesn't exists or isn't a date field.
+	 */
 	public Date getDatefor(String field)
 	{
 		int index = fields.indexOf(field);
 
 		if (index == -1)
 			throw new ComponentNotFoundException("Component not found", field);
-		
-		if(!isDateField(field))
-			throw new ComponentNotFoundException("That's not a date element", field);
-		
+
+		if (!isDateField(field))
+			throw new ComponentNotFoundException("That's not a date element",
+					field);
+
 		JDateChooser dc = (JDateChooser) components.get(index);
-		
+
 		return dc.getDate();
 	}
 
@@ -197,7 +270,11 @@ public class FormGenerator
 
 		return titleLabel;
 	}
-
+	
+	/**
+	 * Sets the minimun width of the fields.
+	 * @param width Width in pixels.
+	 */
 	public void setMinimumFieldWidth(int width)
 	{
 		fieldWidth = width;
