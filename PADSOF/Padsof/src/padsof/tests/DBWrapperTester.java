@@ -108,7 +108,7 @@ public class DBWrapperTester
 			SampleSimpleClass t = new SampleSimpleClass();
 			t.publicField = "" + rand.nextInt(100000);
 			l.add(t);
-			// db.save(t);
+			db.save(t);
 		}
 
 		List<SampleSimpleClass> entities = db.getAll(SampleSimpleClass.class);
@@ -175,25 +175,37 @@ public class DBWrapperTester
 		int numElements = 100;
 		int from = 30;
 		int to = 50;
+		double min = 20.1;
+		Random rnd = new Random();
+		SampleSimpleClass dummy = new SampleSimpleClass();
+		dummy.publicField = "test";
 		
-		List<SampleIntClass> all = new ArrayList<SampleIntClass>();
-		List<SampleIntClass> subset = new ArrayList<SampleIntClass>();
+		List<SampleComplexClass> all = new ArrayList<SampleComplexClass>();
+		List<SampleComplexClass> subset = new ArrayList<SampleComplexClass>();
+		
+		db.clear();
 		
 		for(int i = 0; i < numElements; i++)
 		{
-			SampleIntClass c = new SampleIntClass();
+			SampleComplexClass c = new SampleComplexClass();
 			c.i = i;
-			if(i > from && i < to)
+			c.d = i + rnd.nextDouble();
+			c.b = rnd.nextBoolean();
+			c.child = dummy;
+			
+			if(i > from && i < to && c.b && c.d > min)
 				subset.add(c);
 			all.add(c);
 		}
 		
 		db.saveCollection(all);
 		
-		Query<SampleIntClass> query = new Query<SampleIntClass>();
-		query.addRestriction("i", from, to);
+		Query<SampleComplexClass> query = db.prepareQuery(SampleComplexClass.class);
+		query.setEquals("b", true);
+		query.setMin("d", min);
+		query.setRange("i", from, to);
 		
-		List<SampleIntClass> queried = db.executeQuery(SampleIntClass.class, query);
+		List<SampleComplexClass> queried = db.executeQuery(SampleComplexClass.class, query);
 		
 		assertAreSameCollection(subset, queried);
 	}

@@ -1,62 +1,57 @@
 package padsof.db;
 
-import java.util.*;
+import java.sql.SQLException;
 
-public class Query<O extends DBObject>
+import com.j256.ormlite.stmt.*;
+
+public class Query<T>
 {
-	private List<Restriction<?>> restrictions = new ArrayList<Restriction<?>>();
+	private QueryBuilder<T, Long> queryBuilder;
+	private Where<T, Long> whereClause = null;
 	
-	static class Restriction<T>
+	private Where<T, Long> getWhere()
 	{
-		public T min;
-		public T max;
-		public boolean hasMin = false;
-		public boolean hasMax = false;
-		public String field;
+		if(whereClause == null)
+			whereClause = queryBuilder.where();
+		else
+			whereClause.and();
 		
-		public void setMin(T value) 
-		{
-			min = value;
-			hasMin = true;
-		}
-		
-		public void setMax(T value) 
-		{
-			max = value;
-			hasMax = true;
-		}
+		return whereClause;
 	}
 	
-	public <T> void addRestriction(String field, T min, T max)
+	Query(QueryBuilder<T, Long> queryBuilder)
 	{
-		Restriction<T> r = new Restriction<T>();
-		r.field = field;
-		r.setMax(max);
-		r.setMin(min);
-		
-		restrictions.add(r);
+		this.queryBuilder = queryBuilder;
 	}
 	
-	public <T> void addMin(String field, T min)
+	public void setMin(String field, Object min) throws SQLException
 	{
-		Restriction<T> r = new Restriction<T>();
-		r.field = field;
-		r.setMin(min);
-		
-		restrictions.add(r);
+		Where<T, Long> where = getWhere();
+		where.gt(field, min);
 	}
 	
-	public <T> void addMax(String field, T max)
+	public void setMax(String field, Object max) throws SQLException
 	{
-		Restriction<T> r = new Restriction<T>();
-		r.field = field;
-		r.setMax(max);
-		
-		restrictions.add(r);
+		Where<T, Long> where = getWhere();
+		where.lt(field, max);
 	}
 	
-	public List<Restriction<?>> getRestrictions()
+	public void setRange(String field, Object min, Object max) throws SQLException
 	{
-		return restrictions;
+		Where<T, Long> where = getWhere();
+		where.lt(field, max);
+		where.and();
+		where.gt(field, min);
+	}
+	
+	public void setEquals(String field, Object value) throws SQLException
+	{
+		Where<T, Long> where = getWhere();
+		where.eq(field, value);
+	}
+
+	public PreparedQuery<T> prepare() throws SQLException
+	{
+		return queryBuilder.prepare();
 	}
 }

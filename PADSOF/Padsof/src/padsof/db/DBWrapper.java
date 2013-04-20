@@ -8,14 +8,12 @@ import java.lang.reflect.*;
 import java.sql.SQLException;
 import java.util.*;
 
-import padsof.db.Query.Restriction;
 import padsof.utils.Reflection;
 
 import com.j256.ormlite.dao.*;
 import com.j256.ormlite.dao.Dao.CreateOrUpdateStatus;
 import com.j256.ormlite.field.*;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
-import com.j256.ormlite.stmt.*;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.*;
 
@@ -296,26 +294,19 @@ public class DBWrapper
 		for (T item : items)
 			save(item);
 	}
-	
-	public <T extends DBObject> List<T> executeQuery(Class<T> cls, Query<T> query) throws SQLException
+
+	public <T> Query<T> prepareQuery(Class<T> cls) throws SQLException
 	{
 		@SuppressWarnings("unchecked")
 		Dao<T, Long> dao = (Dao<T, Long>) getDaoFor(cls);
-		QueryBuilder<T, Long> queryBuilder = dao.queryBuilder();
-		
-		for(Restriction<?> restriction: query.getRestrictions())
-		{
-			Where<T, Long> where = queryBuilder.where();
-			if(restriction.hasMin)
-				where = where.gt(restriction.field, restriction.min);
-			
-			if(restriction.hasMin && restriction.hasMax)
-				where = where.and();
-			
-			if(restriction.hasMax)
-				where = where.lt(restriction.field, restriction.max);
-		}
-		
-		return queryBuilder.query();
+		return new Query<T>(dao.queryBuilder());
+	}
+
+	public <T> List<T> executeQuery(Class<T> cls,
+			Query<T> query) throws SQLException
+	{
+		@SuppressWarnings("unchecked")
+		Dao<T, Long> dao = (Dao<T, Long>) getDaoFor(cls);
+		return dao.query(query.prepare());
 	}
 }

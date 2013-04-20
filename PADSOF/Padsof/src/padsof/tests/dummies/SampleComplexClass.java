@@ -32,8 +32,13 @@ public class SampleComplexClass
 
 		SampleComplexClass rhs = (SampleComplexClass) obj;
 
-		return rhs.child.equals(child) && d == rhs.d && b == rhs.b
+		return rhs.child.equals(child) && doubleEquals(d, rhs.d) && b == rhs.b
 				&& i == rhs.i;
 
+	}
+	
+	private boolean doubleEquals(double a, double b)
+	{
+		return Math.abs(a - b) < 0.001;
 	}
 }
