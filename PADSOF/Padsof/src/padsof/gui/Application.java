@@ -9,7 +9,7 @@ import javax.swing.*;
 import padsof.gui.controllers.*;
 import padsof.gui.controllers.utils.ControllerLocator;
 import padsof.gui.views.*;
-import padsof.system.Vendor;
+import padsof.system.*;
 
 /**
  * Application class. Singleton.
@@ -22,7 +22,26 @@ public class Application implements NavigationService
 
 	private JFrame frame;
 	private JPanel topPanel;
-	private View currentView;
+	private View currentView;	
+	private Packet actualPacket;
+	private Client cliente;
+	
+	/**
+	 * @return the actualPacket
+	 */
+	public Packet getActualPacket()
+	{
+		return actualPacket;
+	}
+
+	/**
+	 * @param actualPacket the actualPacket to set
+	 */
+	public void setActualPacket(Packet actualPacket)
+	{
+		this.actualPacket = actualPacket;
+	}
+	
 	private boolean started = false;
 	private Stack<Class<? extends View>> navigationStack;
 
@@ -222,4 +241,14 @@ public class Application implements NavigationService
 
 		setView(navigationStack.pop());
 	}
+	
+	public Client getCliente()
+	{
+		return cliente;
+	}
+
+	public void setCliente(Client cliente)
+	{
+		this.cliente = cliente;
+	}	
 }

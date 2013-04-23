@@ -18,13 +18,13 @@ public class VendorFirstView extends View
 	{
 		super("Vendedor");
 
-		JLabel titulo = new JLabel ("<html><big><p align=" + "justify"
-				+ "><b><u>¿Con qué cliente </u></b><br> <big><p align=" + "justify"
+		JLabel titulo = new JLabel ("<html><p align=" + "justify"
+				+ "><b><u>¿Con qué cliente </u></b><br><p align=" + "justify"
 				+ "><b><u>desea trabajar?</html>");
-		newClient = new NavigateButton("<html><big><p align=" + "justify"
-				+ "><b>Nuevo</big></b></html>", RegisterClientView.class);
-		existentClient = new NavigateButton("<html><big><p align=" + "justify"
-				+ "><b>Existente</big></b><br></html>",
+		newClient = new NavigateButton("<html><p align=" + "justify"
+				+ "><b>Nuevo</b></html>", RegisterClientView.class);
+		existentClient = new NavigateButton("<html><p align=" + "justify"
+				+ "><b>Existente</b><br></html>",
 				SearchClient.class);
 
 		GroupLayoutHelper mainLayout = new GroupLayoutHelper();

@@ -2,11 +2,13 @@ package padsof.gui.views;
 
 import java.awt.Dimension;
 import java.rmi.NoSuchObjectException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.*;
 
-import padsof.gui.NavigateButton;
+import padsof.bookings.Booking;
+import padsof.gui.*;
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.GroupLayoutHelper;
 import padsof.system.Packet;
@@ -19,8 +21,8 @@ public class BookingView extends View
 	 */
 	private static final long serialVersionUID = -5982811955870714412L;
 
-	private JList<Packet> packet;
-	private DefaultListModel<Packet> packets;
+	private JList<Booking> elements;
+	private DefaultListModel<Booking> packets;
 
 	private NavigateButton btnHotel;
 
@@ -28,15 +30,20 @@ public class BookingView extends View
 
 	private NavigateButton btnViaje;
 
-	public void setModel(List<Packet> packets)
+	public void setModel(List<Booking> bookings)
 	{
-		this.packets = new DefaultListModel<Packet>();
-		for (Packet aux : packets)
+		this.packets = new DefaultListModel<Booking>();
+		for (Booking aux : bookings)
 			this.packets.addElement(aux);
-		packet.setModel(this.packets);
+		elements.setModel(this.packets);
 	}
 
-	public BookingView() throws NoSuchObjectException
+	/**
+	 * Tendria que tener un argumento que fuese el paquete al que esta asociado o algo asi?
+	 * @throws NoSuchObjectException
+	 * @throws SQLException 
+	 */
+	public BookingView() throws NoSuchObjectException, SQLException
 	{
 
 		super("Booking View");
@@ -68,13 +75,16 @@ public class BookingView extends View
 		
 		GroupLayoutHelper rightLayoutHelper = new GroupLayoutHelper();
 		
-		packet = new JList<Packet>();
-		packet.setAlignmentX(LEFT_ALIGNMENT);
+		Packet actualPacket = Application.getInstance().getActualPacket();
+
+		this.setModel(actualPacket.getBookings());
+		elements = new JList<Booking>();
+		elements.setAlignmentX(LEFT_ALIGNMENT);
 
 		JLabel lblPacket = new JLabel("<html>Elementos del paquete</html>");
 
 		
-		rightLayoutHelper.addColumn(lblPacket, packet);
+		rightLayoutHelper.addColumn(lblPacket, elements);
 
 		rightPanel.setLayout(rightLayoutHelper.generateLayout(rightPanel));
 

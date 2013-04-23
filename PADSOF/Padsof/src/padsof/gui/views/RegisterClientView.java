@@ -8,6 +8,7 @@ import java.rmi.NoSuchObjectException;
 
 import javax.swing.*;
 
+import padsof.gui.NavigateButton;
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.FormGenerator;
 
@@ -32,7 +33,7 @@ public class RegisterClientView extends View
 		generator.addFields("DNI", "Nombre", "Apellido 1", "Apellido 2", "Nº Seguridad Social",
 				"Código de verificación", "Fecha de nacimiento");
 		
-		generator.addButton(new JButton("Crear"));
+		generator.addButton(new NavigateButton("Crear",FindPacketView.class));
 		generator.setTitle("Alta de cliente");
 		
 		JPanel form = generator.generateForm();
