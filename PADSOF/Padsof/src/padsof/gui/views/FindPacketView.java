@@ -25,7 +25,8 @@ public class FindPacketView extends View
 	{
 		super("Buscar paquete");
 		modificar = new JButton("Elegir paquete");
-		crear = new JButton ("Crear uno nuevo");
+		//crear = new JButton ("Crear uno nuevo");
+		crear = new NavigateButton("Crear uno nuevo", FindFlightView.class);
 		listPacket = new JList<Packet>();
 		listPacket.setAlignmentX(LEFT_ALIGNMENT);
 		

@@ -22,6 +22,7 @@ public class FormGenerator
 	private boolean isInnerPanel = true;
 	private String title = null;
 	private List<JButton> buttons = new ArrayList<JButton>();
+	private Map<String, List<? extends Object>> options = new HashMap<String, List<? extends Object>>();
 	private int leftMargin = 0;
 	private int topMargin = 0;
 	private int rightMargin = 0;
@@ -39,6 +40,15 @@ public class FormGenerator
 	{
 		for (String field : fields)
 			this.fields.add(field);
+
+		return this;
+	}
+
+	public FormGenerator addOptionField(String field, List<? extends Object> options)
+	{
+		this.fields.add(field);
+
+		this.options.put(field, options);
 
 		return this;
 	}
@@ -135,8 +145,10 @@ public class FormGenerator
 			label.setLabelFor(comp);
 
 			Dimension size = comp.getSize();
-			comp.setMinimumSize(new Dimension(fieldWidth, size.height));
-
+			comp.setMinimumSize(new Dimension(
+					fieldWidth > 0 ? fieldWidth : 30, 
+					size.height > 0 ? size.height : 12));
+			
 			labels.add(label);
 			components.add(comp);
 		}
@@ -145,7 +157,7 @@ public class FormGenerator
 		layoutHelper.addColumn(components);
 
 		layoutHelper.linkVerticalSize(components);
-
+		
 		JPanel panel;
 
 		if (title != null || buttons.size() > 0)
@@ -176,9 +188,57 @@ public class FormGenerator
 		if (isPasswordField(field))
 			return new JPasswordField();
 		else if (isDateField(field))
-			return new JDateChooser();
+			return generateDateField();
+		else if (isOptionField(field))
+			return generateOptionField(field);
 		else
 			return new JTextField();
+	}
+
+	private Component generateDateField()
+	{
+		JDateChooser chooser = new JDateChooser();
+		chooser.setDate(Calendar.getInstance().getTime());
+		return chooser;
+	}
+
+	private boolean isOptionField(String field)
+	{
+		return options.containsKey(field);
+	}
+
+	private Component generateOptionField(String field)
+	{
+		JComboBox<Object> comboBox = new JComboBox<Object>();
+		
+		List<? extends Object> options = this.options.get(field);
+		
+		DefaultComboBoxModel<Object> model = new DefaultComboBoxModel<Object>();
+		
+		if(options != null)
+			for(Object option: options)
+				model.addElement(option);
+		
+		comboBox.setModel(model);
+		return comboBox;
+	}
+
+	public void setOptionsModel(String field, List<? extends Object> options)
+	{
+		int index = this.fields.indexOf(field);
+		
+		if(index == -1 || !isOptionField(field))
+			throw new ComponentNotFoundException("Campo no encontrado, o no es un campo de excepciones", field);
+		
+		@SuppressWarnings("unchecked")
+		JComboBox<Object> comboBox = (JComboBox<Object>) this.components.get(index);
+		
+		DefaultComboBoxModel<Object> model = new DefaultComboBoxModel<Object>();
+		
+		for(Object option: options)
+			model.addElement(option);
+		
+		comboBox.setModel(model);
 	}
 
 	private boolean isPasswordField(String field)
@@ -221,6 +281,14 @@ public class FormGenerator
 			JDateChooser dc = (JDateChooser) components.get(index);
 			return dc.getDate().toString();
 		}
+		else if (isOptionField(field))
+		{
+			JComboBox<?> box = (JComboBox<?>) components.get(index);
+			if(box.getSelectedItem() == null)
+				return "";
+			else
+				return box.getSelectedItem().toString();
+		}
 		else
 		{
 			JTextField tf = (JTextField) components.get(index);
@@ -229,12 +297,38 @@ public class FormGenerator
 	}
 
 	/**
+	 * Gets the selected option of a given field. Throws
+	 * ComponentNotFoundException
+	 * if the field doesn't exist or isn't an option field.
+	 * 
+	 * @param field
+	 *            Field name
+	 * @return Selected item.
+	 */
+	public Object getSelectedOption(String field)
+	{
+		int index = fields.indexOf(field);
+
+		if (index == -1)
+			throw new ComponentNotFoundException("Component not found", field);
+
+		if (!isOptionField(field))
+			throw new ComponentNotFoundException("That's not a field element",
+					field);
+
+		JComboBox<?> box = (JComboBox<?>) components.get(index);
+		return box.getSelectedItem();
+	}
+
+	/**
 	 * Returns the Date value of a date field. Throws ComponentNotFoundException
 	 * if the field doesn't exist or isn't a date field.
 	 * 
-	 * @param field Field name
+	 * @param field
+	 *            Field name
 	 * @return Date value
-	 * @throws ComponentNotFoundException if the field doesn't exists or isn't a date field.
+	 * @throws ComponentNotFoundException
+	 *             if the field doesn't exists or isn't a date field.
 	 */
 	public Date getDatefor(String field)
 	{
@@ -270,10 +364,12 @@ public class FormGenerator
 
 		return titleLabel;
 	}
-	
+
 	/**
 	 * Sets the minimun width of the fields.
-	 * @param width Width in pixels.
+	 * 
+	 * @param width
+	 *            Width in pixels.
 	 */
 	public void setMinimumFieldWidth(int width)
 	{

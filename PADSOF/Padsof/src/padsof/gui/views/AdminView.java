@@ -115,6 +115,7 @@ public class AdminView extends View
 		JPanel lowerPanel = new JPanel();
 		lowerPanel.setLayout(new FlowLayout());
 		lowerPanel.add(vendorViewButton);
+		lowerPanel.add(new NavigateButton("Test", FindFlightView.class));
         
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.add(mainPanel);

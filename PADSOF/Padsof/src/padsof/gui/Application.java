@@ -66,6 +66,7 @@ public class Application implements NavigationService
 
 	private void registerControllers()
 	{
+		ControllerLocator.registerController(FindFlightView.class, FindFlightController.class);
 		ControllerLocator.registerController(LoginView.class,
 				LoginController.class);
 		ControllerLocator.registerController(AdminView.class,
@@ -250,5 +251,10 @@ public class Application implements NavigationService
 	public void setCliente(Client cliente)
 	{
 		this.cliente = cliente;
+	}
+
+	public Vendor getVendor()
+	{
+		return vendor;
 	}	
 }
