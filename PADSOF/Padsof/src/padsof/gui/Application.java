@@ -7,7 +7,7 @@ import javax.swing.*;
 
 import padsof.gui.controllers.*;
 import padsof.gui.views.*;
-import padsof.system.Vendor;
+import padsof.system.*;
 
 public class Application implements NavigationService
 {
@@ -17,6 +17,25 @@ public class Application implements NavigationService
 	private JPanel topPanel;
 	private View currentView;
 	
+	private Packet actualPacket;
+	private Client cliente;
+	
+	/**
+	 * @return the actualPacket
+	 */
+	public Packet getActualPacket()
+	{
+		return actualPacket;
+	}
+
+	/**
+	 * @param actualPacket the actualPacket to set
+	 */
+	public void setActualPacket(Packet actualPacket)
+	{
+		this.actualPacket = actualPacket;
+	}
+
 	private Vendor vendor;
 	
 	private boolean started = false;
@@ -172,5 +191,15 @@ public class Application implements NavigationService
 		view.setController(controller);
 		controller.setNavigator(this);
 		controller.setView(view);
+	}
+
+	public Client getCliente()
+	{
+		return cliente;
+	}
+
+	public void setCliente(Client cliente)
+	{
+		this.cliente = cliente;
 	}	
 }
