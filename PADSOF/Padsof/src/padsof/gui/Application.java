@@ -60,8 +60,8 @@ public class Application implements NavigationService
 		frame = new JFrame();
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(850, 440);
-		frame.setMinimumSize(new Dimension(850, 440));
+		frame.setSize(750, 400);
+		frame.setMinimumSize(new Dimension(750, 400));
 		frame.setResizable(false);
 		
 		
@@ -71,6 +71,7 @@ public class Application implements NavigationService
 	private void registerControllers()
 	{
 		ControllerLocator.registerController(FindFlightView.class, FindFlightController.class);
+		ControllerLocator.registerController(FindTravelView.class, FindTravelController.class);
 		ControllerLocator.registerController(LoginView.class,
 				LoginController.class);
 		ControllerLocator.registerController(AdminView.class,
@@ -200,6 +201,7 @@ public class Application implements NavigationService
 
 		replaceMainView(newView);
 		setControllerForView(newView);
+		frame.revalidate();
 	}
 
 	private void center()

@@ -66,10 +66,6 @@ public class FindFlightView extends View
 		generator.addOptionField("Destino", null);
 		generator.addFields("Fecha Inicial", "Fecha Final","Precio máximo", "Plazas");
 
-		JPanel form = generator.generateForm();
-		setLayout(new FlowLayout());
-		add(form);
-
 		flightList = new JList<FlightInfoWrapper>();
 		flightList.setAutoscrolls(true);
 		
