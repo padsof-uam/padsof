@@ -30,6 +30,8 @@ public class AdminView extends View
 	private JDateChooser toChooser;
 
 	private JButton viewButton;
+
+	private JButton feedButton;
 	
 	@SuppressWarnings("unchecked")
 	public AdminView() throws NoSuchObjectException
@@ -111,9 +113,11 @@ public class AdminView extends View
 		mainLayout.addColumn(rightPanel);
 		mainLayout.setInnerMargins(10, 0, 10, 10);
 		
+		feedButton = new JButton("Alimentar base de datos");
 		JPanel mainPanel = mainLayout.generatePanel();
 		JPanel lowerPanel = new JPanel();
 		lowerPanel.setLayout(new FlowLayout());
+		lowerPanel.add(feedButton);
 		lowerPanel.add(vendorViewButton);
 		lowerPanel.add(new NavigateButton("Test", FindTravelView.class));
         
@@ -166,5 +170,8 @@ public class AdminView extends View
 		
 		viewButton.setActionCommand("ViewStats");
 		viewButton.addActionListener(c);
+		
+		feedButton.setActionCommand("Feed");
+		feedButton.addActionListener(c);
 	}
 }

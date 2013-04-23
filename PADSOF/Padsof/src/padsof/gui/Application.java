@@ -80,6 +80,11 @@ public class Application implements NavigationService
 				StatsController.class);
 	}
 
+	public JFrame getFrame()
+	{
+		return frame;
+	}
+	
 	/**
 	 * Sets the default button for the interface.
 	 * 
