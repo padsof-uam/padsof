@@ -9,7 +9,7 @@ import java.rmi.NoSuchObjectException;
 import javax.swing.*;
 
 import padsof.gui.controllers.Controller;
-import padsof.gui.utils.FormGenerator;
+import padsof.gui.utils.*;
 
 /**
  * @author Víctor de Juan Sanz - Guillermo Julián Moreno
@@ -26,8 +26,8 @@ public class RegisterClientView extends View
 	private FormGenerator generator;
 	
 	
-	public Object getValueFor(String field){
-		
+	public Object getValueFor(String field) throws ComponentNotFoundException{
+		//TODO: xk no hay excepciones... 
 		Object retval = null;
 		if (field.compareToIgnoreCase("DNI") == 0)
 			retval = generator.getValueFor("DNI");

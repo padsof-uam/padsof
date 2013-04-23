@@ -1,5 +1,6 @@
 package padsof.gui.controllers;
 
+import java.lang.reflect.*;
 import java.util.*;
 
 import javax.swing.JOptionPane;
@@ -7,7 +8,7 @@ import javax.swing.JOptionPane;
 import padsof.db.DBWrapper;
 import padsof.gui.Application;
 import padsof.gui.controllers.utils.Listener;
-import padsof.gui.views.RegisterClientView;
+import padsof.gui.views.*;
 import padsof.system.*;
 
 public class RegisterClientController extends Controller<RegisterClientView>
@@ -19,7 +20,9 @@ public class RegisterClientController extends Controller<RegisterClientView>
 
 		Client NCliente;
 		ImsersoClient ICliente;
-		if (view.getValueFor("Código de verificación") == null)
+
+
+		if (((String) view.getValueFor("Código de verificación")).equals(""))
 		{
 			NCliente = new Client();
 			cliente = NCliente;
@@ -31,10 +34,10 @@ public class RegisterClientController extends Controller<RegisterClientView>
 					|| (Date) view.getValueFor("Fecha de nacimiento") == null)
 			{
 				JOptionPane
-						.showMessageDialog(
-								view,
-								"Por favor rellene todos los campos para un cliente Imserso",
-								"Error", JOptionPane.ERROR_MESSAGE);
+				.showMessageDialog(
+						view,
+						"Por favor rellene todos los campos para un cliente Imserso",
+						"Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			long SsNumber = Long.parseLong(((String) view.getValueFor("Nº Seguridad Social")));
@@ -60,8 +63,8 @@ public class RegisterClientController extends Controller<RegisterClientView>
 					+ (String) view.getValueFor("Apellido 2"));
 		}
 		
-		//TODO: guardar cliente en base de datos
-		Application.getInstance().setCliente(cliente);
+		Application app = Application.getInstance();
+		app.setCliente(cliente);
 		
 		try
 		{
@@ -74,6 +77,8 @@ public class RegisterClientController extends Controller<RegisterClientView>
 		}
 		
 		JOptionPane.showMessageDialog(view, "Cliente creado.");
+		navigator.navigate(FindPacketView.class);
+
 	}
 
 

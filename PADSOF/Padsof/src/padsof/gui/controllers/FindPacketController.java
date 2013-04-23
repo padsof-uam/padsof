@@ -44,6 +44,8 @@ public class FindPacketController extends Controller<FindPacketView>
 	{
 		Packet packet = new Packet();
 
+		packet.setClient(Application.getInstance().getCliente());
+		
 		try
 		{
 			DBWrapper.getInstance().save(packet);
@@ -57,7 +59,6 @@ public class FindPacketController extends Controller<FindPacketView>
 		JOptionPane.showMessageDialog(view, "Paquete creado.");
 		refreshPackets();
 		
-		packet.setClient(Application.getInstance().getCliente());
 		
 		navigator.navigate(BookingView.class);
 		
