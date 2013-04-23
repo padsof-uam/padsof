@@ -230,4 +230,10 @@ public class Travel extends Service
 	{
 		return 0.1 * price;
 	}
+
+	@Override
+	public String toString()
+	{
+		return this.getPrice() + "€: Desde " + this.getStart() + ", " + this.getNights() + " noches. " + this.getDescription();
+	}
 }

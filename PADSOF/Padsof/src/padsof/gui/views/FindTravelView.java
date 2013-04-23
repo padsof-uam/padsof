@@ -3,19 +3,15 @@ package padsof.gui.views;
 /**
  * 
  */
-import java.awt.*;
 import java.rmi.NoSuchObjectException;
-import java.util.Date;
+import java.util.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
 
 import padsof.gui.controllers.Controller;
-import padsof.gui.controllers.FindFlightController.FlightInfoWrapper;
 import padsof.gui.utils.*;
-import padsof.services.*;
-
-import java.util.List;
+import padsof.services.Travel;
 public class FindTravelView extends View
 {
 
@@ -37,6 +33,7 @@ public class FindTravelView extends View
 		GroupLayoutHelper midLayoutHelper = new GroupLayoutHelper();
 		btnSearch = new JButton("Buscar");
 		btnBook = new JButton("Reservar");
+		btnBook.setEnabled(false);
 		
 		travelList = new JList<Travel>();
 		
