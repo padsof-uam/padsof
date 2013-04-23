@@ -11,15 +11,17 @@ import padsof.gui.utils.GroupLayoutHelper;
 public class SearchClient extends View
 {
 
-	JButton search;
+	private JButton search;
+	private JTextField jtfDni;
 
+	
 	@SuppressWarnings("unchecked")
 	public SearchClient()
 	{
 		super("Buscar cliente");
 		JLabel titulo = new JLabel("<html><big>Buscar cliente</html>");
 		search = new JButton("Buscar");
-		JTextField jtfDni = new JTextField("dni");
+		jtfDni = new JTextField("dni");
 		JLabel lblDni = new JLabel("Introduzca el dni del cliente: ");
 
 		GroupLayoutHelper mainLayout = new GroupLayoutHelper();
@@ -57,8 +59,13 @@ public class SearchClient extends View
 	@Override
 	public <V extends View> void setController(Controller<V> c)
 	{
-
+		search.setActionCommand("Search");
 		search.addActionListener(c);
+	}
+
+	public String getDni()
+	{
+		return this.jtfDni.getText();
 	}
 
 }

@@ -6,7 +6,6 @@ import java.util.*;
 
 import javax.swing.*;
 
-import padsof.gui.NavigateButton;
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.GroupLayoutHelper;
 import padsof.system.Packet;
@@ -20,6 +19,11 @@ public class FindPacketView extends View
 	private DefaultListModel<Packet> packets;
 	
 
+	public Packet getSelectedPacket(){
+		if (listPacket == null)
+			return null;
+		return listPacket.getSelectedValue();
+	}
 	@SuppressWarnings("unchecked")
 	public FindPacketView() throws NoSuchObjectException
 	{
@@ -33,18 +37,20 @@ public class FindPacketView extends View
 
 		midLayoutHelper.addColumn(GroupLayoutHelper
 				.fluidGenerateGroupLayout(Arrays.asList(modificar),
+						Arrays.asList(Box.createHorizontalStrut(20)),
 						Arrays.asList(listPacket))
 				.setIsInnerPanel(true)
 				.generatePanel(),
 				crear);
 
+		
 		JPanel midPanel =  new JPanel();
 		midPanel.setLayout(midLayoutHelper.generateLayout(midPanel));
 
 		GroupLayoutHelper mainLayout = new GroupLayoutHelper();
-		mainLayout.addColumn(Box.createHorizontalStrut(10));
+		mainLayout.addColumn(Box.createGlue());
 		mainLayout.addColumn(midPanel);
-
+		mainLayout.addColumn(Box.createGlue());
 		mainLayout.setInnerMargins(10, 10, 10, 10);
 
 		this.setMinimumSize(new Dimension(500, 500));

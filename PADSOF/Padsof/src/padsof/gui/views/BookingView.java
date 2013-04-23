@@ -76,7 +76,6 @@ public class BookingView extends View
 		GroupLayoutHelper rightLayoutHelper = new GroupLayoutHelper();
 		
 		Packet actualPacket = Application.getInstance().getActualPacket();
-
 		this.setModel(actualPacket.getBookings());
 		elements = new JList<Booking>();
 		elements.setAlignmentX(LEFT_ALIGNMENT);

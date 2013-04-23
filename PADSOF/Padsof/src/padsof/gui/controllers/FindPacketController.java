@@ -9,6 +9,7 @@ import padsof.db.DBWrapper;
 import padsof.gui.Application;
 import padsof.gui.controllers.utils.Listener;
 import padsof.gui.views.FindPacketView;
+import padsof.gui.views.*;
 import padsof.system.Packet;
 
 public class FindPacketController extends Controller<FindPacketView>
@@ -20,11 +21,11 @@ public class FindPacketController extends Controller<FindPacketView>
 		
 		try
 		{
-			packets = DBWrapper.getInstance().getAll(Packet.class);
+			packets = Application.getInstance().getVendor().getPackets();
 		}
 		catch (SQLException e)
 		{
-			JOptionPane.showMessageDialog(view, "No se pueden recuperar los vendedores.");
+			JOptionPane.showMessageDialog(view, "No se pueden recuperar los paquetes.");
 			return;
 		}
 		
@@ -57,12 +58,16 @@ public class FindPacketController extends Controller<FindPacketView>
 		refreshPackets();
 		
 		packet.setClient(Application.getInstance().getCliente());
+		
+		navigator.navigate(BookingView.class);
+		
 	}
 	
 	@Listener("Existente")
 	public void existentPacket(){
 		refreshPackets();
-		
+		Application.getInstance().setActualPacket(view.getSelectedPacket());
+		navigator.navigate(BookingView.class);
 	}
 	
 }
