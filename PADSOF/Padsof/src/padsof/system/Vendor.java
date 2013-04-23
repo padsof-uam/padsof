@@ -135,4 +135,15 @@ public class Vendor extends DBObject
 	{
 		return getName();
 	}	
+	
+	public List<Packet> getPackets() throws SQLException
+	{
+		ArrayList<Packet> packets = new ArrayList<Packet>();
+		
+		for(Booking b: getBookings())
+			if(!packets.contains(b.getPertainingPacket()))
+				packets.add(b.getPertainingPacket());
+		
+		return packets;
+	}
 }
