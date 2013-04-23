@@ -3,6 +3,8 @@ package padsof.gui.controllers;
 import java.awt.event.*;
 import java.lang.reflect.*;
 
+import javax.swing.JOptionPane;
+
 import padsof.gui.NavigationService;
 import padsof.gui.controllers.utils.Listener;
 import padsof.gui.views.View;
@@ -125,5 +127,20 @@ public abstract class Controller<V extends View> implements ActionListener
 		return params.length == 0
 				|| (params.length == 1 && params[0]
 						.isAssignableFrom(ActionEvent.class));
+	}
+	
+	protected void showError(String message)
+	{
+		JOptionPane.showMessageDialog(view, message, "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	protected void showWarning(String message)
+	{
+		JOptionPane.showMessageDialog(view, message, "Advertencia", JOptionPane.WARNING_MESSAGE);
+	}
+	
+	protected void showMessage(String message)
+	{
+		JOptionPane.showMessageDialog(view, message, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

@@ -61,12 +61,18 @@ public class Application implements NavigationService
 		frame = new JFrame();
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		frame.setSize(750, 400);
+		frame.setMinimumSize(new Dimension(750, 400));
+		frame.setResizable(false);
+		
+		
 		registerControllers();
 	}
 
 	private void registerControllers()
 	{
+		ControllerLocator.registerController(FindFlightView.class, FindFlightController.class);
+		ControllerLocator.registerController(FindTravelView.class, FindTravelController.class);
 		ControllerLocator.registerController(LoginView.class,
 				LoginController.class);
 		ControllerLocator.registerController(AdminView.class,
@@ -81,6 +87,11 @@ public class Application implements NavigationService
 				SearchClientController.class);
 	}
 
+	public JFrame getFrame()
+	{
+		return frame;
+	}
+	
 	/**
 	 * Sets the default button for the interface.
 	 * 
@@ -101,6 +112,7 @@ public class Application implements NavigationService
 
 		showLoginDialog();
 		frame.setVisible(true);
+		center();
 
 		started = true;
 	}
@@ -201,7 +213,7 @@ public class Application implements NavigationService
 
 		replaceMainView(newView);
 		setControllerForView(newView);
-		frame.pack();
+		frame.revalidate();
 	}
 
 	private void center()
@@ -259,8 +271,7 @@ public class Application implements NavigationService
 		this.cliente = cliente;
 	}
 
-	public Vendor getVendor()
-	{
+	public Vendor getVendor(){
 		return this.vendor;
-	}
+	}	
 }
