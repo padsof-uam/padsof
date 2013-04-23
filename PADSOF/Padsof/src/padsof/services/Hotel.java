@@ -332,4 +332,11 @@ public class Hotel extends Service
 		return 0.1 * (simple * simplePrice + doublep * doublePrice + triple
 				* triplePrice);
 	}
+
+	@Override
+	public String toString()
+	{
+		return this.getAddress() + " - " + this.getCity() + " (" + this.getCountry() + ") "
+				+ this.getSimplePrice() + "€";
+	}
 }

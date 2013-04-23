@@ -4,9 +4,14 @@ import java.awt.*;
 import java.rmi.NoSuchObjectException;
 
 import javax.swing.*;
+import javax.swing.event.*;
 
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.*;
+import padsof.services.Hotel;
+
+import java.util.*;
+import java.util.List;
 
 public class FindHotelView extends View
 {
@@ -15,32 +20,71 @@ public class FindHotelView extends View
 	 * 
 	 */
 	private static final long serialVersionUID = 4300658132199468882L;
-
+	private JButton btnSearch;
+	private JList<Hotel> hotelList;
+	private JButton btnBook;
+	private FormGenerator generator;
+	
+	public String getCity()
+	{
+		return generator.getValueFor("Ciudad");
+	}
+	
+	public String getCountry()
+	{
+		return generator.getValueFor("País");
+	}
+	
+	public Date getStartDate()
+	{
+		return generator.getDatefor("Fecha inicial");
+	}
+	
+	public Date getEndDate()
+	{
+		return generator.getDatefor("Fecha final");
+	}
+	
+	public String getPrice()
+	{
+		return generator.getValueFor("Precio máximo");
+	}
+	
 	public FindHotelView() throws NoSuchObjectException
 	{
 		super("Buscar hotel");
 		GroupLayoutHelper mainLayout = new GroupLayoutHelper();
 
-		FormGenerator generator = new FormGenerator();
+		generator = new FormGenerator();
 
 		GroupLayoutHelper midLayoutHelper = new GroupLayoutHelper();
 		JPanel midPanel = new JPanel();
-		JLabel lblHotel = new JLabel("<html><b><u><big>Hotel</b></u></html>");
-		// JLabel lblFechas = new JLabel("Rango de fechas");
-		generator.addFields("Pais", "Ciudad", "Fecha inicial", "Fecha final",
-				"Nombre", "CP", "Categoría", "Precio Simple mínimo",
-				"Precio Simple máximo", "Precio Doble mínimo",
-				"Precio Doble máximo", "Precio Triple mínimo",
-				"Precio Triple máximo", "Suplemento Desayuno", "Supl. MP",
-				"Supl. PC");
-		generator.addButton(new JButton("Buscar"));
+		
+		generator.setTitle("Hoteles");
+		generator.addFields("País", "Ciudad", "Fecha inicial", "Fecha final",
+				"Precio máximo");
+		
+		btnSearch = new JButton("Buscar");
+		hotelList = new JList<Hotel>();
+		btnBook = new JButton("Reservar");
+		btnBook.setEnabled(false);
+		
+		hotelList.addListSelectionListener(new ListSelectionListener()
+		{
+			@Override
+			public void valueChanged(ListSelectionEvent e)
+			{
+				btnBook.setEnabled(hotelList.getSelectedValue() != null);
+			}
 
+		});
+		
 		JPanel form = generator.generateForm();
 		setLayout(new FlowLayout());
 		add(form);
 
-		midLayoutHelper.addColumn(lblHotel, generator.generateForm());
-
+		midLayoutHelper.addColumn(generator.generateForm(), btnSearch);
+		midLayoutHelper.addColumn(new JScrollPane(hotelList), btnBook);
 		midPanel.setLayout(midLayoutHelper.generateLayout(midPanel));
 
 		mainLayout.addColumn(Box.createHorizontalStrut(10));
@@ -54,10 +98,23 @@ public class FindHotelView extends View
 
 	}
 
+	public void setModel(List<Hotel> hotels)
+	{
+		DefaultListModel<Hotel> model = new DefaultListModel<Hotel>();
+		
+		for(Hotel hotel: hotels)
+			model.addElement(hotel);
+		
+		hotelList.setModel(model);
+	}
+	
 	@Override
 	public <V extends View> void setController(Controller<V> c)
 	{
-		// TODO Auto-generated method stub
+		btnSearch.setActionCommand("Search");
+		btnSearch.addActionListener(c);
 		
+		btnBook.setActionCommand("Book");
+		btnBook.addActionListener(c);
 	}
 }

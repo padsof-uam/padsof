@@ -119,7 +119,7 @@ public class AdminView extends View
 		lowerPanel.setLayout(new FlowLayout());
 		lowerPanel.add(feedButton);
 		lowerPanel.add(vendorViewButton);
-		lowerPanel.add(new NavigateButton("Test", FindTravelView.class));
+		lowerPanel.add(new NavigateButton("Test", FindHotelView.class));
         
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.add(mainPanel);
