@@ -60,7 +60,11 @@ public class Application implements NavigationService
 		frame = new JFrame();
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		frame.setSize(850, 440);
+		frame.setMinimumSize(new Dimension(850, 440));
+		frame.setResizable(false);
+		
+		
 		registerControllers();
 	}
 
@@ -95,6 +99,7 @@ public class Application implements NavigationService
 
 		showLoginDialog();
 		frame.setVisible(true);
+		center();
 
 		started = true;
 	}
@@ -195,7 +200,6 @@ public class Application implements NavigationService
 
 		replaceMainView(newView);
 		setControllerForView(newView);
-		frame.pack();
 	}
 
 	private void center()
