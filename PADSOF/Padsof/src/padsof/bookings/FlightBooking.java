@@ -15,9 +15,7 @@ import es.uam.eps.pads.services.*;
 import es.uam.eps.pads.services.flights.FlightsProvider;
 
 /**
- * 
  * @author Víctor de Juan Sanz - Guillermo Julián Moreno
- *
  */
 
 @DatabaseTable
@@ -118,11 +116,18 @@ public class FlightBooking extends Booking
 	}
 
 	@Override
-	public void cancel() throws InvalidParameterException
+	public void cancel()
 	{
 		if (getState() != PaymentState.None)
 		{
-			fp.cancel(bookingLocalizer);
+			try
+			{
+				fp.cancel(bookingLocalizer);
+			}
+			catch (InvalidParameterException e)
+			{
+				throw new UnsupportedOperationException(e.getMessage());
+			}
 			setState(PaymentState.None);
 		}
 		else
@@ -153,7 +158,6 @@ public class FlightBooking extends Booking
 		else
 			throw new UnsupportedOperationException(
 					"This service is already confirmed");
-
 	}
 
 }

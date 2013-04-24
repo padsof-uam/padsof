@@ -221,18 +221,23 @@ public abstract class Booking extends DBObject
 					"This service is already confirmed");
 	}
 
+	@Override
+	public String toString()
+	{
+		return "[" + this.state.toString() + "] " + this.getClass().getSimpleName() + ": " + this.getAssociatedService().toString();
+	}
+
 	/**
 	 * Cancel the booking
-	 * 
-	 * @throws InvalidParameterException (if its already cancel)
+	 * @throws UnsupportedOperationException (if its already canceled)
 	 */
-	public void cancel() throws InvalidParameterException
+	public void cancel() 
 	{
 		if (getState() != PaymentState.None)
 			setState(PaymentState.None);
 		else
 			throw new UnsupportedOperationException(
-					"This service is already cancel");
+					"This service is already canceled.");
 	}
 
 }
