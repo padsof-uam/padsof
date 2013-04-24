@@ -1,59 +1,97 @@
 package padsof.gui.views;
 
-import java.awt.*;
 import java.rmi.NoSuchObjectException;
+import java.util.*;
 
 import javax.swing.*;
+import javax.swing.event.*;
 
 import padsof.gui.NavigateButton;
 import padsof.gui.controllers.Controller;
-import padsof.gui.utils.GroupLayoutHelper;
+import padsof.gui.utils.*;
+import padsof.system.Client;
 
 public class VendorFirstView extends View
 {
 	private NavigateButton newClient;
-	private NavigateButton existentClient;
+	private JTextField dniField;
+	private JList<Client> clients;
+	private DefaultListModel<Client> listModel;
+	private JButton selectClient;
 
+	@SuppressWarnings("unchecked")
 	public VendorFirstView() throws NoSuchObjectException
 	{
 		super("Vendedor");
 
-		JLabel titulo = new JLabel(
-				"<html><b><u>¿Con qué cliente </u></b><br><b><u>desea trabajar?</html>");
-		newClient = new NavigateButton("<html><b>Nuevo</b></html>",
+		JLabel titleLabel = new JLabel("Selección de cliente");
+		clients = new JList<Client>();
+		dniField = new JTextField();
+		selectClient = new JButton("Seleccionar");
+		newClient = new NavigateButton("Crear nuevo",
 				RegisterClientView.class);
-		existentClient = new NavigateButton(
-				"<html><b>Existente</b><br></html>", SearchClient.class);
 
-		GroupLayoutHelper mainLayout = new GroupLayoutHelper();
-		JPanel mainpanel = new JPanel();
-
-		mainLayout.addColumn(Box.createGlue(), Box.createGlue(),
-				Box.createGlue());
-		mainLayout.addColumn(titulo, newClient, existentClient);
-		mainLayout.addColumn(Box.createGlue(), Box.createGlue(),
-				Box.createGlue());
-
-		mainLayout.linkVerticalSize(newClient, existentClient);
-		mainLayout.linkHorizontalSize(newClient, existentClient);
+		selectClient.setEnabled(false);
 		
-		mainpanel.setLayout(mainLayout.generateLayout(mainpanel));
+		clients.addListSelectionListener(new ListSelectionListener(){
+			@Override
+			public void valueChanged(ListSelectionEvent e)
+			{
+				selectClient.setEnabled(clients.getSelectedValue() != null);
+			}
+		});
+		
+		GroupLayoutHelper layout = new GroupLayoutHelper();
+		layout.addColumn(
+				titleLabel,
+				GroupLayoutHelper.fluidGenerateGroupLayout(
+						Arrays.asList(new JLabel("Filtrar por DNI: ")),
+						Arrays.asList(dniField)
+						)
+						.setIsInnerPanel(true)
+						.generatePanel(),
+				new JScrollPane(clients),
+				GuiUtils.generateButtonPanel(newClient, selectClient)
+				);
 
-		mainLayout.setInnerMargins(10, 10, 10, 10);
-
-		this.setMinimumSize(new Dimension(500, 500));
-		this.setLayout(mainLayout.generateLayout(this));
+		layout.setInnerMargins(10, 10, 10, 10);
+		
+		layout.setAsLayoutOf(this);
 	}
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1993546369866479786L;
-
+	
+	public void setModel(List<Client> clients)
+	{
+		if(listModel == null)
+		{
+			listModel = new DefaultListModel<Client>();
+			this.clients.setModel(listModel);
+		}
+		
+		List<Client> inList = new ArrayList<Client>();
+		
+		for(int i = 0; i < listModel.size(); i++)
+			inList.add(listModel.elementAt(i)); // Don't ask me why don't they implement Iterable or listModel.toList().
+		
+		for(Client c: inList)
+			if(!clients.contains(c))
+				listModel.removeElement(c);
+		
+		for(Client c: clients)
+			if(!listModel.contains(c))
+				listModel.addElement(c);
+	}
+	
 	@Override
 	public <V extends View> void setController(Controller<V> c)
 	{
-
+		dniField.getDocument().addDocumentListener(c);
+		selectClient.setActionCommand("Select");
+		selectClient.addActionListener(c);
 	}
 
 }
