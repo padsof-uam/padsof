@@ -79,6 +79,12 @@ public class Application implements NavigationService
 				AdminController.class);
 		ControllerLocator.registerController(StatsView.class,
 				StatsController.class);
+		ControllerLocator.registerController(FindPacketView.class,
+				FindPacketController.class);
+		ControllerLocator.registerController(RegisterClientView.class,
+				RegisterClientController.class);
+		ControllerLocator.registerController(SearchClient.class,
+				SearchClientController.class);
 	}
 
 	public JFrame getFrame()
