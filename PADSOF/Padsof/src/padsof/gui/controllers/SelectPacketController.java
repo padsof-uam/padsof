@@ -70,7 +70,6 @@ public class SelectPacketController extends Controller<SelectPacketView>
 	{
 		if (view.getSelectedPacket() != null)
 		{
-			refreshPackets();
 			Application.getInstance().setPacket(view.getSelectedPacket());
 			navigator.navigate(BookingView.class);
 		}
