@@ -203,7 +203,8 @@ public class Packet extends DBObject
 		{
 			return("No se han podido cargar las reservas del paquete");
 		}
-		String retval = new String("Paquete ");
+		
+		String retval = new String("Paquete - ");
 		int hotel = 0, flight = 0, travel = 0;
 		for (int i = 0; i < bookings.size(); ++i)
 		{
@@ -222,9 +223,9 @@ public class Packet extends DBObject
 			}
 		}
 
-		String strTrip = " Viajes organizados: " + travel;
+		String strTrip = ", Viajes organizados: " + travel;
 		String strFlight = ", Vuelos: " + flight;
-		String strHotel = ", Hoteles: " + hotel;
+		String strHotel = "Hoteles: " + hotel;
 
 		return retval + strHotel + strTrip + strFlight;
 
