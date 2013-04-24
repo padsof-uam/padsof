@@ -8,9 +8,8 @@ import javax.swing.JOptionPane;
 import padsof.db.DBWrapper;
 import padsof.gui.Application;
 import padsof.gui.controllers.utils.Listener;
-import padsof.gui.views.FindPacketView;
 import padsof.gui.views.*;
-import padsof.system.Packet;
+import padsof.system.*;
 
 public class FindPacketController extends Controller<FindPacketView>
 {
@@ -21,7 +20,7 @@ public class FindPacketController extends Controller<FindPacketView>
 
 		try
 		{
-			packets = Application.getInstance().getVendor().getPackets();
+			packets = DBWrapper.getInstance().get(Packet.class, "client", Application.getInstance().getCliente());
 		}
 		catch (SQLException e)
 		{
