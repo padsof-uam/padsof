@@ -58,6 +58,6 @@ public class VendorFirstController extends Controller<VendorFirstView>
 		Client client = view.getSelectedClient();
 		Application.getInstance().setCliente(client);
 		
-		navigator.navigate(BookingView.class);
+		navigator.navigate(FindPacketView.class);
 	}
 }
