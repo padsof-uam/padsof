@@ -40,7 +40,7 @@ public class FindPacketController extends Controller<FindPacketView>
 		refreshPackets();
 	}
 
-	@Listener("Crear")
+	@Listener("Nuevo")
 	public void createPacket()
 	{
 		Packet packet = new Packet();

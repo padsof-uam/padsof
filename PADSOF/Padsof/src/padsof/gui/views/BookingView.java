@@ -45,7 +45,7 @@ public class BookingView extends View
 	 * @throws NoSuchObjectException
 	 * @throws SQLException 
 	 */
-	public BookingView() throws NoSuchObjectException, SQLException
+	public BookingView() 
 	{
 
 		super("Booking View");
@@ -83,15 +83,13 @@ public class BookingView extends View
 		
 		GroupLayoutHelper rightLayoutHelper = new GroupLayoutHelper();
 		
-		Packet actualPacket = Application.getInstance().getActualPacket();
-		this.setModel(actualPacket.getBookings());
 		elements = new JList<Booking>();
 		elements.setAlignmentX(LEFT_ALIGNMENT);
 
 		JLabel lblPacket = new JLabel("<html>Elementos del paquete</html>");
 
 		
-		rightLayoutHelper.addColumn(lblPacket, elements);
+		rightLayoutHelper.addColumn(lblPacket, new JScrollPane(elements));
 
 		rightPanel.setLayout(rightLayoutHelper.generateLayout(rightPanel));
 
@@ -112,6 +110,6 @@ public class BookingView extends View
 	@Override
 	public <V extends View> void setController(Controller<V> c)
 	{
-
+		
 	}
 }

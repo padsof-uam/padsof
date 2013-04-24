@@ -30,8 +30,7 @@ public class FindPacketView extends View
 	{
 		super("Buscar paquete");
 		modificar = new JButton("Elegir paquete");
-		//crear = new JButton ("Crear uno nuevo");
-		crear = new NavigateButton("Crear uno nuevo", FindFlightView.class);
+		crear = new JButton ("Crear uno nuevo");
 		listPacket = new JList<Packet>();
 		listPacket.setAlignmentX(LEFT_ALIGNMENT);
 		
@@ -76,8 +75,8 @@ public class FindPacketView extends View
 	@Override
 	public <V extends View> void setController(Controller<V> c)
 	{
-		this.modificar.setActionCommand("Nuevo");
-		this.modificar.addActionListener(c);
+		this.crear.setActionCommand("Nuevo");
+		this.crear.addActionListener(c);
 		this.modificar.setActionCommand("Existente");
 		this.modificar.addActionListener(c);
 
