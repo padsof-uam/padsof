@@ -360,8 +360,8 @@ public class FormGenerator
 	private JLabel generateTitleLabel()
 	{
 		JLabel titleLabel = new JLabel(title);
-		titleLabel.setFont(titleLabel.getFont().deriveFont((float) 20.0));
-
+		GuiUtils.applyTitleStyle(titleLabel);
+		
 		return titleLabel;
 	}
 
