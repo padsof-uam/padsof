@@ -11,7 +11,7 @@ import padsof.gui.controllers.Controller;
 import padsof.gui.utils.*;
 import padsof.system.Client;
 
-public class VendorFirstView extends View
+public class SelectClientView extends View
 {
 	private NavigateButton newClient;
 	private JTextField dniField;
@@ -20,7 +20,7 @@ public class VendorFirstView extends View
 	private JButton selectClient;
 
 	@SuppressWarnings("unchecked")
-	public VendorFirstView() throws NoSuchObjectException
+	public SelectClientView() throws NoSuchObjectException
 	{
 		super("Vendedor");
 

@@ -84,7 +84,7 @@ public class RegisterClientController extends Controller<RegisterClientView>
 		}
 
 		JOptionPane.showMessageDialog(view, "Cliente creado.");
-		navigator.navigate(FindPacketView.class);
+		navigator.navigate(SelectPacketView.class);
 	}
 
 	private boolean isOldEnough(Date value)

@@ -9,12 +9,12 @@ import padsof.gui.controllers.utils.Listener;
 import padsof.gui.views.*;
 import padsof.system.*;
 
-public class VendorFirstController extends Controller<VendorFirstView>
+public class SelectClientController extends Controller<SelectClientView>
 {
 	private List<Client> clients = new ArrayList<Client>();
 	
 	@Override
-	public void setView(VendorFirstView view)
+	public void setView(SelectClientView view)
 	{
 		super.setView(view);
 	
@@ -58,6 +58,6 @@ public class VendorFirstController extends Controller<VendorFirstView>
 		Client client = view.getSelectedClient();
 		Application.getInstance().setCliente(client);
 		
-		navigator.navigate(FindPacketView.class);
+		navigator.navigate(SelectPacketView.class);
 	}
 }

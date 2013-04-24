@@ -11,7 +11,7 @@ import padsof.gui.controllers.utils.Listener;
 import padsof.gui.views.*;
 import padsof.system.*;
 
-public class FindPacketController extends Controller<FindPacketView>
+public class SelectPacketController extends Controller<SelectPacketView>
 {
 
 	public void refreshPackets()
@@ -33,7 +33,7 @@ public class FindPacketController extends Controller<FindPacketView>
 	}
 
 	@Override
-	public void setView(FindPacketView view)
+	public void setView(SelectPacketView view)
 	{
 		super.setView(view);
 		refreshPackets();

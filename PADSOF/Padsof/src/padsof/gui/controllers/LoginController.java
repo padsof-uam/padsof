@@ -40,7 +40,7 @@ public class LoginController extends Controller<LoginView>
 		if(vendor.IsAdmin())
 			navigator.navigate(AdminView.class);
 		else
-			navigator.navigate(VendorFirstView.class);
+			navigator.navigate(SelectClientView.class);
 	}
 	
 	@Listener("forgot")

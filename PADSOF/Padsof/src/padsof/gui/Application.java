@@ -74,19 +74,17 @@ public class Application implements NavigationService
 		ControllerLocator.registerController(FindFlightView.class, FindFlightController.class);
 		ControllerLocator.registerController(FindTravelView.class, FindTravelController.class);
 		ControllerLocator.registerController(FindHotelView.class, FindHotelController.class);
-		ControllerLocator.registerController(VendorFirstView.class, VendorFirstController.class);
+		ControllerLocator.registerController(SelectClientView.class, SelectClientController.class);
 		ControllerLocator.registerController(LoginView.class,
 				LoginController.class);
 		ControllerLocator.registerController(AdminView.class,
 				AdminController.class);
 		ControllerLocator.registerController(StatsView.class,
 				StatsController.class);
-		ControllerLocator.registerController(FindPacketView.class,
-				FindPacketController.class);
+		ControllerLocator.registerController(SelectPacketView.class,
+				SelectPacketController.class);
 		ControllerLocator.registerController(RegisterClientView.class,
 				RegisterClientController.class);
-		ControllerLocator.registerController(SearchClient.class,
-				SearchClientController.class);
 	}
 
 	public JFrame getFrame()

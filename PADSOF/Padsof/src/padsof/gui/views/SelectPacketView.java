@@ -10,7 +10,7 @@ import padsof.gui.controllers.Controller;
 import padsof.gui.utils.GroupLayoutHelper;
 import padsof.system.Packet;
 
-public class FindPacketView extends View
+public class SelectPacketView extends View
 {
 
 	private JButton modificar;
@@ -26,7 +26,7 @@ public class FindPacketView extends View
 		return listPacket.getSelectedValue();
 	}
 	@SuppressWarnings("unchecked")
-	public FindPacketView() throws NoSuchObjectException
+	public SelectPacketView() throws NoSuchObjectException
 	{
 		super("Buscar paquete");
 		modificar = new JButton("Elegir paquete");

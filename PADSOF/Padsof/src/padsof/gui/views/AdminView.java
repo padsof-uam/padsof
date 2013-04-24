@@ -106,7 +106,7 @@ public class AdminView extends View
 		generator.addButton(createButton);
 		
 		JPanel rightPanel = generator.generateForm();
-		NavigateButton vendorViewButton = new NavigateButton("Vista vendedor",VendorFirstView.class);
+		NavigateButton vendorViewButton = new NavigateButton("Vista vendedor",SelectClientView.class);
 		
 		mainLayout.addColumn(leftPanel);
 		mainLayout.addColumn(Box.createHorizontalStrut(10));
