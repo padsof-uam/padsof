@@ -76,7 +76,7 @@ public class FindTravelView extends View
 	
 	public Date getEndDate()
 	{
-		return generator.getDatefor("Fecha final");
+		return generator.getDatefor("Fecha Final");
 	}
 	
 	public String getMaxPrice()
