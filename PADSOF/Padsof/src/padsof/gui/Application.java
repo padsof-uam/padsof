@@ -74,6 +74,7 @@ public class Application implements NavigationService
 		ControllerLocator.registerController(FindFlightView.class, FindFlightController.class);
 		ControllerLocator.registerController(FindTravelView.class, FindTravelController.class);
 		ControllerLocator.registerController(FindHotelView.class, FindHotelController.class);
+		ControllerLocator.registerController(VendorFirstView.class, VendorFirstController.class);
 		ControllerLocator.registerController(LoginView.class,
 				LoginController.class);
 		ControllerLocator.registerController(AdminView.class,
