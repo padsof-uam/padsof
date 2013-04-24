@@ -25,6 +25,8 @@ public class VendorFirstView extends View
 		super("Vendedor");
 
 		JLabel titleLabel = new JLabel("Selección de cliente");
+		GuiUtils.applyTitleStyle(titleLabel);
+		
 		clients = new JList<Client>();
 		dniField = new JTextField();
 		selectClient = new JButton("Seleccionar");
@@ -49,6 +51,7 @@ public class VendorFirstView extends View
 						Arrays.asList(dniField)
 						)
 						.setIsInnerPanel(true)
+						.linkVerticalSize(dniField)
 						.generatePanel(),
 				new JScrollPane(clients),
 				GuiUtils.generateButtonPanel(newClient, selectClient)
@@ -92,6 +95,16 @@ public class VendorFirstView extends View
 		dniField.getDocument().addDocumentListener(c);
 		selectClient.setActionCommand("Select");
 		selectClient.addActionListener(c);
+	}
+
+	public String getDNI()
+	{
+		return dniField.getText();
+	}
+
+	public Client getSelectedClient()
+	{
+		return clients.getSelectedValue();
 	}
 
 }
