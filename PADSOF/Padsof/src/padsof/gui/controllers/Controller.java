@@ -152,11 +152,13 @@ public abstract class Controller<V extends View> implements ActionListener,
 	@Override
 	public void insertUpdate(DocumentEvent e)
 	{
+		// not needed.
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e)
 	{
+		// not needed.
 	}
 
 	@Override
