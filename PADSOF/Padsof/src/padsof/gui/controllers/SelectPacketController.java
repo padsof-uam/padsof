@@ -5,6 +5,7 @@ import java.util.*;
 
 import javax.swing.JOptionPane;
 
+import padsof.bookings.Booking;
 import padsof.db.DBWrapper;
 import padsof.gui.Application;
 import padsof.gui.controllers.utils.Listener;
@@ -28,13 +29,13 @@ public class SelectPacketController extends Controller<SelectPacketView>
 					"No se pueden recuperar los paquetes.");
 			return;
 		}
-		
+
 		List<Packet> clientPackets = new ArrayList<Packet>();
-		
-		for(Packet p: packets)
-			if(p.getClient().equals(Application.getInstance().getClient()))
+
+		for (Packet p : packets)
+			if (p.getClient().equals(Application.getInstance().getClient()))
 				clientPackets.add(p);
-		
+
 		view.setModel(clientPackets);
 	}
 
@@ -83,5 +84,35 @@ public class SelectPacketController extends Controller<SelectPacketView>
 			JOptionPane
 					.showMessageDialog(view,
 							"Por favor, seleccione un paquete o elija crear un paquete nuevo.");
+	}
+
+	@Listener("Delete")
+	public void delete()
+	{
+		int option = JOptionPane
+				.showConfirmDialog(view,
+						"¿Está seguro que quiere eliminar este paquete y todas sus reservas?");
+
+		if (option == JOptionPane.YES_OPTION)
+		{
+			try
+			{
+				Packet toDelete = view.getSelectedPacket();
+
+				for (Booking b : toDelete.getBookings())
+				{
+					b.cancel();
+					DBWrapper.getInstance().delete(b);
+				}
+
+				DBWrapper.getInstance().delete(toDelete);
+				showMessage("Paquete eliminado.");
+				refreshPackets();
+			}
+			catch (Exception e)
+			{
+				showError("Error eliminando el paquete: " + e.getMessage());
+			}
+		}
 	}
 }
