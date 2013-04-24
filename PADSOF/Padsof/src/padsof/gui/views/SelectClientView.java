@@ -6,7 +6,7 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-import padsof.gui.NavigateButton;
+import padsof.gui.*;
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.*;
 import padsof.system.Client;
@@ -18,6 +18,7 @@ public class SelectClientView extends View
 	private JList<Client> clients;
 	private DefaultListModel<Client> listModel;
 	private JButton selectClient;
+	private JButton deleteClient;
 
 	@SuppressWarnings("unchecked")
 	public SelectClientView() throws NoSuchObjectException
@@ -32,7 +33,9 @@ public class SelectClientView extends View
 		selectClient = new JButton("Seleccionar");
 		newClient = new NavigateButton("Crear nuevo",
 				RegisterClientView.class);
-
+		deleteClient = new JButton("Eliminar cliente");
+		
+		deleteClient.setEnabled(false);
 		selectClient.setEnabled(false);
 		
 		clients.addListSelectionListener(new ListSelectionListener(){
@@ -40,6 +43,7 @@ public class SelectClientView extends View
 			public void valueChanged(ListSelectionEvent e)
 			{
 				selectClient.setEnabled(clients.getSelectedValue() != null);
+				deleteClient.setEnabled(Application.getInstance().getVendor().IsAdmin() && clients.getSelectedValue() != null);
 			}
 		});
 		
@@ -54,7 +58,7 @@ public class SelectClientView extends View
 						.linkVerticalSize(dniField)
 						.generatePanel(),
 				new JScrollPane(clients),
-				GuiUtils.generateButtonPanel(newClient, selectClient)
+				GuiUtils.generateButtonPanel(newClient, selectClient, deleteClient)
 				);
 
 		layout.setInnerMargins(10, 10, 10, 10);
@@ -95,6 +99,9 @@ public class SelectClientView extends View
 		dniField.getDocument().addDocumentListener(c);
 		selectClient.setActionCommand("Select");
 		selectClient.addActionListener(c);
+		
+		deleteClient.setActionCommand("Delete");
+		deleteClient.addActionListener(c);
 	}
 
 	public String getDNI()
