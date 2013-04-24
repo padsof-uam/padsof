@@ -11,7 +11,7 @@ import padsof.bookings.Booking;
 import padsof.gui.*;
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.GroupLayoutHelper;
-import padsof.system.Packet;
+import padsof.system.*;
 
 public class BookingView extends View
 {
@@ -29,6 +29,8 @@ public class BookingView extends View
 	private NavigateButton btnVuelo;
 
 	private NavigateButton btnViaje;
+
+	private NavigateButton btnImserso;
 
 	public void setModel(List<Booking> bookings)
 	{
@@ -58,6 +60,12 @@ public class BookingView extends View
 		btnHotel = new NavigateButton("Hotel",FindHotelView.class);
 		btnVuelo = new NavigateButton("Vuelo",FindFlightView.class);
 		btnViaje = new NavigateButton("Viaje organizado",FindTravelView.class);
+		btnImserso = new NavigateButton("Viaje IMSERSO", FindImsersoTravelView.class);
+		btnImserso.setVisible(false);
+		Client cliente = Application.getInstance().getCliente();
+		
+		if (ImsersoClient.class.isInstance(cliente))
+			btnImserso.setVisible (true);
 
 		JPanel leftPanel = new JPanel();
 		GroupLayoutHelper leftLayoutHelper = new GroupLayoutHelper();

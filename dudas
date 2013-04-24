@@ -1,0 +1,6 @@
+RegisterClientControllator
+(((String) view.getValueFor("Código de verificación")).equals(""))
+Es bastante chapuzilla... pero no era comparable con null
+
+Hay cosas de excepciones que no pillo... me deja no controlar las excepciones que se hayan lanzado??
+
