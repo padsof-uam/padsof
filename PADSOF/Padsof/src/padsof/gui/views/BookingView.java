@@ -62,7 +62,7 @@ public class BookingView extends View
 		btnViaje = new NavigateButton("Viaje organizado",FindTravelView.class);
 		btnImserso = new NavigateButton("Viaje IMSERSO", FindImsersoTravelView.class);
 		btnImserso.setVisible(false);
-		Client cliente = Application.getInstance().getCliente();
+		Client cliente = Application.getInstance().getClient();
 		
 		if (ImsersoClient.class.isInstance(cliente))
 			btnImserso.setVisible (true);

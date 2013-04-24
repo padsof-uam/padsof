@@ -70,9 +70,9 @@ public class FindTravelController extends Controller<FindTravelView>
 		try
 		{
 			Booking booking = factory.book(hotel, Application.getInstance()
-					.getCliente(), view.getStartDate(), view.getEndDate());
+					.getClient(), view.getStartDate(), view.getEndDate());
 			booking.book();
-			Application.getInstance().getActualPacket().add(booking);
+			Application.getInstance().getPacket().add(booking);
 		}
 		catch (Exception e)
 		{

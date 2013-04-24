@@ -23,25 +23,9 @@ public class Application implements NavigationService
 	private JFrame frame;
 	private JPanel topPanel;
 	private View currentView;
-	private Packet actualPacket;
+	private Packet packet;
 	private Client cliente;
 
-	/**
-	 * @return the actualPacket
-	 */
-	public Packet getActualPacket()
-	{
-		return actualPacket;
-	}
-
-	/**
-	 * @param actualPacket
-	 *            the actualPacket to set
-	 */
-	public void setActualPacket(Packet actualPacket)
-	{
-		this.actualPacket = actualPacket;
-	}
 
 	private boolean started = false;
 	private Stack<Class<? extends View>> navigationStack;
@@ -261,17 +245,28 @@ public class Application implements NavigationService
 		setView(navigationStack.pop());
 	}
 
-	public Client getCliente()
+	public Client getClient()
 	{
 		return cliente;
 	}
 
-	public void setCliente(Client cliente)
+	public void setClient(Client cliente)
 	{
 		this.cliente = cliente;
 	}
 
 	public Vendor getVendor(){
 		return this.vendor;
-	}	
+	}
+	
+	public Packet getPacket()
+	{
+		return packet;
+	}
+	
+	public void setPacket(Packet actualPacket)
+	{
+		this.packet = actualPacket;
+	}
+
 }

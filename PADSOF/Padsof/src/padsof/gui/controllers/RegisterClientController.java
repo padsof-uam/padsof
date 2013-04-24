@@ -68,7 +68,7 @@ public class RegisterClientController extends Controller<RegisterClientView>
 		}
 
 		Application app = Application.getInstance();
-		app.setCliente(cliente);
+		app.setClient(cliente);
 		/**
 		 * Guardamos en la base de datos
 		 */

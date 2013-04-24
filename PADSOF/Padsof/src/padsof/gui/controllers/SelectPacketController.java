@@ -20,7 +20,7 @@ public class SelectPacketController extends Controller<SelectPacketView>
 
 		try
 		{
-			packets = DBWrapper.getInstance().get(Packet.class, "client", Application.getInstance().getCliente());
+			packets = DBWrapper.getInstance().get(Packet.class, "client", Application.getInstance().getClient());
 		}
 		catch (SQLException e)
 		{
@@ -44,7 +44,7 @@ public class SelectPacketController extends Controller<SelectPacketView>
 	{
 		Packet packet = new Packet();
 
-		packet.setClient(Application.getInstance().getCliente());
+		packet.setClient(Application.getInstance().getClient());
 
 		try
 		{
@@ -58,6 +58,7 @@ public class SelectPacketController extends Controller<SelectPacketView>
 		}
 
 		JOptionPane.showMessageDialog(view, "Paquete creado.");
+		Application.getInstance().setPacket(packet);
 		refreshPackets();
 
 		navigator.navigate(BookingView.class);
@@ -70,9 +71,8 @@ public class SelectPacketController extends Controller<SelectPacketView>
 		if (view.getSelectedPacket() != null)
 		{
 			refreshPackets();
-			Application.getInstance().setActualPacket(view.getSelectedPacket());
+			Application.getInstance().setPacket(view.getSelectedPacket());
 			navigator.navigate(BookingView.class);
-
 		}
 		else
 			JOptionPane

@@ -11,7 +11,7 @@ public class BookingController extends Controller<BookingView>
 		super.setView(view);
 		try
 		{
-			view.setModel(Application.getInstance().getActualPacket().getBookings());
+			view.setModel(Application.getInstance().getPacket().getBookings());
 		}
 		catch (SQLException e)
 		{

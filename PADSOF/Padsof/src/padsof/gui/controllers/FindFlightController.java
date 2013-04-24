@@ -154,9 +154,9 @@ public class FindFlightController extends Controller<FindFlightView>
 		
 		try
 		{
-			booking = factory.book(new Flight(flight), Application.getInstance().getCliente(), flight.getDeparture(), flight.getArrival());
+			booking = factory.book(new Flight(flight), Application.getInstance().getClient(), flight.getDeparture(), flight.getArrival());
 			booking.book();
-			Packet current = Application.getInstance().getActualPacket();
+			Packet current = Application.getInstance().getPacket();
 			current.add(booking);
 		}
 		catch (Exception e)

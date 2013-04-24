@@ -1,13 +1,13 @@
 package padsof.gui.views;
 
-import java.awt.Dimension;
 import java.rmi.NoSuchObjectException;
-import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
+import javax.swing.event.*;
 
 import padsof.gui.controllers.Controller;
-import padsof.gui.utils.GroupLayoutHelper;
+import padsof.gui.utils.*;
 import padsof.system.Packet;
 
 public class SelectPacketView extends View
@@ -18,45 +18,40 @@ public class SelectPacketView extends View
 	private JList<Packet> listPacket;
 	private DefaultListModel<Packet> packets;
 	
-
 	public Packet getSelectedPacket(){
 		if (listPacket == null)
 			return null;
 		
 		return listPacket.getSelectedValue();
 	}
-	@SuppressWarnings("unchecked")
+	
 	public SelectPacketView() throws NoSuchObjectException
 	{
 		super("Buscar paquete");
 		modificar = new JButton("Elegir paquete");
 		crear = new JButton ("Crear uno nuevo");
 		listPacket = new JList<Packet>();
-		listPacket.setAlignmentX(LEFT_ALIGNMENT);
+		JLabel title = new JLabel("Seleccionar paquete");
+		GuiUtils.applyTitleStyle(title);
 		
-		GroupLayoutHelper midLayoutHelper = new GroupLayoutHelper();
-
-		midLayoutHelper.addColumn(GroupLayoutHelper
-				.fluidGenerateGroupLayout(Arrays.asList(modificar),
-						Arrays.asList(Box.createHorizontalStrut(20)),
-						Arrays.asList(listPacket))
-				.setIsInnerPanel(true)
-				.generatePanel(),
-				crear);
-
+		listPacket.addListSelectionListener(new ListSelectionListener()
+		{
+			@Override
+			public void valueChanged(ListSelectionEvent e)
+			{
+				modificar.setEnabled(listPacket.getSelectedValue() != null);
+			}
+		});
 		
-		JPanel midPanel =  new JPanel();
-		midPanel.setLayout(midLayoutHelper.generateLayout(midPanel));
+		GroupLayoutHelper layout = new GroupLayoutHelper();
 
-		GroupLayoutHelper mainLayout = new GroupLayoutHelper();
-		mainLayout.addColumn(Box.createGlue());
-		mainLayout.addColumn(midPanel);
-		mainLayout.addColumn(Box.createGlue());
-		mainLayout.setInnerMargins(10, 10, 10, 10);
-
-		this.setMinimumSize(new Dimension(500, 500));
-		this.setLayout(mainLayout.generateLayout(this));
-
+		layout.addColumn(
+				title,
+				new JScrollPane(listPacket),
+				GuiUtils.generateButtonPanel(modificar, crear)
+				);
+		
+		layout.setAsLayoutOf(this);
 	}
 
 	/**

@@ -56,7 +56,7 @@ public class SelectClientController extends Controller<SelectClientView>
 	public void selected()
 	{
 		Client client = view.getSelectedClient();
-		Application.getInstance().setCliente(client);
+		Application.getInstance().setClient(client);
 		
 		navigator.navigate(SelectPacketView.class);
 	}
