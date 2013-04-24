@@ -315,6 +315,11 @@ public class GroupLayoutHelper
 
 		return this;
 	}
+	
+	public void setAsLayoutOf(Container container)
+	{
+		container.setLayout(this.generateLayout(container));
+	}
 
 	/**
 	 * Generates a new instance of GroupLayoutHelper with a list of lists, each
