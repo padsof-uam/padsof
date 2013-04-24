@@ -192,10 +192,18 @@ public class Packet extends DBObject
 		return bookings;
 	}
 
-	public String toString(int nPacket) throws SQLException
+	public String toString()
 	{
-		List<Booking> bookings = getBookings();
-		String retval = new String("Paquete " + nPacket);
+		List<Booking> bookings;
+		try
+		{
+			bookings = getBookings();
+		}
+		catch (SQLException e)
+		{
+			return("No se han podido cargar las reservas del paquete");
+		}
+		String retval = new String("Paquete ");
 		int hotel = 0, flight = 0, travel = 0;
 		for (int i = 0; i < bookings.size(); ++i)
 		{
