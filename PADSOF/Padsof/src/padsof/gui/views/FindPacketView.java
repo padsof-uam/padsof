@@ -6,7 +6,6 @@ import java.util.*;
 
 import javax.swing.*;
 
-import padsof.gui.NavigateButton;
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.GroupLayoutHelper;
 import padsof.system.Packet;
@@ -23,6 +22,7 @@ public class FindPacketView extends View
 	public Packet getSelectedPacket(){
 		if (listPacket == null)
 			return null;
+		
 		return listPacket.getSelectedValue();
 	}
 	@SuppressWarnings("unchecked")
