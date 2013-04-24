@@ -152,13 +152,35 @@ public abstract class Controller<V extends View> implements ActionListener,
 	@Override
 	public void insertUpdate(DocumentEvent e)
 	{
-		// not needed.
+		Method listener = findListenerFor("DocChange");
+
+		try
+		{
+			if (listener != null)
+				listener.invoke(this);
+
+		}
+		catch (Exception e1)
+		{
+			e1.printStackTrace();
+		}
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e)
 	{
-		// not needed.
+		Method listener = findListenerFor("DocChange");
+
+		try
+		{
+			if (listener != null)
+				listener.invoke(this);
+
+		}
+		catch (Exception e1)
+		{
+			e1.printStackTrace();
+		}
 	}
 
 	@Override
