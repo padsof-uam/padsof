@@ -1,6 +1,6 @@
 package padsof.gui.views;
 
-import java.awt.Dimension;
+import java.awt.*;
 import java.rmi.NoSuchObjectException;
 
 import javax.swing.*;
@@ -18,28 +18,24 @@ public class VendorFirstView extends View
 	{
 		super("Vendedor");
 
-		JLabel titulo = new JLabel ("<html><p align=" + "justify"
-				+ "><b><u>¿Con qué cliente </u></b><br><p align=" + "justify"
-				+ "><b><u>desea trabajar?</html>");
-		newClient = new NavigateButton("<html><p align=" + "justify"
-				+ "><b>Nuevo</b></html>", RegisterClientView.class);
-		existentClient = new NavigateButton("<html><p align=" + "justify"
-				+ "><b>Existente</b><br></html>",
-				SearchClient.class);
+		JLabel titulo = new JLabel(
+				"<html><b><u>¿Con qué cliente </u></b><br><b><u>desea trabajar?</html>");
+		newClient = new NavigateButton("<html><b>Nuevo</b></html>",
+				RegisterClientView.class);
+		existentClient = new NavigateButton(
+				"<html><b>Existente</b><br></html>", SearchClient.class);
 
 		GroupLayoutHelper mainLayout = new GroupLayoutHelper();
 		JPanel mainpanel = new JPanel();
 
 		mainLayout.addColumn(Box.createGlue(), Box.createGlue(),
 				Box.createGlue());
-		mainLayout.addColumn(titulo,newClient, existentClient);
+		mainLayout.addColumn(titulo, newClient, existentClient);
 		mainLayout.addColumn(Box.createGlue(), Box.createGlue(),
 				Box.createGlue());
 
-		mainLayout.linkVerticalSize(newClient, existentClient );
-		mainLayout.linkHorizontalSize(newClient, existentClient );
-
-		
+		mainLayout.linkVerticalSize(newClient, existentClient);
+		mainLayout.linkHorizontalSize(newClient, existentClient);
 		
 		mainpanel.setLayout(mainLayout.generateLayout(mainpanel));
 
@@ -57,7 +53,7 @@ public class VendorFirstView extends View
 	@Override
 	public <V extends View> void setController(Controller<V> c)
 	{
-		
+
 	}
 
 }
