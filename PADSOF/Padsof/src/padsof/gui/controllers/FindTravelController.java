@@ -71,8 +71,10 @@ public class FindTravelController extends Controller<FindTravelView>
 		{
 			Booking booking = factory.book(hotel, Application.getInstance()
 					.getClient(), view.getStartDate(), view.getEndDate());
-			booking.book();
+			double price = booking.book();
 			Application.getInstance().getPacket().add(booking);
+
+			showMessage("Reserva realizada. Precio: " + price + "€");
 		}
 		catch (Exception e)
 		{
@@ -80,7 +82,6 @@ public class FindTravelController extends Controller<FindTravelView>
 			return;
 		}
 
-		showMessage("Reserva realizada con éxito.");
 		navigator.goBack();
 	}
 }

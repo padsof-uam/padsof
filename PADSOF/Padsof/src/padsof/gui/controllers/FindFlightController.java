@@ -155,9 +155,11 @@ public class FindFlightController extends Controller<FindFlightView>
 		try
 		{
 			booking = factory.book(new Flight(flight), Application.getInstance().getClient(), flight.getDeparture(), flight.getArrival());
-			booking.book();
+			double price = booking.book();
 			Packet current = Application.getInstance().getPacket();
 			current.add(booking);
+
+			showMessage("Reserva realizada. Precio: " + price + "€");
 		}
 		catch (Exception e)
 		{
@@ -165,7 +167,6 @@ public class FindFlightController extends Controller<FindFlightView>
 			return;
 		}
 		
-		showMessage("Reserva realizada con éxito.");		
 	}
 	
 	@Override
