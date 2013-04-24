@@ -1,6 +1,5 @@
 package padsof.gui.controllers;
 
-import java.lang.reflect.*;
 import java.util.*;
 
 import javax.swing.JOptionPane;
@@ -30,8 +29,8 @@ public class RegisterClientController extends Controller<RegisterClientView>
 		else
 		{
 			ICliente = new ImsersoClient();
-			if ((String) view.getValueFor("Nº Seguridad Social") == null
-					|| (Date) view.getValueFor("Fecha de nacimiento") == null)
+			if (((String) view.getValueFor("Nº Seguridad Social")).isEmpty()
+					|| !isOldEnough((Date) view.getValueFor("Fecha de nacimiento")))
 			{
 				JOptionPane
 				.showMessageDialog(
@@ -40,15 +39,17 @@ public class RegisterClientController extends Controller<RegisterClientView>
 						"Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+		
+			
 			long SsNumber = Long.parseLong(((String) view.getValueFor("Nº Seguridad Social")));
 			ICliente.setBirth((Date) view.getValueFor("Fecha de nacimiento"));
 			ICliente.setSsNumber(SsNumber);
 			cliente = ICliente;
 		}
-		if (((String) view.getValueFor("DNI") == null)
-				|| ((String) view.getValueFor("Nombre") == null)
-				|| ((String) view.getValueFor("Apellido 1") == null)
-				|| ((String) view.getValueFor("Apellido 2") == null))
+		if (((String) view.getValueFor("DNI")).isEmpty()
+				|| ((String) view.getValueFor("Nombre")).isEmpty()
+				|| ((String) view.getValueFor("Apellido 1")).isEmpty()
+				|| ((String) view.getValueFor("Apellido 2")).isEmpty())
 			{
 			JOptionPane.showMessageDialog(view,
 					"Por favor rellene todos los campos", "Error",
@@ -78,7 +79,13 @@ public class RegisterClientController extends Controller<RegisterClientView>
 		
 		JOptionPane.showMessageDialog(view, "Cliente creado.");
 		navigator.navigate(FindPacketView.class);
+	}
 
+	private boolean isOldEnough(Date value)
+	{
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.YEAR, -65);
+		return value.before(c.getTime());		
 	}
 
 
