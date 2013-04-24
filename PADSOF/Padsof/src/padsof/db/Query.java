@@ -8,6 +8,7 @@ public class Query<T>
 {
 	private QueryBuilder<T, Long> queryBuilder;
 	private Where<T, Long> whereClause = null;
+	Class<T> queryingClass;
 	
 	private Where<T, Long> getWhere()
 	{
@@ -19,9 +20,10 @@ public class Query<T>
 		return whereClause;
 	}
 	
-	Query(QueryBuilder<T, Long> queryBuilder)
+	Query(QueryBuilder<T, Long> queryBuilder, Class<T> queryingClass)
 	{
 		this.queryBuilder = queryBuilder;
+		this.queryingClass = queryingClass;
 	}
 	
 	public void setMin(String field, Object min) throws SQLException

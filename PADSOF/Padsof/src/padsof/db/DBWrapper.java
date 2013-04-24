@@ -299,14 +299,13 @@ public class DBWrapper
 	{
 		@SuppressWarnings("unchecked")
 		Dao<T, Long> dao = (Dao<T, Long>) getDaoFor(cls);
-		return new Query<T>(dao.queryBuilder());
+		return new Query<T>(dao.queryBuilder(), cls);
 	}
 
-	public <T> List<T> executeQuery(Class<T> cls,
-			Query<T> query) throws SQLException
+	public <T> List<T> executeQuery(Query<T> query) throws SQLException
 	{
 		@SuppressWarnings("unchecked")
-		Dao<T, Long> dao = (Dao<T, Long>) getDaoFor(cls);
+		Dao<T, Long> dao = (Dao<T, Long>) getDaoFor(query.queryingClass);
 		return dao.query(query.prepare());
 	}
 }

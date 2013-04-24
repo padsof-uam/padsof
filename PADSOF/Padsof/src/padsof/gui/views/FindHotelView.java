@@ -50,6 +50,11 @@ public class FindHotelView extends View
 		return generator.getValueFor("Precio máximo");
 	}
 	
+	public Hotel getSelectedHotel()
+	{
+		return hotelList.getSelectedValue();
+	}
+	
 	public FindHotelView() throws NoSuchObjectException
 	{
 		super("Buscar hotel");

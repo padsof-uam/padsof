@@ -1,6 +1,5 @@
 package padsof.gui.views;
 
-import java.awt.FlowLayout;
 import java.rmi.NoSuchObjectException;
 import java.util.*;
 

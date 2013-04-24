@@ -205,7 +205,7 @@ public class DBWrapperTester
 		query.setMin("d", min);
 		query.setRange("i", from, to);
 		
-		List<SampleComplexClass> queried = db.executeQuery(SampleComplexClass.class, query);
+		List<SampleComplexClass> queried = db.executeQuery(query);
 		
 		assertAreSameCollection(subset, queried);
 	}

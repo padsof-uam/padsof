@@ -6,71 +6,69 @@ import padsof.bookings.*;
 import padsof.db.*;
 import padsof.gui.Application;
 import padsof.gui.controllers.utils.Listener;
-import padsof.gui.views.FindTravelView;
-import padsof.services.Travel;
+import padsof.gui.views.FindImsersoTravelView;
+import padsof.services.*;
 
-public class FindTravelController extends Controller<FindTravelView>
+public class FindImsersoTravelController extends Controller<FindImsersoTravelView>
 {
 	@Listener("Search")
 	public void search()
 	{
-		Query<Travel> query;
+		Query<ImsersoTravel> query;
 		try
 		{
-			query = DBWrapper.getInstance().prepareQuery(Travel.class);
+			query = DBWrapper.getInstance().prepareQuery(ImsersoTravel.class);
 		}
 		catch (SQLException e)
 		{
 			showError("Error recuperando viajes");
 			return;
 		}
-
+		
+	
 		double maxPrice = -1;
-
+		
 		try
 		{
 			String price = view.getMaxPrice();
-
-			if (!price.isEmpty())
+			
+			if(!price.isEmpty())
 				maxPrice = Double.valueOf(price);
 		}
-		catch (NumberFormatException e)
+		catch(NumberFormatException e)
 		{
 			showError("Formato de precio inválido.");
 			return;
 		}
-
+		
 		try
 		{
-			if (maxPrice != -1)
+			if(maxPrice != -1)
 				query.setMax("price", maxPrice);
-
 			view.setResults(DBWrapper.getInstance().executeQuery(query));
 		}
-		catch (Exception e)
+		catch (SQLException e)
 		{
-			showError("Error buscando en la base de datos.");
+			showError("Error consultando a la base de datos.");
 		}
 	}
-
+	
 	@Listener("Book")
 	public void book()
 	{
-		Travel hotel = view.getSelectedTravel();
-
-		if (view.getStartDate().after(view.getEndDate()))
+		ImsersoTravel hotel = view.getSelectedImsersoTravel();
+		
+		if(view.getStartDate().after(view.getEndDate()))
 		{
 			showError("Fechas inválidas.");
 			return;
 		}
-
-		BookingFactory factory = new BookingFactory(Application.getInstance()
-				.getVendor());
-
+		
+		BookingFactory factory = new BookingFactory(Application.getInstance().getVendor());
+		
 		try
 		{
-			Booking booking = factory.book(hotel, Application.getInstance()
-					.getCliente(), view.getStartDate(), view.getEndDate());
+			Booking booking = factory.book(hotel, Application.getInstance().getCliente(), view.getStartDate(), view.getEndDate());
 			booking.book();
 			Application.getInstance().getActualPacket().add(booking);
 		}
@@ -79,7 +77,7 @@ public class FindTravelController extends Controller<FindTravelView>
 			showError("Error reservando el paquete: " + e.getMessage());
 			return;
 		}
-
+		
 		showMessage("Reserva realizada con éxito.");
 		navigator.goBack();
 	}

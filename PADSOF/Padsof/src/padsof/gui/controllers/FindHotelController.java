@@ -1,9 +1,10 @@
 package padsof.gui.controllers;
 
 import java.sql.SQLException;
-import java.util.Date;
 
+import padsof.bookings.*;
 import padsof.db.*;
+import padsof.gui.Application;
 import padsof.gui.controllers.utils.Listener;
 import padsof.gui.views.FindHotelView;
 import padsof.services.Hotel;
@@ -13,12 +14,9 @@ public class FindHotelController extends Controller<FindHotelView>
 	@Listener("Search")
 	public void search()
 	{
-		Date start, end;
 		double maxPrice = -1;
 		String city, country;
 
-		start = view.getStartDate();
-		end = view.getEndDate();
 		city = view.getCity();
 		country = view.getCountry();
 
@@ -52,12 +50,40 @@ public class FindHotelController extends Controller<FindHotelView>
 				query.setEquals("country", country);
 			if (maxPrice != -1)
 				query.setMax("simplePrice", maxPrice);
-			view.setModel(DBWrapper.getInstance().executeQuery(Hotel.class, query));
+			view.setModel(DBWrapper.getInstance().executeQuery(query));
 		}
 		catch (Exception e)
 		{
 			showError("No se ha podido consultar a la base de datos.");
 		}
-
+	}
+	
+	@Listener("Book")
+	public void book()
+	{
+		Hotel hotel = view.getSelectedHotel();
+		
+		if(view.getStartDate().after(view.getEndDate()))
+		{
+			showError("Fechas inválidas.");
+			return;
+		}
+		
+		BookingFactory factory = new BookingFactory(Application.getInstance().getVendor());
+		
+		try
+		{
+			Booking booking = factory.book(hotel, Application.getInstance().getCliente(), view.getStartDate(), view.getEndDate());
+			booking.book();
+			Application.getInstance().getActualPacket().add(booking);
+		}
+		catch (Exception e)
+		{
+			showError("Error reservando el paquete: " + e.getMessage());
+			return;
+		}
+		
+		showMessage("Reserva realizada con éxito.");
+		navigator.goBack();
 	}
 }

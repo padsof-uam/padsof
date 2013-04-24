@@ -11,22 +11,22 @@ import javax.swing.event.*;
 
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.*;
-import padsof.services.Travel;
-public class FindTravelView extends View
+import padsof.services.*;
+public class FindImsersoTravelView extends View
 {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3047669393550390186L;
-	private JList<Travel> travelList;
+	private JList<ImsersoTravel> travelList;
 	private JButton btnBook;
 	private JButton btnSearch;
 	private FormGenerator generator;
 
-	public FindTravelView() throws NoSuchObjectException
+	public FindImsersoTravelView() throws NoSuchObjectException
 	{
-		super("Buscar Viaje Organizado");
+		super("Buscar Viaje IMSERSO");
 
 		generator = new FormGenerator();
 
@@ -35,7 +35,7 @@ public class FindTravelView extends View
 		btnBook = new JButton("Reservar");
 		btnBook.setEnabled(false);
 		
-		travelList = new JList<Travel>();
+		travelList = new JList<ImsersoTravel>();
 		
 		travelList.addListSelectionListener(new ListSelectionListener()
 		{
@@ -47,7 +47,7 @@ public class FindTravelView extends View
 
 		});
 		
-		generator.setTitle("Viajes organizados");
+		generator.setTitle("Viajes IMSERSO");
 		generator.addFields("Fecha Inicial", "Fecha Final",
 				"Precio máximo");
 
@@ -84,11 +84,11 @@ public class FindTravelView extends View
 		return generator.getValueFor("Precio máximo");
 	}
 	
-	public void setResults(List<Travel> travels)
+	public void setResults(List<ImsersoTravel> travels)
 	{
-		DefaultListModel<Travel> model = new DefaultListModel<Travel>();
+		DefaultListModel<ImsersoTravel> model = new DefaultListModel<ImsersoTravel>();
 		
-		for(Travel flight : travels)
+		for(ImsersoTravel flight : travels)
 			model.addElement(flight);
 		
 		travelList.setModel(model);
@@ -104,7 +104,7 @@ public class FindTravelView extends View
 		btnSearch.addActionListener(c);
 	}
 
-	public Travel getSelectedTravel()
+	public ImsersoTravel getSelectedImsersoTravel()
 	{
 		return travelList.getSelectedValue();
 	}
