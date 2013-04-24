@@ -42,7 +42,7 @@ public class Application implements NavigationService
 	private Application()
 	{
 		navigationStack = new Stack<Class<? extends View>>();
-		frame = new JFrame();
+		frame = new JFrame("PADSOF");
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(750, 400);
@@ -107,6 +107,7 @@ public class Application implements NavigationService
 		currentView = new LoginView();
 		setControllerForView(currentView);
 		frame.setContentPane(currentView);
+		resetTitle();
 		center();
 	}
 
@@ -163,6 +164,11 @@ public class Application implements NavigationService
 
 		return false;
 	}
+	
+	public void resetTitle()
+	{
+		frame.setTitle("PADSOF - " + currentView.getTitle());
+	}
 
 	private void replaceMainView(View view)
 	{
@@ -198,6 +204,7 @@ public class Application implements NavigationService
 
 		replaceMainView(newView);
 		setControllerForView(newView);
+		resetTitle();
 		frame.revalidate();
 	}
 
