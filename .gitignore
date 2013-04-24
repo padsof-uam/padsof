@@ -9,3 +9,4 @@ PADSOF/Padsof/.settings/*
 *.sqlite
 *.bin
 *.zip
+*.sqlite-journal

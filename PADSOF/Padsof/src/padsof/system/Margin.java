@@ -18,6 +18,11 @@ public class Margin extends DBObject
 		this.margin = margin;
 	}
 
+	public Margin()
+	{
+		this.margin = 0;
+	}
+	
 	public static Margin getMargin()
 	{
 		if (instance == null)

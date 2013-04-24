@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import javax.swing.*;
 
+import padsof.gui.Application;
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.GroupLayoutHelper;
 
@@ -21,9 +22,9 @@ public class SearchClient extends View
 		super("Buscar cliente");
 		JLabel titulo = new JLabel("<html><big>Buscar cliente</html>");
 		search = new JButton("Buscar");
-		jtfDni = new JTextField("dni");
+		jtfDni = new JTextField();
 		JLabel lblDni = new JLabel("Introduzca el dni del cliente: ");
-
+		Application.getInstance().setDefaultButton(search);
 		GroupLayoutHelper mainLayout = new GroupLayoutHelper();
 
 		mainLayout.addColumn(Box.createGlue(), Box.createGlue(),
