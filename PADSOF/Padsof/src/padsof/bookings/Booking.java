@@ -7,8 +7,6 @@ import padsof.services.Service;
 import padsof.system.*;
 
 import com.j256.ormlite.field.DatabaseField;
-
-import es.uam.eps.pads.services.InvalidParameterException;
 /**
  * 
  * @author Víctor de Juan Sanz - Guillermo Julián Moreno
