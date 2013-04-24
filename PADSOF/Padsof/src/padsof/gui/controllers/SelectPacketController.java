@@ -1,7 +1,7 @@
 package padsof.gui.controllers;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.*;
 
 import javax.swing.JOptionPane;
 
@@ -20,7 +20,7 @@ public class SelectPacketController extends Controller<SelectPacketView>
 
 		try
 		{
-			packets = DBWrapper.getInstance().get(Packet.class, "client", Application.getInstance().getClient());
+			packets = Application.getInstance().getVendor().getPackets();
 		}
 		catch (SQLException e)
 		{
@@ -28,8 +28,14 @@ public class SelectPacketController extends Controller<SelectPacketView>
 					"No se pueden recuperar los paquetes.");
 			return;
 		}
-
-		view.setModel(packets);
+		
+		List<Packet> clientPackets = new ArrayList<Packet>();
+		
+		for(Packet p: packets)
+			if(p.getClient().equals(Application.getInstance().getClient()))
+				clientPackets.add(p);
+		
+		view.setModel(clientPackets);
 	}
 
 	@Override
