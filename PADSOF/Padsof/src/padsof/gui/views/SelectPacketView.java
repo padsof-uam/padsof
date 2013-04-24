@@ -33,6 +33,7 @@ public class SelectPacketView extends View
 		listPacket = new JList<Packet>();
 		JLabel title = new JLabel("Seleccionar paquete");
 		GuiUtils.applyTitleStyle(title);
+		modificar.setEnabled(false);
 		
 		listPacket.addListSelectionListener(new ListSelectionListener()
 		{

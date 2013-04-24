@@ -221,20 +221,10 @@ public class Packet extends DBObject
 				travel++;
 			}
 		}
-		String strTrip = new String("Viaje");
-		if (travel == 1)
-			strTrip += "s";
-		strTrip += " organizados: " + travel;
 
-		String strFlight = new String("Vuelo");
-		if (hotel == 1)
-			strFlight += "s";
-		strFlight += ": " + flight;
-
-		String strHotel = new String("Hotel");
-		if (hotel == 1)
-			strHotel += "s";
-		strHotel += ": " + hotel;
+		String strTrip = " Viajes organizados: " + travel;
+		String strFlight = ", Vuelos: " + flight;
+		String strHotel = ", Hoteles: " + hotel;
 
 		return retval + strHotel + strTrip + strFlight;
 

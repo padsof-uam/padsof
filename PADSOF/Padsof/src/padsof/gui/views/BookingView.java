@@ -6,11 +6,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.event.*;
 
 import padsof.bookings.Booking;
 import padsof.gui.*;
 import padsof.gui.controllers.Controller;
-import padsof.gui.utils.GroupLayoutHelper;
+import padsof.gui.utils.*;
 import padsof.system.*;
 
 public class BookingView extends View
@@ -32,6 +33,10 @@ public class BookingView extends View
 
 	private NavigateButton btnImserso;
 
+	private JButton cancelButton;
+
+	private JButton confirmButton;
+
 	public void setModel(List<Booking> bookings)
 	{
 		this.packets = new DefaultListModel<Booking>();
@@ -41,11 +46,13 @@ public class BookingView extends View
 	}
 
 	/**
-	 * Tendria que tener un argumento que fuese el paquete al que esta asociado o algo asi?
+	 * Tendria que tener un argumento que fuese el paquete al que esta asociado
+	 * o algo asi?
+	 * 
 	 * @throws NoSuchObjectException
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
-	public BookingView() 
+	public BookingView()
 	{
 
 		super("Booking View");
@@ -57,22 +64,25 @@ public class BookingView extends View
 		 */
 		JLabel lblAdd = new JLabel("Añadir");
 
-		btnHotel = new NavigateButton("Hotel",FindHotelView.class);
-		btnVuelo = new NavigateButton("Vuelo",FindFlightView.class);
-		btnViaje = new NavigateButton("Viaje organizado",FindTravelView.class);
-		btnImserso = new NavigateButton("Viaje IMSERSO", FindImsersoTravelView.class);
-		btnImserso.setVisible(false);
+		btnHotel = new NavigateButton("Hotel", FindHotelView.class);
+		btnVuelo = new NavigateButton("Vuelo", FindFlightView.class);
+		btnViaje = new NavigateButton("Viaje organizado", FindTravelView.class);
+		btnImserso = new NavigateButton("Viaje IMSERSO",
+				FindImsersoTravelView.class);
 		Client cliente = Application.getInstance().getClient();
-		
-		if (ImsersoClient.class.isInstance(cliente))
-			btnImserso.setVisible (true);
+
+		cancelButton = new JButton("Cancelar");
+		confirmButton = new JButton("Confirmar");
+
+		btnImserso.setEnabled(ImsersoClient.class.isInstance(cliente));
 
 		JPanel leftPanel = new JPanel();
 		GroupLayoutHelper leftLayoutHelper = new GroupLayoutHelper();
 
-		leftLayoutHelper.addColumn(lblAdd, btnHotel, btnVuelo, btnViaje);
-
-		leftLayoutHelper.linkVerticalSize(btnHotel, btnVuelo, btnViaje);
+		leftLayoutHelper.addColumn(lblAdd, btnHotel, btnVuelo, btnViaje,
+				btnImserso);
+		leftLayoutHelper.linkVerticalSize(btnHotel, btnVuelo, btnViaje,
+				btnImserso);
 
 		leftPanel.setLayout(leftLayoutHelper.generateLayout(leftPanel));
 
@@ -80,16 +90,28 @@ public class BookingView extends View
 		 * Right panel
 		 */
 		JPanel rightPanel = new JPanel();
-		
+
 		GroupLayoutHelper rightLayoutHelper = new GroupLayoutHelper();
-		
+
 		elements = new JList<Booking>();
 		elements.setAlignmentX(LEFT_ALIGNMENT);
 
-		JLabel lblPacket = new JLabel("<html>Elementos del paquete</html>");
+		JLabel lblPacket = new JLabel("Elementos del paquete:");
+		GuiUtils.applyTitleStyle(lblPacket);
 
-		
-		rightLayoutHelper.addColumn(lblPacket, new JScrollPane(elements));
+		elements.addListSelectionListener(new ListSelectionListener()
+		{
+			@Override
+			public void valueChanged(ListSelectionEvent e)
+			{
+				cancelButton.setEnabled(elements.getSelectedValue() != null);
+				confirmButton.setEnabled(elements.getSelectedValue() != null
+						&& !elements.getSelectedValue().isPayed());
+			}
+		});
+
+		rightLayoutHelper.addColumn(lblPacket, new JScrollPane(elements),
+				GuiUtils.generateButtonPanel(cancelButton, confirmButton));
 
 		rightPanel.setLayout(rightLayoutHelper.generateLayout(rightPanel));
 
@@ -110,6 +132,15 @@ public class BookingView extends View
 	@Override
 	public <V extends View> void setController(Controller<V> c)
 	{
+		cancelButton.setActionCommand("Cancel");
+		confirmButton.setActionCommand("Confirm");
 		
+		cancelButton.addActionListener(c);
+		confirmButton.addActionListener(c);
+	}
+
+	public Booking getSelectedItem()
+	{
+		return elements.getSelectedValue();
 	}
 }
