@@ -28,6 +28,12 @@ public class ImsersoClient extends Client
 		return ssNumber;
 	}
 
+	@Override
+	public String toString()
+	{
+		return "[IMSERSO] " + super.toString();
+	}
+
 	/**
 	 * @param ssNumber
 	 *            the ssNumber to set

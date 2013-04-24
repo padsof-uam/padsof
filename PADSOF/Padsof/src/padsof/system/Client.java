@@ -70,4 +70,12 @@ public class Client extends DBObject
 	{
 		DNI = dNI;
 	}
+
+	@Override
+	public String toString()
+	{
+		return name + " " + surname + ", DNI " + DNI;
+	}
+	
+	
 }
