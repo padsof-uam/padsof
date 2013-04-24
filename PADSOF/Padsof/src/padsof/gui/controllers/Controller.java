@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.lang.reflect.*;
 
 import javax.swing.JOptionPane;
+import javax.swing.event.*;
 
 import padsof.gui.NavigationService;
 import padsof.gui.controllers.utils.Listener;
@@ -42,7 +43,8 @@ import padsof.gui.views.View;
  * @param <V>
  *            View controlled by the controller.
  */
-public abstract class Controller<V extends View> implements ActionListener
+public abstract class Controller<V extends View> implements ActionListener,
+		DocumentListener
 {
 	protected V view;
 	protected NavigationService navigator;
@@ -128,19 +130,49 @@ public abstract class Controller<V extends View> implements ActionListener
 				|| (params.length == 1 && params[0]
 						.isAssignableFrom(ActionEvent.class));
 	}
-	
+
 	protected void showError(String message)
 	{
-		JOptionPane.showMessageDialog(view, message, "Error", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(view, message, "Error",
+				JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	protected void showWarning(String message)
 	{
-		JOptionPane.showMessageDialog(view, message, "Advertencia", JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(view, message, "Advertencia",
+				JOptionPane.WARNING_MESSAGE);
 	}
-	
+
 	protected void showMessage(String message)
 	{
-		JOptionPane.showMessageDialog(view, message, "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(view, message, "Mensaje",
+				JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	@Override
+	public void insertUpdate(DocumentEvent e)
+	{
+	}
+
+	@Override
+	public void removeUpdate(DocumentEvent e)
+	{
+	}
+
+	@Override
+	public void changedUpdate(DocumentEvent e)
+	{
+		Method listener = findListenerFor("DocChange");
+
+		try
+		{
+			if (listener != null)
+				listener.invoke(this);
+
+		}
+		catch (Exception e1)
+		{
+			e1.printStackTrace();
+		}
 	}
 }
