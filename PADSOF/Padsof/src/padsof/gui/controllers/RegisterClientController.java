@@ -47,8 +47,7 @@ public class RegisterClientController extends Controller<RegisterClientView>
 		}
 		if (((String) view.getValueFor("DNI")).isEmpty()
 				|| ((String) view.getValueFor("Nombre")).isEmpty()
-				|| ((String) view.getValueFor("Apellido 1")).isEmpty()
-				|| ((String) view.getValueFor("Apellido 2")).isEmpty())
+				|| ((String) view.getValueFor("Apellidos")).isEmpty())
 			{
 			JOptionPane.showMessageDialog(view,
 					"Por favor rellene todos los campos", "Error",
@@ -65,8 +64,7 @@ public class RegisterClientController extends Controller<RegisterClientView>
 				return;
 			}
 			cliente.setName((String) view.getValueFor("Nombre"));
-			cliente.setSurname((String) view.getValueFor("Apellido 1")
-					+ (String) view.getValueFor("Apellido 2"));
+			cliente.setSurname((String) view.getValueFor("Apellidos"));
 		}
 
 		Application app = Application.getInstance();

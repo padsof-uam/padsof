@@ -27,16 +27,13 @@ public class RegisterClientView extends View
 	
 	
 	public Object getValueFor(String field) throws ComponentNotFoundException{
-		//TODO: xk no hay excepciones... 
 		Object retval = null;
 		if (field.compareToIgnoreCase("DNI") == 0)
 			retval = generator.getValueFor("DNI");
 		else if (field.compareToIgnoreCase("Nombre") == 0)
 			retval = generator.getValueFor("Nombre");
-		else if (field.compareToIgnoreCase("Apellido 1") == 0)
-			retval = generator.getValueFor("Apellido 1");
-		else if (field.compareToIgnoreCase("Apellido 2") == 0)
-			retval = generator.getValueFor("Apellido 2");
+		else if (field.compareToIgnoreCase("Apellidos") == 0)
+			retval = generator.getValueFor("Apellidos");
 		else if (field.compareToIgnoreCase("Nº Seguridad Social") == 0)
 			retval = generator.getValueFor("Nº Seguridad Social");
 		else if (field.compareToIgnoreCase("Código de verificación") == 0)
@@ -51,7 +48,7 @@ public class RegisterClientView extends View
 		
 		generator = new FormGenerator();
 		
-		generator.addFields("DNI", "Nombre", "Apellido 1", "Apellido 2", "Nº Seguridad Social",
+		generator.addFields("DNI", "Nombre", "Apellidos", "Nº Seguridad Social",
 				"Código de verificación", "Fecha de nacimiento");
 		
 		Crear = new JButton("Crear");
