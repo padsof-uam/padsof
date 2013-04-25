@@ -44,6 +44,8 @@ public class SelectClientView extends View
 			{
 				selectClient.setEnabled(clients.getSelectedValue() != null);
 				deleteClient.setEnabled(Application.getInstance().getVendor().IsAdmin() && clients.getSelectedValue() != null);
+				if(clients.getSelectedValue() != null)
+					Application.getInstance().setDefaultButton(selectClient);
 			}
 		});
 		

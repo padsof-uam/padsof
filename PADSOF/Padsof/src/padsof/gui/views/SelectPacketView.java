@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import padsof.gui.Application;
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.*;
 import padsof.system.Packet;
@@ -45,6 +46,8 @@ public class SelectPacketView extends View
 			{
 				modificar.setEnabled(listPacket.getSelectedValue() != null);
 				delete.setEnabled(listPacket.getSelectedValue() != null);
+				if(listPacket.getSelectedValue() != null)
+					Application.getInstance().setDefaultButton(modificar);
 			}
 		});
 		
