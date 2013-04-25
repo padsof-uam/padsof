@@ -163,7 +163,7 @@ public class AdminView extends View
 				generator.generateForm(),
 				manageLabel,
 				vendorList2,
-				GuiUtils.generateButtonPanel(btnDelete, btnReset, btnAdmin)
+				GuiUtils.generateLinePanel(btnDelete, btnReset, btnAdmin)
 				);
 		
 		NavigateButton vendorViewButton = new NavigateButton("Vista vendedor",SelectClientView.class);

@@ -60,7 +60,7 @@ public class SelectClientView extends View
 						.linkVerticalSize(dniField)
 						.generatePanel(),
 				new JScrollPane(clients),
-				GuiUtils.generateButtonPanel(newClient, selectClient, deleteClient)
+				GuiUtils.generateLinePanel(newClient, selectClient, deleteClient)
 				);
 
 		layout.setInnerMargins(10, 10, 10, 10);

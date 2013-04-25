@@ -113,7 +113,7 @@ public class BookingView extends View
 		});
 
 		rightLayoutHelper.addColumn(lblPacket, new JScrollPane(elements),
-				GuiUtils.generateButtonPanel(cancelButton, confirmButton,
+				GuiUtils.generateLinePanel(cancelButton, confirmButton,
 						refreshButton));
 
 		rightPanel.setLayout(rightLayoutHelper.generateLayout(rightPanel));

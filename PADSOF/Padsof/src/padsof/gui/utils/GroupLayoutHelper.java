@@ -316,6 +316,10 @@ public class GroupLayoutHelper
 		return this;
 	}
 	
+	/**
+	 * Convenience method to set this layout as the layout of a container.
+	 * @param container Container.
+	 */
 	public void setAsLayoutOf(Container container)
 	{
 		container.setLayout(this.generateLayout(container));

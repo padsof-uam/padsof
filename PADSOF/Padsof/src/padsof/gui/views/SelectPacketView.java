@@ -60,7 +60,7 @@ public class SelectPacketView extends View
 		layout.addColumn(
 				title,
 				new JScrollPane(listPacket),
-				GuiUtils.generateButtonPanel(modificar, crear, delete, close)
+				GuiUtils.generateLinePanel(modificar, crear, delete, close)
 				);
 		
 		layout.setAsLayoutOf(this);
