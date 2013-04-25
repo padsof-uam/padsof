@@ -49,27 +49,6 @@ public class Application implements NavigationService
 		frame.setMinimumSize(new Dimension(750, 450));
 		frame.setResizable(false);
 		
-		frame.addKeyListener(new KeyListener(){
-
-			@Override
-			public void keyTyped(KeyEvent e)
-			{
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e)
-			{	
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e)
-			{
-				if(e.getKeyCode() == KeyEvent.VK_ESCAPE && backButton != null)
-					goBack();
-			}			
-		});
-		
-		
 		registerControllers();
 	}
 

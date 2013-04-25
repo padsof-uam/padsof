@@ -40,7 +40,17 @@ public class RegisterClientController extends Controller<RegisterClientView>
 			}
 		
 			
-			long SsNumber = Long.parseLong(((String) view.getValueFor("Nº Seguridad Social")));
+			
+			long SsNumber;
+			try
+			{
+				SsNumber = Long.parseLong(((String) view.getValueFor("Nº Seguridad Social")));
+			}
+			catch(NumberFormatException e)
+			{
+				showError("Introduzca un número de SS válido.");
+				return;
+			}
 			ICliente.setBirth((Date) view.getValueFor("Fecha de nacimiento"));
 			ICliente.setSsNumber(SsNumber);
 			cliente = ICliente;

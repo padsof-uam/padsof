@@ -238,4 +238,14 @@ public abstract class Booking extends DBObject
 					"This service is already canceled.");
 	}
 
+	public double getCost()
+	{
+		return getAssociatedService().getCost();
+	}
+
+	public double getPrice()
+	{
+		return getAssociatedService().getPrice();
+	}
+
 }

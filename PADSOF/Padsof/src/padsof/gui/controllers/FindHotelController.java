@@ -10,6 +10,7 @@ import padsof.gui.Application;
 import padsof.gui.controllers.utils.Listener;
 import padsof.gui.views.FindHotelView;
 import padsof.services.Hotel;
+import padsof.system.Margin;
 
 public class FindHotelController extends Controller<FindHotelView>
 {
@@ -100,7 +101,8 @@ public class FindHotelController extends Controller<FindHotelView>
 					return;
 				}
 			}
-			((HotelBooking) booking).setPrice(price);	
+			((HotelBooking) booking).setPrice(price + Margin.getMargin().getMarginPoints() * price);	
+			((HotelBooking) booking).setCost(price);
 			price = booking.book();
 			Application.getInstance().getPacket().add(booking);
 			

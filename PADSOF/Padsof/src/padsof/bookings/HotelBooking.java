@@ -29,6 +29,9 @@ public class HotelBooking extends Booking
 	
 	@DatabaseField
 	private int triples;
+	
+	@DatabaseField
+	private double cost;
 
 	/**
 	 * @return the simples
@@ -151,4 +154,14 @@ public class HotelBooking extends Booking
 		associatedService = service;
 	}
 
+	public void setCost(double cost)
+	{
+		this.cost = cost;
+	}
+
+	@Override
+	public double getCost()
+	{
+		return cost;
+	}
 }

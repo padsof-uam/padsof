@@ -117,9 +117,9 @@ public class StatsReporter
 
 		for (Booking b : filterDate(getAllBookings()))
 			if (b.isPayed())
-				money += b.getAssociatedService().getPrice();
+				money += b.getPrice();
 			else if (b.getState() == PaymentState.Booked)
-				money += b.getAssociatedService().getBookingPrice();
+				money += b.getBookingPrice();
 
 		return money;
 	}
@@ -130,9 +130,9 @@ public class StatsReporter
 
 		for (Booking b : filterDate(vendor.getBookings()))
 			if (b.isPayed())
-				money += b.getAssociatedService().getPrice();
+				money += b.getPrice();
 			else if (b.getState() == PaymentState.Booked)
-				money += b.getAssociatedService().getBookingPrice();
+				money += b.getBookingPrice();
 
 		return money;
 	}
@@ -143,7 +143,7 @@ public class StatsReporter
 
 		for (Booking b : filterDate(getAllBookings()))
 			if (b.getState() != PaymentState.None)
-				money += b.getAssociatedService().getPrice();
+				money += b.getCost();
 
 		return money;
 	}
@@ -154,7 +154,7 @@ public class StatsReporter
 
 		for (Booking b : filterDate(vendor.getBookings()))
 			if (b.getState() != PaymentState.None)
-				money += b.getAssociatedService().getPrice();
+				money += b.getCost();
 
 		return money;
 	}

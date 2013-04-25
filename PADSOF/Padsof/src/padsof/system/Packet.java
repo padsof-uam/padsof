@@ -19,6 +19,11 @@ public class Packet extends DBObject
 	@DatabaseField(foreign = true, foreignAutoRefresh = true,
 			foreignAutoCreate = true)
 	private Client client;
+	
+	@DatabaseField(foreign = true, foreignAutoRefresh = true,
+			foreignAutoCreate = true)
+	private ImsersoClient iclient;
+	
 
 	private boolean isClose = false;
 
@@ -143,7 +148,10 @@ public class Packet extends DBObject
 	 */
 	public Client getClient()
 	{
-		return client;
+		if(client == null)
+			return iclient;
+		else
+			return client;
 	}
 
 	/**
@@ -152,7 +160,10 @@ public class Packet extends DBObject
 	 */
 	public void setClient(Client client)
 	{
-		this.client = client;
+		if(client instanceof ImsersoClient)
+			iclient = (ImsersoClient) client;
+		else
+			this.client = client;
 	}
 
 	List<Booking> bookings;
