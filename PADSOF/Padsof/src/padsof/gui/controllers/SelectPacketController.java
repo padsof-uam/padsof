@@ -30,11 +30,12 @@ public class SelectPacketController extends Controller<SelectPacketView>
 					"No se pueden recuperar los paquetes.");
 			return;
 		}
-		
+
 		List<Packet> clientPackets = new ArrayList<Packet>();
 
 		for (Packet p : packets)
-			if (p.getClient().equals(Application.getInstance().getClient())){
+			if (p.getClient().equals(Application.getInstance().getClient()))
+			{
 				try
 				{
 					p.refreshBookings();
@@ -45,7 +46,7 @@ public class SelectPacketController extends Controller<SelectPacketView>
 				}
 				clientPackets.add(p);
 			}
-				
+
 		view.setModel(clientPackets);
 	}
 
@@ -123,5 +124,39 @@ public class SelectPacketController extends Controller<SelectPacketView>
 				showError("Error eliminando el paquete: " + e.getMessage());
 			}
 		}
+	}
+
+	@Listener("Close")
+	public void close()
+	{
+		Packet packet = view.getSelectedPacket();
+		
+		int option = JOptionPane
+				.showConfirmDialog(view,
+						"¿Está seguro que quiere cerrar este paquete?\n Se cancelarán todas las reservas no confirmadas.\nEsta operación no se puede deshacer.");
+
+		if (option == JOptionPane.YES_OPTION)
+		{
+			try
+			{
+				for(Booking b: packet.getBookings())
+				{
+					if(!b.isPayed())
+					{
+						b.cancel();
+						DBWrapper.getInstance().save(b);
+					}
+				}
+				
+				packet.closePacket();
+			}
+			catch(Exception e)
+			{
+				showError("No se ha podido cerrar el paquete: " + e.getMessage());
+				return;
+			}
+	
+			showMessage("Paquete cerrado correctamente.");
+		}	
 	}
 }

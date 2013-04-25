@@ -19,6 +19,7 @@ public class SelectPacketView extends View
 	private JList<Packet> listPacket;
 	private DefaultListModel<Packet> packets;
 	private JButton delete;
+	private JButton close;
 	
 	public Packet getSelectedPacket(){
 		if (listPacket == null)
@@ -33,11 +34,13 @@ public class SelectPacketView extends View
 		modificar = new JButton("Elegir paquete");
 		delete = new JButton("Eliminar paquete");
 		crear = new JButton ("Crear uno nuevo");
+		close = new JButton("Cerrar paquete");
 		listPacket = new JList<Packet>();
 		JLabel title = new JLabel("Seleccionar paquete");
 		GuiUtils.applyTitleStyle(title);
 		modificar.setEnabled(false);
 		delete.setEnabled(false);
+		close.setEnabled(false);
 		
 		listPacket.addListSelectionListener(new ListSelectionListener()
 		{
@@ -46,6 +49,7 @@ public class SelectPacketView extends View
 			{
 				modificar.setEnabled(listPacket.getSelectedValue() != null);
 				delete.setEnabled(listPacket.getSelectedValue() != null);
+				close.setEnabled(listPacket.getSelectedValue() != null && !listPacket.getSelectedValue().IsClose());
 				if(listPacket.getSelectedValue() != null)
 					Application.getInstance().setDefaultButton(modificar);
 			}
@@ -56,7 +60,7 @@ public class SelectPacketView extends View
 		layout.addColumn(
 				title,
 				new JScrollPane(listPacket),
-				GuiUtils.generateButtonPanel(modificar, crear, delete)
+				GuiUtils.generateButtonPanel(modificar, crear, delete, close)
 				);
 		
 		layout.setAsLayoutOf(this);
@@ -84,6 +88,8 @@ public class SelectPacketView extends View
 		this.modificar.addActionListener(c);
 		this.delete.setActionCommand("Delete");
 		this.delete.addActionListener(c);
+		this.close.setActionCommand("Close");
+		this.close.addActionListener(c);
 
 	}
 }
