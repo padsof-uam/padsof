@@ -1,2 +1,4 @@
-Falta ver por qué narices el precio de algunas reservas es 0. Si te fijas, al reservar te dice "Precio: 0€". No sé si es que se han cargado mal de la base de datos, que calcula el precio de donde no es o qué.
+El usuario por defecto es admin/admin, con permisos de administrador.
+
+Antes de empezar a trabajar con el sistema hay que alimentar la base de datos. Hay un botón para ello en el panel de administración, en la primera pantalla.
 

@@ -126,7 +126,7 @@ public class FlightBooking extends Booking
 			}
 			catch (InvalidParameterException e)
 			{
-				throw new UnsupportedOperationException(e.getMessage());
+				// throw new UnsupportedOperationException(e.getMessage());
 			}
 			setState(PaymentState.None);
 		}
