@@ -16,6 +16,7 @@ public class BookingController extends Controller<BookingView>
 		try
 		{
 			Packet packet = Application.getInstance().getPacket();
+			packet.refreshBookings();
 			view.setModel(packet.getBookings());
 		}
 		catch (SQLException e)
@@ -48,6 +49,10 @@ public class BookingController extends Controller<BookingView>
 			showError("Error cancelando la reserva: " + e.getMessage());
 		}
 
+		refreshBookings();
+	}
+	@Listener ("Refrescar")
+	public void Refresh(){
 		refreshBookings();
 	}
 

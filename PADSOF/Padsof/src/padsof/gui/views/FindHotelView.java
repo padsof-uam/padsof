@@ -23,8 +23,21 @@ public class FindHotelView extends View
 	private JButton btnSearch;
 	private JList<Hotel> hotelList;
 	private JButton btnBook;
+	private JButton btnSeeInfo;
 	private FormGenerator generator;
+	private JComboBox<Integer> simples;
+	private JComboBox<Integer> dobles;
+	private JComboBox<Integer> triples;
 	
+	public Integer getSimples(){
+		return (Integer) simples.getSelectedItem();
+	}
+	public Integer getDobles(){
+		return (Integer) dobles.getSelectedItem();
+	}
+	public Integer getTriples(){
+		return (Integer) triples.getSelectedItem();
+	}
 	public String getCity()
 	{
 		return generator.getValueFor("Ciudad");
@@ -70,6 +83,7 @@ public class FindHotelView extends View
 				"Precio máximo");
 		
 		btnSearch = new JButton("Buscar");
+		btnSeeInfo = new JButton ("Ver");
 		hotelList = new JList<Hotel>();
 		btnBook = new JButton("Reservar");
 		btnBook.setEnabled(false);
@@ -83,13 +97,34 @@ public class FindHotelView extends View
 			}
 
 		});
+		simples = new JComboBox<Integer>();
+		dobles = new JComboBox<Integer>();
+		triples = new JComboBox<Integer>();
+		
+		for (int i=1; i<=10;++i){
+			simples.addItem(i);
+			dobles.addItem(i);
+			triples.addItem(i);
+		}
+		
 		
 		JPanel form = generator.generateForm();
 		setLayout(new FlowLayout());
 		add(form);
 
 		midLayoutHelper.addColumn(generator.generateForm(), btnSearch);
-		midLayoutHelper.addColumn(new JScrollPane(hotelList), btnBook);
+		/*midLayoutHelper.addColumn(
+				generator.generateForm(),
+				btnSearch,
+				GroupLayoutHelper
+						.fluidGenerateGroupLayout(
+								Arrays.asList(simples,dobles,triples))
+						.linkHorizontalSize(simples,dobles,triples)
+						.linkVerticalSize(simples,dobles,triples)
+						.setIsInnerPanel(true).generatePanel());
+		*/
+		midLayoutHelper.addColumn(new JScrollPane(hotelList), btnBook);//,btnSeeInfo);
+//		midLayoutHelper.addColumn(simples,dobles,triples);
 		midPanel.setLayout(midLayoutHelper.generateLayout(midPanel));
 
 		mainLayout.addColumn(Box.createHorizontalStrut(10));

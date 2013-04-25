@@ -2,7 +2,7 @@ package padsof.gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Stack;
+import java.util.*;
 
 import javax.swing.*;
 

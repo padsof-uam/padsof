@@ -21,6 +21,8 @@ public class SelectPacketController extends Controller<SelectPacketView>
 
 		try
 		{
+			//TODO: No debería ir aquí una llamada a la base de datos para sacar los paquetes?
+			//packets = DBWrapper.getInstance().get(Packet.class, "Client",Application.getInstance().getClient());
 			packets = Application.getInstance().getVendor().getPackets();
 		}
 		catch (SQLException e)
@@ -29,13 +31,21 @@ public class SelectPacketController extends Controller<SelectPacketView>
 					"No se pueden recuperar los paquetes.");
 			return;
 		}
-
+		
 		List<Packet> clientPackets = new ArrayList<Packet>();
 
 		for (Packet p : packets)
-			if (p.getClient().equals(Application.getInstance().getClient()))
+			if (p.getClient().equals(Application.getInstance().getClient())){
+				try
+				{
+					p.refreshBookings();
+				}
+				catch (SQLException e)
+				{
+				}
 				clientPackets.add(p);
-
+			}
+				
 		view.setModel(clientPackets);
 	}
 

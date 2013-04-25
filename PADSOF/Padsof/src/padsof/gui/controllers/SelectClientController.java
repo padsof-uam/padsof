@@ -20,6 +20,7 @@ public class SelectClientController extends Controller<SelectClientView>
 	{
 		try
 		{
+			clients.removeAll(clients);
 			clients.addAll(DBWrapper.getInstance().getAll(Client.class));
 			clients.addAll(DBWrapper.getInstance().getAll(ImsersoClient.class));
 		}

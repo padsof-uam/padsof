@@ -47,6 +47,15 @@ public class AdminController extends Controller<AdminView>
 	public void createVendor()
 	{
 		Vendor vendor = new Vendor();
+		if (view.getNewVendorName().isEmpty()
+				|| view.getNewVendorUser().isEmpty()
+				|| view.getNewVendorPass().isEmpty())
+		{
+			JOptionPane
+					.showMessageDialog(view,
+							"Por favor, rellene todos los campos para crear un nuevo vendedor");
+			return;
+		}
 		vendor.setName(view.getNewVendorName());
 		try
 		{
