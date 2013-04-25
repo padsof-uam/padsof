@@ -118,7 +118,8 @@ public abstract class Controller<V extends View> implements ActionListener,
 					return method;
 			}
 		}
-
+		
+		System.out.println("Warning: no listener for command " + command);
 		return null;
 	}
 
