@@ -23,7 +23,7 @@ public class FlightBooking extends Booking
 {
 	@DatabaseField
 	private String bookingLocalizer;
-	FlightsProvider fp = ServicesFactory.getServicesFactory()
+	private FlightsProvider fp = ServicesFactory.getServicesFactory()
 			.getFlightsProvider();
 
 	@ForeignCollectionField(eager = true)
