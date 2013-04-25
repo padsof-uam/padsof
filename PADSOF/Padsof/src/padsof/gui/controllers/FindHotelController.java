@@ -64,7 +64,7 @@ public class FindHotelController extends Controller<FindHotelView>
 	public void seeInformation()
 	{
 		Hotel hotel = view.getSelectedHotel();
-		JOptionPane.showMessageDialog(view, hotel.toString());
+		showMessage(hotel.toString());
 	}
 
 	@Listener("Book")
@@ -88,18 +88,23 @@ public class FindHotelController extends Controller<FindHotelView>
 			int simple = view.getSimples(), doble = view.getDobles(), triple = view.getTriples();
 			double price = doble * hotel.getDoublePrice() + simple
 					* hotel.getSimplePrice() + triple * hotel.getTriplePrice();
+
 			if (hotel.hasBreakfast())
 			{
-				JOptionPane
-						.showInternalConfirmDialog(view, "¿Quiere desayuno?");
-				/*if (JOptionPane.YES_OPTION)
+				int answer = JOptionPane
+						.showConfirmDialog(view, "¿Quiere desayuno?");
+				if (answer == JOptionPane.YES_OPTION)
 				{
 					price += hotel.getSupplement();
-				}*/
+				}else if(answer == JOptionPane.CANCEL_OPTION || answer == JOptionPane.CLOSED_OPTION){
+					return;
+				}
 			}
-			booking.book();
+			((HotelBooking) booking).setPrice(price);	
+			price = booking.book();
 			Application.getInstance().getPacket().add(booking);
-
+			
+			
 			showMessage("Reserva realizada. Precio: " + price + "€");
 		}
 		catch (Exception e)

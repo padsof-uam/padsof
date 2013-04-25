@@ -1,6 +1,6 @@
 package padsof.gui.utils;
 
-import java.awt.FlowLayout;
+import java.awt.*;
 
 import javax.swing.*;
 
@@ -11,12 +11,12 @@ public class GuiUtils
 		label.setFont(label.getFont().deriveFont((float) 20.0));
 	}
 	
-	public static JPanel generateButtonPanel(JButton... buttons)
+	public static JPanel generateButtonPanel(Component... buttons)
 	{
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout());
 		
-		for(JButton b : buttons)
+		for(Component b : buttons)
 			panel.add(b);
 		
 		return panel;

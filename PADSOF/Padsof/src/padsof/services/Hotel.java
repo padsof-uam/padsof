@@ -337,8 +337,8 @@ public class Hotel extends Service
 	public String toString()
 	{
 		return this.getAddress() + " - " + this.getCity() + " ("
-				+ this.getCountry() + ") " + "Simple" + this.getSimplePrice()
-				+ "€" + "Doble" + this.getDoublePrice() + "€" + "Triple"
+				+ this.getCountry() + ") " + " Simple " + this.getSimplePrice()
+				+ "€ " + "; Doble " + this.getDoublePrice() + "€ " + "; Triple "
 				+ this.getTriplePrice() + "€";
 	}
 }

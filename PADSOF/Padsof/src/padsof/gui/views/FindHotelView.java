@@ -28,46 +28,53 @@ public class FindHotelView extends View
 	private JComboBox<Integer> simples;
 	private JComboBox<Integer> dobles;
 	private JComboBox<Integer> triples;
-	
-	public Integer getSimples(){
+
+	public Integer getSimples()
+	{
 		return (Integer) simples.getSelectedItem();
 	}
-	public Integer getDobles(){
+
+	public Integer getDobles()
+	{
 		return (Integer) dobles.getSelectedItem();
 	}
-	public Integer getTriples(){
+
+	public Integer getTriples()
+	{
 		return (Integer) triples.getSelectedItem();
 	}
+
 	public String getCity()
 	{
 		return generator.getValueFor("Ciudad");
 	}
-	
+
 	public String getCountry()
 	{
 		return generator.getValueFor("País");
 	}
-	
+
 	public Date getStartDate()
 	{
 		return generator.getDatefor("Fecha inicial");
 	}
-	
+
 	public Date getEndDate()
 	{
 		return generator.getDatefor("Fecha final");
 	}
-	
+
 	public String getPrice()
 	{
 		return generator.getValueFor("Precio máximo");
 	}
-	
+
 	public Hotel getSelectedHotel()
 	{
 		return hotelList.getSelectedValue();
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	public FindHotelView() throws NoSuchObjectException
 	{
 		super("Buscar hotel");
@@ -77,54 +84,59 @@ public class FindHotelView extends View
 
 		GroupLayoutHelper midLayoutHelper = new GroupLayoutHelper();
 		JPanel midPanel = new JPanel();
-		
+
 		generator.setTitle("Hoteles");
 		generator.addFields("País", "Ciudad", "Fecha inicial", "Fecha final",
 				"Precio máximo");
-		
+
 		btnSearch = new JButton("Buscar");
-		btnSeeInfo = new JButton ("Ver");
+
 		hotelList = new JList<Hotel>();
 		btnBook = new JButton("Reservar");
 		btnBook.setEnabled(false);
-		
+
+		btnSeeInfo = new JButton("Ver");
+		btnSeeInfo.setEnabled(false);
+
 		hotelList.addListSelectionListener(new ListSelectionListener()
 		{
 			@Override
 			public void valueChanged(ListSelectionEvent e)
 			{
 				btnBook.setEnabled(hotelList.getSelectedValue() != null);
+				btnSeeInfo.setEnabled(hotelList.getSelectedValue() != null);
 			}
 
 		});
+
 		simples = new JComboBox<Integer>();
 		dobles = new JComboBox<Integer>();
 		triples = new JComboBox<Integer>();
-		
-		for (int i=1; i<=10;++i){
+
+		for (int i = 0; i <= 10; ++i)
+		{
 			simples.addItem(i);
 			dobles.addItem(i);
 			triples.addItem(i);
 		}
-		
-		
+
 		JPanel form = generator.generateForm();
 		setLayout(new FlowLayout());
 		add(form);
 
-		midLayoutHelper.addColumn(generator.generateForm(), btnSearch);
-		/*midLayoutHelper.addColumn(
+		JLabel lblSimples = new JLabel("Simples");
+		JLabel lblDobles = new JLabel("Dobles");
+		JLabel lblTriples = new JLabel("Triples");
+		midLayoutHelper.addColumn(
 				generator.generateForm(),
 				btnSearch,
-				GroupLayoutHelper
-						.fluidGenerateGroupLayout(
-								Arrays.asList(simples,dobles,triples))
-						.linkHorizontalSize(simples,dobles,triples)
-						.linkVerticalSize(simples,dobles,triples)
-						.setIsInnerPanel(true).generatePanel());
-		*/
-		midLayoutHelper.addColumn(new JScrollPane(hotelList), btnBook);//,btnSeeInfo);
-//		midLayoutHelper.addColumn(simples,dobles,triples);
+				GroupLayoutHelper.fluidGenerateGroupLayout(
+						Arrays.asList(lblSimples, simples),
+						Arrays.asList(lblDobles, dobles),
+						Arrays.asList(lblTriples, triples)).generatePanel());
+
+		midLayoutHelper.addColumn(new JScrollPane(hotelList), btnBook,
+				btnSeeInfo);
 		midPanel.setLayout(midLayoutHelper.generateLayout(midPanel));
 
 		mainLayout.addColumn(Box.createHorizontalStrut(10));
@@ -141,20 +153,23 @@ public class FindHotelView extends View
 	public void setModel(List<Hotel> hotels)
 	{
 		DefaultListModel<Hotel> model = new DefaultListModel<Hotel>();
-		
-		for(Hotel hotel: hotels)
+
+		for (Hotel hotel : hotels)
 			model.addElement(hotel);
-		
+
 		hotelList.setModel(model);
 	}
-	
+
 	@Override
 	public <V extends View> void setController(Controller<V> c)
 	{
 		btnSearch.setActionCommand("Search");
 		btnSearch.addActionListener(c);
-		
+
 		btnBook.setActionCommand("Book");
 		btnBook.addActionListener(c);
+
+		btnSeeInfo.setActionCommand("Ver");
+		btnSeeInfo.addActionListener(c);
 	}
 }

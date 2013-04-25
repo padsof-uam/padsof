@@ -21,8 +21,7 @@ public class SelectPacketController extends Controller<SelectPacketView>
 
 		try
 		{
-			//TODO: No debería ir aquí una llamada a la base de datos para sacar los paquetes?
-			//packets = DBWrapper.getInstance().get(Packet.class, "Client",Application.getInstance().getClient());
+			Application.getInstance().getVendor().refreshBookings();
 			packets = Application.getInstance().getVendor().getPackets();
 		}
 		catch (SQLException e)
@@ -74,7 +73,6 @@ public class SelectPacketController extends Controller<SelectPacketView>
 			return;
 		}
 
-		JOptionPane.showMessageDialog(view, "Paquete creado.");
 		Application.getInstance().setPacket(packet);
 		refreshPackets();
 
