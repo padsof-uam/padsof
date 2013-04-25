@@ -181,4 +181,11 @@ public class ImsersoTravel extends Service
 	{
 		return 0.1 * price;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Viaje IMSERSO " + this.getName() + ": " + days + "días, " + nights
+				+ "noches desde " + departingCity + ": " + getDescription();
+	}
 }

@@ -54,6 +54,7 @@ public class Application implements NavigationService
 
 	private void registerControllers()
 	{
+		ControllerLocator.registerController(FindImsersoTravelView.class, FindImsersoTravelController.class);
 		ControllerLocator.registerController(FindFlightView.class, FindFlightController.class);
 		ControllerLocator.registerController(FindTravelView.class, FindTravelController.class);
 		ControllerLocator.registerController(FindHotelView.class, FindHotelController.class);
@@ -226,7 +227,10 @@ public class Application implements NavigationService
 				.getController((Class<V>) view.getClass());
 
 		if (controller == null)
+		{
+			System.out.println("Warning: no controller found for view " + view.getClass().getSimpleName());
 			return;
+		}
 
 		view.setController(controller);
 		controller.setNavigator(this);

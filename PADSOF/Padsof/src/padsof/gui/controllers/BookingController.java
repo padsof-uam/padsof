@@ -43,7 +43,7 @@ public class BookingController extends Controller<BookingView>
 
 		try
 		{
-			DBWrapper.getInstance().delete(toCancel);
+			DBWrapper.getInstance().save(toCancel);
 			currentPacket.refreshBookings();
 		}
 		catch (Exception e)
