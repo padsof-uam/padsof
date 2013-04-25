@@ -32,6 +32,12 @@ public class AdminView extends View
 	private JButton viewButton;
 
 	private JButton feedButton;
+
+	private JLabel marginLabel;
+
+	private JTextField txtMargin;
+
+	private JButton btnMargin;
 	
 	@SuppressWarnings("unchecked")
 	public AdminView() throws NoSuchObjectException
@@ -66,6 +72,25 @@ public class AdminView extends View
 		
 		JPanel leftPanel = new JPanel();
 		
+		JLabel lblMargin = new JLabel("Márgenes");
+		GuiUtils.applyTitleStyle(lblMargin);
+		
+		JPanel marginsPanel = new JPanel();
+		FlowLayout marginLayout = new FlowLayout();
+		marginLayout.setAlignment(FlowLayout.LEFT);
+		marginsPanel.setLayout(marginLayout);
+		
+		marginLabel = new JLabel("");
+		txtMargin = new JTextField();
+		btnMargin = new JButton("Cambiar");
+
+		txtMargin.setMinimumSize(new Dimension(100, 22));
+		txtMargin.setPreferredSize(new Dimension(100, 22));
+		marginsPanel.add(new JLabel("Actual: "));
+		marginsPanel.add(marginLabel);
+		marginsPanel.add(txtMargin);
+		marginsPanel.add(btnMargin);
+		
 		GroupLayoutHelper leftLayoutHelper = new GroupLayoutHelper();
 		
 		leftLayoutHelper.addColumn(
@@ -81,7 +106,10 @@ public class AdminView extends View
 						.setIsInnerPanel(true)
 						.generatePanel()
 				,
-				viewButton
+				viewButton,
+				Box.createVerticalStrut(10),
+				lblMargin,
+				marginsPanel				
 		);
 		
 		leftLayoutHelper.linkVerticalSize(viewButton, vendorList);
@@ -92,7 +120,8 @@ public class AdminView extends View
 		toChooser.setMinimumSize(chooserSize);
 		
 		
-		leftPanel.setLayout(leftLayoutHelper.generateLayout(leftPanel));
+		leftLayoutHelper.setAsLayoutOf(leftPanel);
+		
 		
 		generator = new FormGenerator();
 		
@@ -161,6 +190,16 @@ public class AdminView extends View
 		return toChooser.getDate();
 	}
 	
+	public String getMargin()
+	{
+		return txtMargin.getText();
+	}
+	
+	public void setModel(double margin)
+	{
+		marginLabel.setText(margin + "%");
+	}
+	
 	@Override
 	public <V extends View> void setController(Controller<V> c)
 	{
@@ -172,5 +211,8 @@ public class AdminView extends View
 		
 		feedButton.setActionCommand("Feed");
 		feedButton.addActionListener(c);
+		
+		btnMargin.setActionCommand("Change margin");
+		btnMargin.addActionListener(c);
 	}
 }

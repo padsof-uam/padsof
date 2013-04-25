@@ -12,7 +12,7 @@ import padsof.db.feeder.DBFeeder;
 import padsof.gui.Application;
 import padsof.gui.controllers.utils.Listener;
 import padsof.gui.views.*;
-import padsof.system.Vendor;
+import padsof.system.*;
 
 public class AdminController extends Controller<AdminView>
 {
@@ -39,6 +39,7 @@ public class AdminController extends Controller<AdminView>
 	public void setView(AdminView view)
 	{
 		super.setView(view);
+		refreshMargin();
 		refreshVendors();
 	}
 
@@ -109,28 +110,28 @@ public class AdminController extends Controller<AdminView>
 		pb.setValue(0);
 		JLabel label = new JLabel("Progress: ");
 
-		final JDialog dialog = new JDialog(Application.getInstance().getFrame(), "Trabajando...");
-		
+		final JDialog dialog = new JDialog(
+				Application.getInstance().getFrame(), "Trabajando...");
+
 		final JButton button = new JButton("Finalizado");
 		button.setEnabled(false);
-		button.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent evt){
-		            dialog.dispose();
-		        }
-		    }
-		);
-		
+		button.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				dialog.dispose();
+			}
+		});
+
 		dialog.getContentPane().setLayout(new FlowLayout());
 		dialog.getContentPane().add(label);
 		dialog.getContentPane().add(pb);
 		dialog.getContentPane().add(button);
 		dialog.pack();
 		dialog.setVisible(true);
-		
-		
 
-		
-		EventQueue.invokeLater(new Runnable() {
+		EventQueue.invokeLater(new Runnable()
+		{
 			@Override
 			public void run()
 			{
@@ -157,7 +158,49 @@ public class AdminController extends Controller<AdminView>
 
 				button.setEnabled(true);
 			}
-		});		
+		});
+	}
+
+	@Listener("Change margin")
+	public void changeMargin()
+	{
+		double margin = -1;
+		
+		try
+		{
+			String marginStr = view.getMargin();
+			margin = Double.valueOf(marginStr);
+		}
+		catch (NumberFormatException e)
+		{
+			showError("Introduzca un número válido.");
+			return;
+		}
+		
+		if(margin < 0)
+		{
+			int option = JOptionPane.showConfirmDialog(view, "¿Está seguro de querer introducir un margen negativo?");
+			if(option != JOptionPane.YES_OPTION)
+				return;
+		}
+
+		Margin.getMargin().setMarginPoints(margin);
+		try
+		{
+			Margin.saveMargin();
+		}
+		catch (Exception e)
+		{
+			showError("No se han podido guardar los márgenes: " + e.getMessage());
+			return;
+		}
+		
+		refreshMargin();
+		showMessage("Margen cambiado al " + margin + "%");
 	}
 	
+	private void refreshMargin()
+	{
+		view.setModel(Margin.getMargin().getMarginPoints());
+	}
 }
