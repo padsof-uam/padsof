@@ -47,4 +47,8 @@ public class Flight extends Service
 		this.setPrice(flight.getPrice() * (Margin.getMargin().getMarginPoints() + 1));
 		this.setDescription(flight.toString());
 	}
+	@Override
+	public String toString(){
+		return name;
+	}
 }
