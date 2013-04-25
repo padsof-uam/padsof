@@ -160,11 +160,11 @@ public class FindFlightController extends Controller<FindFlightView>
 
 		BookingFactory factory = new BookingFactory(Application.getInstance()
 				.getVendor());
-		FlightBooking booking;
+		Booking booking;
 
 		try
 		{
-			booking = (FlightBooking) factory.book(new Flight(flight), Application
+			booking = factory.book(new Flight(flight), Application
 					.getInstance().getClient(), flight.getDeparture(), flight
 					.getArrival());
 			double price = booking.book();

@@ -24,20 +24,14 @@ public class BookingView extends View
 
 	private JList<Booking> elements;
 	private DefaultListModel<Booking> packets;
-
 	private NavigateButton btnHotel;
-
 	private NavigateButton btnVuelo;
-
 	private NavigateButton btnViaje;
-
 	private NavigateButton btnImserso;
-
 	private JButton cancelButton;
-
 	private JButton refreshButton;
-	
 	private JButton confirmButton;
+	private JLabel closedLabel;
 
 	public void setModel(List<Booking> bookings)
 	{
@@ -65,7 +59,8 @@ public class BookingView extends View
 		 * Left Panel
 		 */
 		JLabel lblAdd = new JLabel("Añadir");
-
+		GuiUtils.applyTitleStyle(lblAdd);
+		
 		btnHotel = new NavigateButton("Hotel", FindHotelView.class);
 		btnVuelo = new NavigateButton("Vuelo", FindFlightView.class);
 		btnViaje = new NavigateButton("Viaje organizado", FindTravelView.class);
@@ -73,21 +68,24 @@ public class BookingView extends View
 				FindImsersoTravelView.class);
 		Client cliente = Application.getInstance().getClient();
 
+		closedLabel = new JLabel("Paquete cerrado");
+		closedLabel.setVisible(false);
+		
 		cancelButton = new JButton("Cancelar");
 		confirmButton = new JButton("Confirmar");
 		refreshButton = new JButton("Refrescar");
-
+		
 		btnImserso.setEnabled(ImsersoClient.class.isInstance(cliente));
 
 		JPanel leftPanel = new JPanel();
 		GroupLayoutHelper leftLayoutHelper = new GroupLayoutHelper();
 
-		leftLayoutHelper.addColumn(lblAdd, btnHotel, btnVuelo, btnViaje,
+		leftLayoutHelper.addColumn(lblAdd, closedLabel, btnHotel, btnVuelo, btnViaje,
 				btnImserso);
 		leftLayoutHelper.linkVerticalSize(btnHotel, btnVuelo, btnViaje,
 				btnImserso);
 
-		leftPanel.setLayout(leftLayoutHelper.generateLayout(leftPanel));
+		leftLayoutHelper.setAsLayoutOf(leftPanel);
 
 		/**
 		 * Right panel
@@ -115,7 +113,8 @@ public class BookingView extends View
 		});
 
 		rightLayoutHelper.addColumn(lblPacket, new JScrollPane(elements),
-				GuiUtils.generateButtonPanel(cancelButton, confirmButton,refreshButton));
+				GuiUtils.generateButtonPanel(cancelButton, confirmButton,
+						refreshButton));
 
 		rightPanel.setLayout(rightLayoutHelper.generateLayout(rightPanel));
 
@@ -138,11 +137,23 @@ public class BookingView extends View
 	{
 		cancelButton.setActionCommand("Cancel");
 		confirmButton.setActionCommand("Confirm");
-		
+
 		cancelButton.addActionListener(c);
 		confirmButton.addActionListener(c);
 	}
 
+	public void setIsClosed(boolean closed)
+	{
+		if(closed)
+		{
+			closedLabel.setVisible(true);
+			btnHotel.setEnabled(false);
+			btnVuelo.setEnabled(false);
+			btnViaje.setEnabled(false);
+			btnImserso.setEnabled(false);
+		}
+	}
+	
 	public Booking getSelectedItem()
 	{
 		return elements.getSelectedValue();

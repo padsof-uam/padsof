@@ -30,6 +30,8 @@ public class BookingController extends Controller<BookingView>
 	{
 		super.setView(view);
 		refreshBookings();
+		Packet packet = Application.getInstance().getPacket();
+		view.setIsClosed(packet.IsClose());
 	}
 
 	@Listener("Cancel")
