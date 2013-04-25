@@ -90,9 +90,9 @@ public class Vendor extends DBObject
 		return isAdmin;
 	}
 
-	public void becomeAdmin()
+	public void setAdmin(boolean admin)
 	{
-		isAdmin = true;
+		isAdmin = admin;
 	}
 
 	public boolean contains(Booking b)

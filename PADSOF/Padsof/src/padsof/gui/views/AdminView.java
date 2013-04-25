@@ -38,6 +38,16 @@ public class AdminView extends View
 	private JTextField txtMargin;
 
 	private JButton btnMargin;
+
+	private JComboBox<Vendor> vendorList2;
+
+	private JButton btnReset;
+
+	private JButton btnDelete;
+
+	private DefaultComboBoxModel<Vendor> vendors2;
+
+	private JButton btnAdmin;
 	
 	@SuppressWarnings("unchecked")
 	public AdminView() throws NoSuchObjectException
@@ -122,7 +132,6 @@ public class AdminView extends View
 		
 		leftLayoutHelper.setAsLayoutOf(leftPanel);
 		
-		
 		generator = new FormGenerator();
 		
 		generator.addFields("Nombre", "Usuario", "Contraseña");
@@ -134,12 +143,27 @@ public class AdminView extends View
 		
 		generator.addButton(createButton);
 		
-		JPanel rightPanel = generator.generateForm();
+		JLabel manageLabel = new JLabel("Gestión de usuarios");
+		GuiUtils.applyTitleStyle(manageLabel);
+		
+		vendorList2 = new JComboBox<Vendor>();
+		btnDelete = new JButton("Borrar");
+		btnReset = new JButton("Contraseña");
+		btnAdmin = new JButton("Administrador");
+		
+		GroupLayoutHelper rightLayoutHelper = new GroupLayoutHelper();
+		rightLayoutHelper.addColumn(
+				generator.generateForm(),
+				manageLabel,
+				vendorList2,
+				GuiUtils.generateButtonPanel(btnDelete, btnReset, btnAdmin)
+				);
+		
 		NavigateButton vendorViewButton = new NavigateButton("Vista vendedor",SelectClientView.class);
 		
 		mainLayout.addColumn(leftPanel);
 		mainLayout.addColumn(Box.createHorizontalStrut(10));
-		mainLayout.addColumn(rightPanel);
+		mainLayout.addColumn(rightLayoutHelper.generatePanel());
 		mainLayout.setInnerMargins(10, 0, 10, 10);
 		
 		feedButton = new JButton("Alimentar base de datos");
@@ -157,7 +181,12 @@ public class AdminView extends View
 	public void setModel(List<Vendor> vendors)
 	{
 		this.vendors = new DefaultComboBoxModel<Vendor>(vendors.toArray(new Vendor[vendors.size()]));
+		
+		vendors.remove(0);
+		
+		vendors2 = new DefaultComboBoxModel<Vendor>(vendors.toArray(new Vendor[vendors.size()]));
 		vendorList.setModel(this.vendors);
+		vendorList2.setModel(vendors2);
 	}
 
 	public String getNewVendorName()
@@ -195,6 +224,11 @@ public class AdminView extends View
 		return txtMargin.getText();
 	}
 	
+	public Vendor getVendorToManage()
+	{
+		return (Vendor) vendors2.getSelectedItem();
+	}
+	
 	public void setModel(double margin)
 	{
 		marginLabel.setText(margin + "%");
@@ -214,5 +248,14 @@ public class AdminView extends View
 		
 		btnMargin.setActionCommand("Change margin");
 		btnMargin.addActionListener(c);
+		
+		btnDelete.setActionCommand("DeleteVendor");
+		btnDelete.addActionListener(c);
+		
+		btnReset.setActionCommand("PassChange");
+		btnReset.addActionListener(c);
+		
+		btnAdmin.setActionCommand("AdminChange");
+		btnAdmin.addActionListener(c);
 	}
 }
