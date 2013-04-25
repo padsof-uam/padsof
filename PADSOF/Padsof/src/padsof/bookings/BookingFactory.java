@@ -63,7 +63,7 @@ public class BookingFactory
 	 * @param client
 	 * @param start
 	 * @param end
-	 * @return
+	 * @return Booking.
 	 */
 	private Booking createTravelBooking(Travel service, Client client,
 			Date start, Date end)
@@ -78,6 +78,7 @@ public class BookingFactory
 	 * @param client
 	 * @param start
 	 * @param end
+	 * @return Booking.
 	 */
 	private Booking createFlightBooking(Flight service, Client client,
 			Date start, Date end)
@@ -93,7 +94,7 @@ public class BookingFactory
 	 * @param client
 	 * @param start
 	 * @param end
-	 * @return
+	 * @return Booking.
 	 */
 	private Booking createHotelBooking(Hotel service, Client client,
 			Date start, Date end)
@@ -107,7 +108,7 @@ public class BookingFactory
 	 * @param client
 	 * @param start
 	 * @param end
-	 * @return
+	 * @return Booking.
 	 */
 	private Booking createImsersoTravelBooking(ImsersoTravel service,
 			Client client, Date start, Date end)

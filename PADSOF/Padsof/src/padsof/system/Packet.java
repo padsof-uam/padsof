@@ -171,11 +171,8 @@ public class Packet extends DBObject
 	/**
 	 * Load in memory the bookings from the database.
 	 * 
-	 * @return the bookings. This is a copy, objects added here WILL NOT be
-	 *         saved.
 	 * @throws SQLException
 	 */
-
 	public void refreshBookings() throws SQLException
 	{
 		bookings = new ArrayList<Booking>();
@@ -192,7 +189,7 @@ public class Packet extends DBObject
 	/**
 	 * Get the bookings of the packet checking the database.
 	 * 
-	 * @return
+	 * @return List of bookings. 
 	 * @throws SQLException
 	 */
 	public List<Booking> getBookings() throws SQLException

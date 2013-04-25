@@ -62,7 +62,7 @@ public class DBWrapper
 	/**
 	 * Open the connection to the database.
 	 * 
-	 * @note It's not required (and not recommended) to call it after
+	 * Note: It's not required (and not recommended) to call it after
 	 *       instatiating the DBWrapper.
 	 * @throws SQLException
 	 */
