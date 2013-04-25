@@ -194,6 +194,25 @@ public class Packet extends DBObject
 
 	public String toString()
 	{
+		GregorianCalendar today = new GregorianCalendar();
+		today.add(Calendar.DAY_OF_YEAR, 1);
+		String state = new String();
+		Date packetStart = null;
+		try
+		{
+			packetStart = this.getStartDay();
+		}
+		catch (SQLException e1)
+		{
+		}
+		
+		if (packetStart.before(today.getTime())){
+			state+="! ";	
+		} else 
+			state += "o ";
+		if (this.IsClose())
+			state += "x ";
+		
 		List<Booking> bookings;
 		try
 		{
@@ -227,7 +246,7 @@ public class Packet extends DBObject
 		String strFlight = ", Vuelos: " + flight;
 		String strHotel = "Hoteles: " + hotel;
 
-		return retval + strHotel + strTrip + strFlight;
+		return state + retval + strHotel + strTrip + strFlight;
 
 	}
 }
