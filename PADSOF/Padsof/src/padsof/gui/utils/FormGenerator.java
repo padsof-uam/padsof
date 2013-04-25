@@ -1,10 +1,13 @@
 package padsof.gui.utils;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.util.*;
 import java.util.List;
 
 import javax.swing.*;
+
+import padsof.gui.Application;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -28,6 +31,7 @@ public class FormGenerator
 	private int rightMargin = 0;
 	private int bottomMargin = 0;
 	private int fieldWidth = 20;
+	private JButton firstButton;
 
 	/**
 	 * Add fields (label names) to the generator.
@@ -136,13 +140,31 @@ public class FormGenerator
 
 		ArrayList<JLabel> labels = new ArrayList<JLabel>();
 		components.clear();
+		
+		FocusListener focusListener = new FocusListener()
+		{
+			@Override
+			public void focusGained(FocusEvent e)
+			{
+				if(firstButton != null)
+					Application.getInstance().setDefaultButton(firstButton);
+			}
 
+			@Override
+			public void focusLost(FocusEvent e)
+			{
+				Application.getInstance().setDefaultButton(null);
+			}
+			
+		};
+		
 		for (String field : fields)
 		{
 			JLabel label = new JLabel(field + ": ");
 
 			Component comp = generateComponentFor(field);
 			label.setLabelFor(comp);
+			comp.addFocusListener(focusListener);
 
 			Dimension size = comp.getSize();
 			comp.setMinimumSize(new Dimension(
@@ -170,7 +192,10 @@ public class FormGenerator
 			column.add(layoutHelper.setIsInnerPanel(true).generatePanel());
 
 			if (buttons.size() > 0)
+			{
+				firstButton = buttons.get(0);
 				column.add(generateButtonPanel());
+			}
 
 			panel = GroupLayoutHelper.fluidGenerateGroupLayout(column)
 					.generatePanel();

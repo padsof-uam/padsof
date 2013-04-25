@@ -1,13 +1,14 @@
 package padsof.gui.views;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.rmi.NoSuchObjectException;
 import java.util.*;
 import java.util.List;
 
 import javax.swing.*;
 
-import padsof.gui.NavigateButton;
+import padsof.gui.*;
 import padsof.gui.controllers.Controller;
 import padsof.gui.utils.*;
 import padsof.system.Vendor;
@@ -28,26 +29,17 @@ public class AdminView extends View
 	private FormGenerator generator;
 	private JDateChooser fromChooser;
 	private JDateChooser toChooser;
-
 	private JButton viewButton;
-
 	private JButton feedButton;
-
 	private JLabel marginLabel;
-
 	private JTextField txtMargin;
-
 	private JButton btnMargin;
-
 	private JComboBox<Vendor> vendorList2;
-
 	private JButton btnReset;
-
 	private JButton btnDelete;
-
 	private DefaultComboBoxModel<Vendor> vendors2;
-
 	private JButton btnAdmin;
+
 	
 	@SuppressWarnings("unchecked")
 	public AdminView() throws NoSuchObjectException
@@ -92,6 +84,21 @@ public class AdminView extends View
 		
 		marginLabel = new JLabel("");
 		txtMargin = new JTextField();
+		txtMargin.addFocusListener(new FocusListener(){
+
+			@Override
+			public void focusGained(FocusEvent e)
+			{
+				Application.getInstance().setDefaultButton(btnMargin);
+			}
+
+			@Override
+			public void focusLost(FocusEvent e)
+			{
+				Application.getInstance().setDefaultButton(null);
+			}
+			
+		});
 		btnMargin = new JButton("Cambiar");
 
 		txtMargin.setMinimumSize(new Dimension(100, 22));
