@@ -38,6 +38,7 @@ public class SelectPacketController extends Controller<SelectPacketView>
 				try
 				{
 					p.refreshBookings();
+					p.closeAutomatically();
 				}
 				catch (SQLException e)
 				{

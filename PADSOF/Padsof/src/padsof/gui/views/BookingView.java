@@ -107,7 +107,8 @@ public class BookingView extends View
 			@Override
 			public void valueChanged(ListSelectionEvent e)
 			{
-				cancelButton.setEnabled(elements.getSelectedValue() != null);
+				cancelButton.setEnabled(elements.getSelectedValue() != null
+						&& !elements.getSelectedValue().isPayed());
 				confirmButton.setEnabled(elements.getSelectedValue() != null
 						&& !elements.getSelectedValue().isPayed());
 			}

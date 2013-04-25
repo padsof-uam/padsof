@@ -36,6 +36,8 @@ public class BookingController extends Controller<BookingView>
 	public void cancel()
 	{
 		Booking toCancel = view.getSelectedItem();
+		if (toCancel.isPayed())
+			return;
 		toCancel.cancel();
 		Packet currentPacket = Application.getInstance().getPacket();
 

@@ -179,6 +179,7 @@ public class FindFlightController extends Controller<FindFlightView>
 			return;
 		}
 
+		navigator.goBack();
 	}
 
 	@Override
