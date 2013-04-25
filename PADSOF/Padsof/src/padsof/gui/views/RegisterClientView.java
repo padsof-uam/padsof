@@ -39,7 +39,7 @@ public class RegisterClientView extends View
 		else if (field.compareToIgnoreCase("Código de verificación") == 0)
 			retval = generator.getValueFor("Código de verificación");
 		else if (field.compareToIgnoreCase("Fecha de Nacimiento") == 0)
-				retval = generator.getDatefor("Fecha de nacimiento");
+				retval = generator.getDateFor("Fecha de nacimiento");
 		return retval;
 	}
 	public RegisterClientView() throws NoSuchObjectException

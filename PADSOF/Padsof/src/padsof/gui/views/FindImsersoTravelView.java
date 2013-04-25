@@ -71,12 +71,12 @@ public class FindImsersoTravelView extends View
 	
 	public Date getStartDate()
 	{
-		return generator.getDatefor("Fecha Inicial");
+		return generator.getDateFor("Fecha Inicial");
 	}
 	
 	public Date getEndDate()
 	{
-		return generator.getDatefor("Fecha Final");
+		return generator.getDateFor("Fecha Final");
 	}
 	
 	public String getMaxPrice()

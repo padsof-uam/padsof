@@ -219,6 +219,30 @@ public class FormGenerator
 		else
 			return new JTextField();
 	}
+	
+	/**
+	 * Returns the JDateChooser of a date field. Throws ComponentNotFoundException
+	 * if the field doesn't exist or isn't a date field.
+	 * 
+	 * @param field
+	 *            Field name
+	 * @return JDateChooser Date chooser.
+	 * @throws ComponentNotFoundException
+	 *             if the field doesn't exists or isn't a date field.
+	 */
+	public JDateChooser getChooserField(String field)
+	{
+		int index = fields.indexOf(field);
+
+		if (index == -1)
+			throw new ComponentNotFoundException("Component not found", field);
+
+		if (!isDateField(field))
+			throw new ComponentNotFoundException("That's not a date element",
+					field);
+
+		return (JDateChooser) components.get(index);
+	}
 
 	private Component generateDateField()
 	{
@@ -355,19 +379,10 @@ public class FormGenerator
 	 * @throws ComponentNotFoundException
 	 *             if the field doesn't exists or isn't a date field.
 	 */
-	public Date getDatefor(String field)
+	public Date getDateFor(String field)
 	{
-		int index = fields.indexOf(field);
-
-		if (index == -1)
-			throw new ComponentNotFoundException("Component not found", field);
-
-		if (!isDateField(field))
-			throw new ComponentNotFoundException("That's not a date element",
-					field);
-
-		JDateChooser dc = (JDateChooser) components.get(index);
-
+		JDateChooser dc = getChooserField(field);
+		
 		return dc.getDate();
 	}
 

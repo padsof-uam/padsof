@@ -56,12 +56,12 @@ public class FindHotelView extends View
 
 	public Date getStartDate()
 	{
-		return generator.getDatefor("Fecha inicial");
+		return generator.getDateFor("Fecha inicial");
 	}
 
 	public Date getEndDate()
 	{
-		return generator.getDatefor("Fecha final");
+		return generator.getDateFor("Fecha final");
 	}
 
 	public String getPrice()
