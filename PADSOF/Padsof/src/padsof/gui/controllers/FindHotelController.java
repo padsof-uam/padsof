@@ -2,6 +2,8 @@ package padsof.gui.controllers;
 
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import padsof.bookings.*;
 import padsof.db.*;
 import padsof.gui.Application;
@@ -57,26 +59,47 @@ public class FindHotelController extends Controller<FindHotelView>
 			showError("No se ha podido consultar a la base de datos.");
 		}
 	}
-	
+
+	@Listener("Ver")
+	public void seeInformation()
+	{
+		Hotel hotel = view.getSelectedHotel();
+		JOptionPane.showMessageDialog(view, hotel.toString());
+	}
+
 	@Listener("Book")
 	public void book()
 	{
 		Hotel hotel = view.getSelectedHotel();
-		
-		if(view.getStartDate().after(view.getEndDate()))
+
+		if (view.getStartDate().after(view.getEndDate()))
 		{
 			showError("Fechas inválidas.");
 			return;
 		}
-		
-		BookingFactory factory = new BookingFactory(Application.getInstance().getVendor());
-		
+
+		BookingFactory factory = new BookingFactory(Application.getInstance()
+				.getVendor());
+
 		try
 		{
-			Booking booking = factory.book(hotel, Application.getInstance().getClient(), view.getStartDate(), view.getEndDate());
-			double price = booking.book();
+			Booking booking = factory.book(hotel, Application.getInstance()
+					.getClient(), view.getStartDate(), view.getEndDate());
+			int simple = view.getSimples(), doble = view.getDobles(), triple = view.getTriples();
+			double price = doble * hotel.getDoublePrice() + simple
+					* hotel.getSimplePrice() + triple * hotel.getTriplePrice();
+			if (hotel.hasBreakfast())
+			{
+				JOptionPane
+						.showInternalConfirmDialog(view, "¿Quiere desayuno?");
+				/*if (JOptionPane.YES_OPTION)
+				{
+					price += hotel.getSupplement();
+				}*/
+			}
+			booking.book();
 			Application.getInstance().getPacket().add(booking);
-			
+
 			showMessage("Reserva realizada. Precio: " + price + "€");
 		}
 		catch (Exception e)
@@ -84,7 +107,7 @@ public class FindHotelController extends Controller<FindHotelView>
 			showError("Error reservando el paquete: " + e.getMessage());
 			return;
 		}
-		
+
 		navigator.goBack();
 	}
 }

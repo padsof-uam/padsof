@@ -336,7 +336,9 @@ public class Hotel extends Service
 	@Override
 	public String toString()
 	{
-		return this.getAddress() + " - " + this.getCity() + " (" + this.getCountry() + ") "
-				+ this.getSimplePrice() + "€";
+		return this.getAddress() + " - " + this.getCity() + " ("
+				+ this.getCountry() + ") " + "Simple" + this.getSimplePrice()
+				+ "€" + "Doble" + this.getDoublePrice() + "€" + "Triple"
+				+ this.getTriplePrice() + "€";
 	}
 }

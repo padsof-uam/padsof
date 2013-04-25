@@ -35,6 +35,8 @@ public class BookingView extends View
 
 	private JButton cancelButton;
 
+	private JButton refreshButton;
+	
 	private JButton confirmButton;
 
 	public void setModel(List<Booking> bookings)
@@ -73,6 +75,7 @@ public class BookingView extends View
 
 		cancelButton = new JButton("Cancelar");
 		confirmButton = new JButton("Confirmar");
+		refreshButton = new JButton("Refrescar");
 
 		btnImserso.setEnabled(ImsersoClient.class.isInstance(cliente));
 
@@ -111,7 +114,7 @@ public class BookingView extends View
 		});
 
 		rightLayoutHelper.addColumn(lblPacket, new JScrollPane(elements),
-				GuiUtils.generateButtonPanel(cancelButton, confirmButton));
+				GuiUtils.generateButtonPanel(cancelButton, confirmButton,refreshButton));
 
 		rightPanel.setLayout(rightLayoutHelper.generateLayout(rightPanel));
 

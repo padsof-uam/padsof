@@ -46,6 +46,15 @@ public class AdminController extends Controller<AdminView>
 	public void createVendor()
 	{
 		Vendor vendor = new Vendor();
+		if (view.getNewVendorName().isEmpty()
+				|| view.getNewVendorUser().isEmpty()
+				|| view.getNewVendorPass().isEmpty())
+		{
+			JOptionPane
+					.showMessageDialog(view,
+							"Por favor, rellene todos los campos para crear un nuevo vendedor");
+			return;
+		}
 		vendor.setName(view.getNewVendorName());
 		try
 		{
@@ -109,28 +118,28 @@ public class AdminController extends Controller<AdminView>
 		pb.setValue(0);
 		JLabel label = new JLabel("Progress: ");
 
-		final JDialog dialog = new JDialog(Application.getInstance().getFrame(), "Trabajando...");
-		
+		final JDialog dialog = new JDialog(
+				Application.getInstance().getFrame(), "Trabajando...");
+
 		final JButton button = new JButton("Finalizado");
 		button.setEnabled(false);
-		button.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent evt){
-		            dialog.dispose();
-		        }
-		    }
-		);
-		
+		button.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				dialog.dispose();
+			}
+		});
+
 		dialog.getContentPane().setLayout(new FlowLayout());
 		dialog.getContentPane().add(label);
 		dialog.getContentPane().add(pb);
 		dialog.getContentPane().add(button);
 		dialog.pack();
 		dialog.setVisible(true);
-		
-		
 
-		
-		EventQueue.invokeLater(new Runnable() {
+		EventQueue.invokeLater(new Runnable()
+		{
 			@Override
 			public void run()
 			{
@@ -157,7 +166,7 @@ public class AdminController extends Controller<AdminView>
 
 				button.setEnabled(true);
 			}
-		});		
+		});
 	}
-	
+
 }
